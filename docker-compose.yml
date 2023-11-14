@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  ui:
+    image: react-squad-deck-ui
+    container_name: squad-deck-ui
+    build: ./squad-deck
+    volumes:
+      - ./squad-deck:/app
+    ports:
+      - '3000:3000'
+    networks:
+      - sd-app-network
+  api:
+    image: express-squad-deck-api
+    container_name: squad-deck-api
+    build: ./server
+    volumes:
+      - ./server:/app
+    ports:
+      - '8080:8080'
+    networks:
+      - sd-app-network
+
+
+networks:
+  sd-app-network:
+    driver: bridge
