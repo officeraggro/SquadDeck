@@ -8,13 +8,13 @@ import Auth0ProviderWithNavigate from './auth0-provider-with-navigate';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <>
     <Router>
       <Auth0ProviderWithNavigate>
         <App />
       </Auth0ProviderWithNavigate>
     </Router>
-  </React.StrictMode>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function
