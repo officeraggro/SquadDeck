@@ -1,4 +1,5 @@
 import PageLayout from "../components/page-layout"
+import Dropzone from "../components/Dropzone"
 
 const LandingPage = () => {
 
@@ -7,6 +8,7 @@ const LandingPage = () => {
             <PageLayout>
                 <h1>This is the landing page.</h1>
             </PageLayout>
+            <Dropzone />
         </>
     )
 }
