@@ -41,7 +41,6 @@ const Dropzone = () => {
 				})
 			)
 		);
-		console.log("data was added - 1");
 	}, []);
 
 	const handleFileUpload = () => {
@@ -51,11 +50,8 @@ const Dropzone = () => {
 			complete: (results) => {
 				const originalData = results.data.map((user) => {
 					for (const key in user) {
-						// console.log(user[key]);
 						if (isSSN(user[key])) {
-							// console.log(`${user[key]} is an SSN`);
-							user[key] = "This was an SSN";
-							// console.log(user[key]);
+							user[key] = "[Invalid value]";
 						}
 					}
 					return user;
@@ -102,7 +98,6 @@ const Dropzone = () => {
 					</thead>
 					<tbody>
 						{data.map((row, index) => (
-							// JSX to be returned for each element
 							<UserBox key={index}>
 								<td>{row.FULL_NAME}</td>
 								<td>{row.SSAN}</td>
