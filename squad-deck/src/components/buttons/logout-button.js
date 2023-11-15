@@ -7,7 +7,7 @@ const LogoutButton = () => {
   const handleLogout = () => {
     logout({
       logoutParams: {
-        returnTo: 'http://localhost:3000/',
+        returnTo: 'http://localhost:3001/',
       },
     });
   };
