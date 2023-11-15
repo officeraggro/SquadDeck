@@ -11,6 +11,8 @@ services:
       - '3000:3000'
     networks:
       - sd-app-network
+    depends_on:
+      - api
   api:
     image: express-squad-deck-api
     container_name: squad-deck-api
@@ -21,6 +23,23 @@ services:
       - '8080:8080'
     networks:
       - sd-app-network
+    environment:
+      - DB_CONNECTION_STRING=postgres://postgres:docker@db:5432/squad_deck
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: squad-deck-db
+    environment:
+      - POSTGRES_DB=squad_deck
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+    ports:
+      - "5432:5432"
+    networks:
+      - sd-app-network
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data
 
 
 networks:

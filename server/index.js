@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
     res.status(200).send('This here is the root route!')
 })
 
+app.post('/users', (req, res) => {
+    res.status(200).json(req.body)
+})
+
 
 app.listen(port, () => {
 
