@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-    knex.schema.createTable('units_alpha_roster', table => {
+    return knex.schema.createTable('units_alpha_roster', table => {
         table.increments('id')
         table
             .integer('unit_id')
@@ -24,6 +24,6 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    knex.schema.dropTableIfExists('units_alpha_roster')
+    return knex.schema.dropTableIfExists('units_alpha_roster')
   
 };

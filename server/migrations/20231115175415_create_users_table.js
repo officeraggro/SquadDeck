@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-    knex.schema.createTable('users', table => {
+    return knex.schema.createTable('users', table => {
         table.increments('id')
         table.string('email', 255).notNullable()
         table.string('uname', 255).notNullable()
@@ -26,6 +26,6 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    knex.schema.dropTableIfExists('users')
+    return knex.schema.dropTableIfExists('users')
   
 };

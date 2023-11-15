@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-    knex.schema.createTable('alpha_roster', table => {
+    return knex.schema.createTable('alpha_roster', table => {
         table.increments('id')
         table.string('full_name', 255)
         table.string('grade', 255)
@@ -92,5 +92,6 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
+    return knex.schema.dropSchemaIfExists('alpha_roster')
   
 };
