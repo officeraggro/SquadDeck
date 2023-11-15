@@ -29,7 +29,7 @@ Squad Deck is the DoD Product Manager and Software Development Immersive Capston
 15. From the postgress shell prompt, log in by entering `psql -U postgres`
 16. Use the psql command `\l` to view the list of databases and validate that the `squad_deck` database is present.
 17. When finished, enter `exit` then `exit` again to logout of the postgress shell.
-18. (Note) If work on a SquadDeck feature requires installing new node packages, you will need to stop all containers, remove all images, and rebuild everything before the new package(s) will be recognized. Stop all running containers by running `docker compose down` or `docker-compose down`. Once all containers are stopped, remove the containers and images (see Step 12). Rebuild all images and start the service containers by running `docker compose up` or `docker-compose up`.
+18. (Note) If work on a SquadDeck feature requires installing new node packages, you will need to stop all containers, remove all images, and rebuild everything before the new package(s) will be recognized. Stop all running containers by running `docker compose down` or `docker-compose down` (if you ran docker compose without the -d flag, enter `Ctrl+C` to stop the containers). Once all containers are stopped, remove the containers and images (see Step 12). Rebuild all images and start the service containers by running `docker compose up` or `docker-compose up`.
 
 # Git workflow
 WIP
