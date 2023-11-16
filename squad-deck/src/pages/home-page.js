@@ -3,6 +3,7 @@ import PageLayout from "../components/page-layout";
 import { useAuth0 } from "@auth0/auth0-react";
 import Dropzone from "../components/Dropzone";
 import Flippy, { FrontSide, BackSide } from "react-flippy";
+import "../Styled/home-page.css"
 import { Link } from "react-router-dom";
 import Papa from "papaparse";
 
@@ -32,17 +33,13 @@ const HomePage = () => {
       .then((data) => setData(data));
   }, []);
 
-  // console.log(data.workcenters)
+  // console.log(data.workcenters)console.log(data)
 
   return (
     <>
       <PageLayout>
-        <h1>This is the home page.</h1>
-        <div
-          className="cardCnt"
-          style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}
-        >
-          {data?.alpha_roster?.map((el, indx) => {
+        <div className='cardCnt'>
+        {data?.alpha_roster?.map((el, indx) => {
             return (
               <Flippy
                 flipOnHover={false}
@@ -50,24 +47,12 @@ const HomePage = () => {
                 flipDirection="horizontal"
                 ref={ref}
                 key={indx}
-                style={{ width: "15vw", height: "50vh", maxWidth: "" }}
+                
               >
-                <FrontSide
-                  style={{
-                    backgroundColor: "#41669d",
-                    borderRadius: "25px",
-                    padding: "0",
-                    margin: "0 auto",
-                    textAlign: "center",
-                  }}
+                <FrontSide      
                 >
                   <div
                     className="cdHdr"
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-around",
-                      alignItems: "center",
-                    }}
                   >
                     <p>{el.grade}</p>
                     <h4>{el.full_name}</h4>
@@ -90,7 +75,7 @@ const HomePage = () => {
                   />
                 </FrontSide>
                 <BackSide
-                  style={{ backgroundColor: "#175852", borderRadius: "25px" }}
+                
                 >
                   <h4>Favorite Movie</h4>
                   <p>{el.favorite_movie}</p>
