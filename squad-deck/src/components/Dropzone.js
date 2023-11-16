@@ -24,6 +24,14 @@ const Dropzone = () => {
 	const [selectedFiles, setSelectedFiles] = useState([]);
 	const [data, setData] = useState([]);
 
+	// edit alpha roster database after dropping
+	useEffect(() => {
+		console.log(data)
+		if (data.length) {
+			fetch('/roster', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)})
+		}
+	}, [data])
+
 	// process file data each time it uploads
 	useEffect(() => {
 		if (selectedFiles.length > 0) {
@@ -56,7 +64,6 @@ const Dropzone = () => {
 					}
 					return user;
 				});
-				// console.log(originalData);
 				setData(originalData);
 			},
 		});
