@@ -2,12 +2,23 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
  */
-exports.seed = async function(knex) {
+exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  await knex('table_name').del()
-  await knex('table_name').insert([
-    {id: 1, colName: 'rowValue1'},
-    {id: 2, colName: 'rowValue2'},
-    {id: 3, colName: 'rowValue3'}
+  await knex("units").del();
+  await knex("units").insert([
+    {
+      unit_full_name: "SQUADRONLRAFB",
+      unit_abbr: "VQ1234",
+      unit_parent: "AF",
+      unit_emblem_url: "foobar",
+      unit_station: "Vandenburg",
+    },
+    {
+      unit_full_name: "SQUADRONVSFB",
+      unit_abbr: "NM1234",
+      unit_parent: "AF",
+      unit_emblem_url: "foobar",
+      unit_station: "South Carolina",
+    },
   ]);
 };
