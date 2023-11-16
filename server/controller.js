@@ -6,7 +6,7 @@ const getFullRoster = () => {
 }
 
 const getPersonnelDetails = () => {
-    return knex('personnel_details AS pd').select('pd.id', 'pd.favorite_movie', 'pd.hobbies', 'pd.achievements', 'pd.personal_img', 'pd.grade_emblem_img', 'pd.achievement_imgs', 'pd.interesting_fact')
+    return knex('personnel_details AS pd').select('pd.id', 'pd.go_by', 'pd.favorite_movie', 'pd.hobbies', 'pd.achievements', 'pd.personal_img', 'pd.grade_emblem_img', 'pd.achievement_imgs', 'pd.interesting_fact')
 }
 
 module.exports = {

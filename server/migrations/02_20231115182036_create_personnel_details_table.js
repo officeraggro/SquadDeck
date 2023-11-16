@@ -10,6 +10,7 @@ exports.up = function(knex) {
           .references("id")
           .inTable("alpha_roster")
           .onDelete("cascade");
+        table.string('go_by', 255)
         table.string('favorite_movie', 255)
         table.string('hobbies', 255)
         table.string('achievements', 255)
