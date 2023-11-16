@@ -2,7 +2,6 @@ const express = require('express')
 const knex = require("knex")(require("./knexfile")["development"]);
 const cors = require('cors')
 const { getFullRoster, getPersonnelDetails } = require("./controller");
-const knexfile = require("./knexfile");
 
 const port = 8080
 
@@ -15,10 +14,6 @@ app.use(cors());
 app.get('/', (req, res) => {
     res.status(200).send('This here is the root route!')
 })
-
-// Route for testing purposes
-app.get('/roster', (req, res) => {
-
 
 app.get("/roster", (req, res) => {
 	try {
