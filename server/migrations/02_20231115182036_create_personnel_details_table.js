@@ -5,15 +5,20 @@
 exports.up = function(knex) {
     return knex.schema.createTable('personnel_details', table => {
         table.increments('id')
+        table
+          .integer("alpha_roster_id")
+          .references("id")
+          .inTable("alpha_roster")
+          .onDelete("cascade");
         table.string('favorite_movie', 255)
-        table.specificType('hobbies', 'text[]')
-        table.specificType('achievements', 'text[]')
+        table.string('hobbies', 255)
+        table.string('achievements', 255)
         table.string('spouse_name', 255)
         table.integer('children_num')
-        table.specificType('children_names', 'text[]')
+        table.string('children_names', 255)
         table.string('personal_img')
         table.string('grade_emblem_img')
-        table.specificType('achievement_imgs', 'text[]')
+        table.string('achievement_imgs', 255)
         table.string('interesting_fact')
     })
   
