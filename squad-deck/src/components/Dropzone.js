@@ -56,7 +56,7 @@ const Dropzone = () => {
 					}
 					return user;
 				});
-				console.log(originalData);
+				// console.log(originalData);
 				setData(originalData);
 			},
 		});
