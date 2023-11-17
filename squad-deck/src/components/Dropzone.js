@@ -27,9 +27,13 @@ const Dropzone = () => {
 	// edit alpha roster database after dropping
 	useEffect(() => {
 		console.log(data)
-		if (data.length) {
-			fetch('/roster', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)})
+		const postRoster = async () => {
+			if (data.length) {
+				console.log('Attempting to add to roster...')
+				await fetch('http://localhost:8080/roster', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)})
+			}
 		}
+		postRoster();
 	}, [data])
 
 	// process file data each time it uploads
@@ -55,8 +59,11 @@ const Dropzone = () => {
 		const file = selectedFiles[0];
 		Papa.parse(file, {
 			header: true,
+			skipEmptyLines: true,
 			complete: (results) => {
+				console.log('These are the results: '+results.data);
 				const originalData = results.data.map((user) => {
+					console.log(user)
 					for (const key in user) {
 						if (isSSN(user[key])) {
 							user[key] = "[Invalid value]";
@@ -64,6 +71,7 @@ const Dropzone = () => {
 					}
 					return user;
 				});
+
 				setData(originalData);
 			},
 		});
