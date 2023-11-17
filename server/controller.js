@@ -21,10 +21,20 @@ const getAllUnits = () => {
   return knex('units AS u').select('u.*')
 }
 
+const updateAlphaRoster = (id, updates) => {
+  return knex('alpha_roster').where('id', '=', id).update(updates)
+}
+
+const updatePersonnelDetails = (id, updates) => {
+  return knex('personnel_details').where('alpha_roster_id', '=', id).update(updates)
+}
+
 module.exports = {
   getFullRoster,
   getPersonnelDetails,
   getUserInfo,
   addNewUser,
   getAllUnits,
+  updateAlphaRoster,
+  updatePersonnelDetails
 };
