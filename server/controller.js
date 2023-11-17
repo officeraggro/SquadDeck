@@ -1,7 +1,7 @@
 const knex = require('knex')(require('./knexfile')['production' || 'development'])
 
 const getFullRoster = () => {
-    return knex('alpha_roster AS ar').select('ar.id', 'ar.full_name', 'ar.grade', 'ar.office_symbol', 'ar.duty_title', 'ar.duty_start_date', 'ar.assigned_pas', 'ar.assigned_pas_cleartext', 'ar.dafsc')
+    return knex('alpha_roster AS ar').select('ar.id', 'ar.full_name', 'ar.grade', 'ar.office_symbol', 'ar.duty_title', 'ar.duty_start_date', 'ar.assigned_pas', 'ar.assigned_pas_cleartext', 'ar.dafsc', 'ar.home_phone_number')
 
 }
 
