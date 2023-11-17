@@ -1,12 +1,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import PageLayout from "../components/page-layout";
 import { useAuth0 } from "@auth0/auth0-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Dropzone from "../components/Dropzone";
 import Flippy, { FrontSide, BackSide } from "react-flippy";
 import "../Styled/home-page.css";
 import { Link } from "react-router-dom";
 import Papa from "papaparse";
 import { SdUserContext } from "../components/sd-user-context";
+import { faPencil, faCheck } from "@fortawesome/free-solid-svg-icons";
+
 
 const HomePage = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -95,6 +98,7 @@ const HomePage = () => {
                     alt={el.full_name + "achievements"}
                     height="25px"
                   />
+                  <FontAwesomeIcon icon={faPencil} oncClick={e => console.log('Clicked')}/>
                 </FrontSide>
                 <BackSide
                  className="BackSide"
@@ -105,6 +109,7 @@ const HomePage = () => {
                   <p>{el.hobbies}</p>
                   <h4>Interesting Fact</h4>
                   <p>{el.interesting_fact}</p>
+                  <FontAwesomeIcon icon={faPencil} />
                 </BackSide>
               </Flippy>
             );
