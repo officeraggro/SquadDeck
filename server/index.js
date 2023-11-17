@@ -1,5 +1,5 @@
 const express = require('express')
-const knex = require("knex")(require("./knexfile")["development"]);
+const knex = require("knex")(require("./knexfile")["production" || "development"]);
 const cors = require('cors')
 const { getFullRoster, getPersonnelDetails, getUserInfo, addNewUser, getAllUnits } = require("./controller");
 

@@ -46,5 +46,15 @@ exports.seed = async function(knex) {
       role: "admin",
       user_unit_id: "1",
     },
+    {
+      email: "loki.relph@gmail.com",
+      uname: "erelph",
+      user_id: "auth0|655540f7d14478401eb18a9d",
+      user_profile_img:
+        "https://s.gravatar.com/avatar/ac737a86664c1449e99ba52ec9b5cbec?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Flo.png",
+      unit_abbr: "VQ1234",
+      role: "admin",
+      user_unit_id: "1",
+    },
   ]);
 };

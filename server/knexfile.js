@@ -6,7 +6,7 @@
 module.exports = {
   development: {
     client: "postgresql",
-    connection: process.env.DB_CONNECTION_STRING,
+    connection: "postgres://postgres:docker@localhost/squad_deck",
   },
 
   staging: {
@@ -27,11 +27,7 @@ module.exports = {
 
   production: {
     client: "postgresql",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password",
-    },
+    connection: process.env.DB_CONNECTION_STRING,
     pool: {
       min: 2,
       max: 10,
