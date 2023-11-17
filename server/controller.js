@@ -9,7 +9,22 @@ const getPersonnelDetails = () => {
     return knex('personnel_details AS pd').select('pd.id', 'pd.go_by', 'pd.favorite_movie', 'pd.hobbies', 'pd.achievements', 'pd.personal_img', 'pd.grade_emblem_img', 'pd.achievement_imgs', 'pd.interesting_fact')
 }
 
+const getUserInfo = (email) => {
+  return knex('users AS u').select('u.unit_abbr', 'role', 'user_unit_id').where('u.email', '=', email)
+}
+
+const addNewUser = (user) => {
+  return knex('users AS u').insert([user])
+}
+
+const getAllUnits = () => {
+  return knex('units AS u').select('u.*')
+}
+
 module.exports = {
   getFullRoster,
   getPersonnelDetails,
+  getUserInfo,
+  addNewUser,
+  getAllUnits,
 };

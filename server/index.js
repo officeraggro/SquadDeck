@@ -1,7 +1,7 @@
 const express = require('express')
 const knex = require("knex")(require("./knexfile")["development"]);
 const cors = require('cors')
-const { getFullRoster, getPersonnelDetails } = require("./controller");
+const { getFullRoster, getPersonnelDetails, getUserInfo, addNewUser, getAllUnits } = require("./controller");
 
 const port = 8080
 
@@ -44,6 +44,22 @@ app.get("/personnel", (req, res) => {
 	}
 });
 
+// Fetch all units from the units table
+app.get('/units', (req, res) => {
+
+  try {
+    getAllUnits()
+      .then((data) => {
+        res.status(200).json(data)
+      })
+      .catch((err) => {
+        res.status(404).send(err)
+      })
+  } catch (error) {
+    res.status(500).send('Service Unavailable')
+  }
+})
+
 
 // Fetch full roster and personnel details by unit
 app.get("/units/:id/roster", async (req, res) => {
@@ -80,10 +96,43 @@ app.get("/units/:id/roster", async (req, res) => {
   }
 })
 
+// Fetch additional Squad Deck user details from the users table upon successful authentication
+app.get('/users/:email', (req, res) => {
+  const { email } = req.params
+  
+  try {
+    getUserInfo(email)
+      .then((data) => {
+        res.status(200).json(data)
+      })
+      .catch((err) => {
+        res.status(404).send('User not found')
+      })
 
+  } catch (err) {
+    res.status(500).send('Service Unavailable')
+  }
+})
+
+// Add a new user to the users table
 app.post("/users", (req, res) => {
-	res.status(200).json(req.body);
+  const user = req.body
+
+  try {
+    addNewUser(user)
+      .then((data) => {
+        res.status(201).send('New SquadDeck user added')
+      })
+      .catch((err) => {
+        res.status(400).send('Invalid Request')
+      })
+
+  } catch (err) {
+    res.status(500).send('Service Unavailable')
+  }
 });
+
+
 
 
 app.post("/roster", async (req, res) => {

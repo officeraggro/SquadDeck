@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import PageLayout from "../components/page-layout";
 import { useAuth0 } from "@auth0/auth0-react";
 import Dropzone from "../components/Dropzone";
 import Flippy, { FrontSide, BackSide } from "react-flippy";
-import "../Styled/home-page.css"
+import "../Styled/home-page.css";
 import { Link } from "react-router-dom";
 import Papa from "papaparse";
+import { SdUserContext } from "../components/sd-user-context";
 
 const HomePage = () => {
-  const { user } = useAuth0();
-  const ref = useRef();
-
-  console.log(user);
+  const { user, isAuthenticated } = useAuth0();
+  const { sdUser, setSdUser } = useContext(SdUserContext);
   const [data, setData] = useState([]);
+  const ref = useRef();
 
   //   useEffect(() => {
   //      fetch('/AlphaRoster.csv')
@@ -26,20 +26,41 @@ const HomePage = () => {
   //             });
   //         });
   // }, []);
+  // console.log(user)
+  // console.log(sdUser)
 
   useEffect(() => {
-    fetch("http://localhost:8080/units/1/roster")
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
+    if (isAuthenticated) {
+      const fetchUserDetails = async () => {
+        const response = await fetch(
+          `http://localhost:8080/users/${user.email}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setSdUser(data);
+        }
+      };
+      fetchUserDetails();
+    }
+  }, [user, isAuthenticated]);
 
-  // console.log(data.workcenters)console.log(data)
+  useEffect(() => {
+    if (isAuthenticated) {
+      const fetchAlphaRoster = async () => {
+        const response = await fetch(`http://localhost:8080/units/${sdUser[0]?.user_unit_id}/roster`);
+        const data = await response.json();
+        setData(data);
+      };
+      fetchAlphaRoster();
+    }
+  }, [sdUser, isAuthenticated]);
 
   return (
     <>
       <PageLayout>
-        <div className='cardCnt'>
-        {data?.alpha_roster?.map((el, indx) => {
+        <h1>{data.unit_abbr} SquadDeck</h1>
+        <div className="cardCnt">
+          {data?.alpha_roster?.map((el, indx) => {
             return (
               <Flippy
                 flipOnHover={false}
@@ -47,13 +68,9 @@ const HomePage = () => {
                 flipDirection="horizontal"
                 ref={ref}
                 key={indx}
-                
               >
-                <FrontSide      
-                >
-                  <div
-                    className="cdHdr"
-                  >
+                <FrontSide>
+                  <div className="cdHdr">
                     <p>{el.grade}</p>
                     <h4>{el.full_name}</h4>
                     <p>{el.doe}</p>
@@ -74,9 +91,7 @@ const HomePage = () => {
                     height="25px"
                   />
                 </FrontSide>
-                <BackSide
-                
-                >
+                <BackSide>
                   <h4>Favorite Movie</h4>
                   <p>{el.favorite_movie}</p>
                   <h4>Hobbies</h4>
@@ -88,7 +103,7 @@ const HomePage = () => {
             );
           })}
         </div>
-        <Dropzone />
+        {/* <Dropzone /> */}
       </PageLayout>
     </>
   );
