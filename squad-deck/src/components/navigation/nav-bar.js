@@ -3,6 +3,7 @@ import LogoutButton from "../buttons/logout-button"
 import { useAuth0 } from '@auth0/auth0-react'
 import SignupButton from "../buttons/signup-button"
 import '../../Styled/nav-bar.css'
+import HamburgerMenu from "../buttons/HamburgerMenu"
 
 
 const NavBar = () => {
@@ -12,7 +13,8 @@ const NavBar = () => {
       <>
         <div className="top-nav-bar">
           <div className='top-nav-left'>
-            <h1>SquadDeck</h1>
+            <HamburgerMenu />
+            <h1 className="title">SquadDeck</h1>
           </div>
           <div className='top-nav-right'>
             {!isAuthenticated && (

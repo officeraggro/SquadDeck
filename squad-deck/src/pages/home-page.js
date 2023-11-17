@@ -14,6 +14,8 @@ const HomePage = () => {
   const [data, setData] = useState([]);
   const ref = useRef();
 
+  
+
   //   useEffect(() => {
   //      fetch('/AlphaRoster.csv')
   //         .then(response => response.text())
@@ -63,13 +65,16 @@ const HomePage = () => {
           {data?.alpha_roster?.map((el, indx) => {
             return (
               <Flippy
+                className="FlippyCard"
                 flipOnHover={false}
                 flipOnClick={true}
                 flipDirection="horizontal"
                 ref={ref}
                 key={indx}
               >
-                <FrontSide>
+                <FrontSide
+                 className="FrontSide"
+                >
                   <div className="cdHdr">
                     <p>{el.grade}</p>
                     <h4>{el.full_name}</h4>
@@ -91,7 +96,9 @@ const HomePage = () => {
                     height="25px"
                   />
                 </FrontSide>
-                <BackSide>
+                <BackSide
+                 className="BackSide"
+                 >
                   <h4>Favorite Movie</h4>
                   <p>{el.favorite_movie}</p>
                   <h4>Hobbies</h4>
