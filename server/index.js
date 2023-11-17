@@ -134,7 +134,7 @@ app.get('/users/:email', (req, res) => {
   }
 });
 
-// Add a new user to the users table
+// Add a new Squad Deck user to the users table
 app.post("/users", (req, res) => {
   const user = req.body;
 
@@ -151,12 +151,12 @@ app.post("/users", (req, res) => {
   }
 });
 
+// Update member alpha roster and/or personal details
 app.patch("/units/:id1/roster/:id2", (req, res) => {
-  const unit_id = req.params.id1;
   const roster_id = req.params.id2;
   const update = req.body;
   const personnel_id = update.alpha_roster_id;
-  const updateKeys = Object.keys(update);
+  
   const personnelDetailFields = [
     "alpha_roster_id",
     "go_by",
@@ -171,6 +171,7 @@ app.patch("/units/:id1/roster/:id2", (req, res) => {
     "achievement_imgs",
     "interesting_fact",
   ];
+
   const alphaRosterFields = [
     "full_name",
     "grade",
@@ -246,56 +247,44 @@ app.patch("/units/:id1/roster/:id2", (req, res) => {
     "attached_pas",
     "functional_category",
   ];
-  const personnelDetailsUpdates = [];
 
+  const personnelDetailsUpdates = [];
   const alphaRosterUpdates = [];
 
   for (let i in update) {
     if (personnelDetailFields.includes(i)) {
-      personnelDetailsUpdates.push(`{"${i}": "${update[i]}"}`);
+      personnelDetailsUpdatesArr.push(`{"${i}": "${update[i]}"}`);
     } else if (alphaRosterFields.includes(i)) {
-      alphaRosterUpdates.push(`{"${i}": "${update[i]}"}`);
+      alphaRosterUpdatesArr.push(`{"${i}": "${update[i]}"}`);
     }
-
   }
 
-  const personnelDetailsUpdates2 = personnelDetailsUpdates.map(elem => JSON.parse(elem))
-  const alphaRosterUpdates2 = alphaRosterUpdates.map(elem => JSON.parse(elem))
-
+  const personnelDetailsUpdatesJSON = personnelDetailsUpdatesArr.map(elem => JSON.parse(elem)).filter(elem => Object.keys(elem)[0] !== 'alpha_roster_id')
+  const alphaRosterUpdatesJSON = alphaRosterUpdatesArr.map(elem => JSON.parse(elem))
   const promiseArray = []
   
-  if(personnelDetailsUpdates2.length !== 0){
-    for(let update of personnelDetailsUpdates2){
-      promiseArray.push(knex('personnel_details').where('alpha_roster_id', '=', personnel_id).update(JSON.stringify(update)))
-      console.log(JSON.stringify(update))
+  try {
+    if (personnelDetailsUpdatesJSON.length !== 0) {
+      for (let update of personnelDetailsUpdatesJSON) {
+        promiseArray.push(knex('personnel_details').where('alpha_roster_id', '=', personnel_id).update(update))
+      }
     }
+    if (alphaRosterUpdatesJSON.length !== 0) {
+      for (let update of alphaRosterUpdatesJSON) {
+      promiseArray.push(knex('alpha_roster').where('id', '=', roster_id).update(update))
+    }
+  } 
+    Promise.all(promiseArray)
+      .then(data => res.status(200).send('Member Details updated'))
+      .catch(err => res.status(400).send('Invalid Request'))
+
+  } catch (error) {
+    res.status(500).send('Service Unavailable')
   }
-  if(alphaRosterUpdates2.length !== 0){
-    for(let update of alphaRosterUpdates2){
-    promiseArray.push(knex('alpha_roster').where('id', '=', roster_id).update(JSON.stringify(update)))
-  }} 
-  Promise.all(promiseArray).then(data => res.status(200).send('it worked'))
 
-    // updatePersonnelDetails(personnel_id, JSON.stringify(personnelDetailsUpdates2))
-    // .then(data => res.status(200).send('personnel record updated'))
-    // .catch(err => res.status(400).send('invalid request'))
-  
-
-  
-// } catch (err) {
-//   res.status(500).send('service unavalaible')
-// }
-// try{
-// if(alphaRosterUpdates2.length !== 0){
-//     updateAlphaRoster(roster_id, JSON.stringify(alphaRosterUpdates2))
-//     .then(data => res.status(200).send('alpha roster record updated'))
-//     .catch(err => res.status(400).send('invalid request'))
-//   }
-// } catch (err) {
-//   res.status(500).send('service unavalaible')
-// }
 });
 
+// Add new member(s) to the alpha_roster table
 app.post("/roster", async (req, res) => {
   try {
     const roster = req.body;
@@ -475,8 +464,8 @@ app.post("/roster", async (req, res) => {
         functional_category: roster[i].FUNCTIONAL_CATEGORY,
 			};
 
-      console.log('Member was added:')
-      console.log(newUser)
+      // console.log('Member was added:')
+      // console.log(newUser)
 
       knex("alpha_roster")
       .insert(newUser)
