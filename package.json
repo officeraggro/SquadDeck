@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "auth0": "^4.1.0",
+    "nodemon": "^3.0.1",
+    "papaparse": "^5.4.1",
+    "react-router-dom": "^6.18.0",
+    "react-scripts": "^5.0.1"
+  },
+  "name": "squaddeck",
+  "description": "Squad Deck is the DoD Product Manager and Software Development Immersive Capstone",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
