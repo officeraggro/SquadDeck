@@ -24,19 +24,6 @@ const SignupPage = () => {
     fetchUnits()
   }, [])
 
-  //   const isMounted = useRef(false);
-  //   const navigate = useNavigate();
-
-  //   useEffect(() => {
-  //     if (isMounted.current) {
-  //       fetch("http://localhost:8080/installations")
-  //         .then((res) => res.json())
-  //         .then((data) => setInstallations(data));
-  //     } else {
-  //       isMounted.current = true;
-  //     }
-  //   }, []);
-
   const handleLogin = async (e) => {
     e.preventDefault();
 
