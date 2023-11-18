@@ -9,7 +9,7 @@ Squad Deck is the DoD Product Manager and Software Development Immersive Capston
    ```
     REACT_APP_AUTH0_DOMAIN=dev-1onlr4nvradhp354.us.auth0.com
     REACT_APP_AUTH0_CLIENT_ID=HPL4kduB7G6DjvRbeXQ2Qf4xKVdQv9vS
-    REACT_APP_AUTH0_CALLBACK_URL=http://localhost:3000/callback
+    REACT_APP_AUTH0_CALLBACK_URL=http://localhost:3001/callback
     REACT_APP_AUTH0_CONNECTION=squadDeck-db
    ```
 5. Save and close the `.env` file.
