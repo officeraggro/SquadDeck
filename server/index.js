@@ -152,7 +152,8 @@ app.get("/units/:id/roster", async (req, res) => {
         "pd.career_field_img",
         "pd.interesting_fact"
       )
-      .where("uar.unit_id", "=", unitObj[0].id);
+      .where("uar.unit_id", "=", unitObj[0].id)
+      .orderBy('uar.id')
 
     const unitAlphaRosterObj = {
       id: unitObj[0].id,
