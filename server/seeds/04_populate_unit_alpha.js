@@ -1,8 +1,8 @@
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
-exports.seed = async function(knex) {
+exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("units_alpha_roster").del();
   await knex("units_alpha_roster").insert([
@@ -125,18 +125,18 @@ exports.seed = async function(knex) {
     { unit_id: 1, alpha_roster_id: 117 },
     { unit_id: 1, alpha_roster_id: 118 },
     { unit_id: 1, alpha_roster_id: 119 },
-    { unit_id: 1, alpha_roster_id: 120 },
-    { unit_id: 1, alpha_roster_id: 121 },
-    { unit_id: 1, alpha_roster_id: 122 },
-    { unit_id: 1, alpha_roster_id: 123 },
-    { unit_id: 1, alpha_roster_id: 124 },
-    { unit_id: 1, alpha_roster_id: 125 },
-    { unit_id: 1, alpha_roster_id: 126 },
-    { unit_id: 1, alpha_roster_id: 127 },
-    { unit_id: 1, alpha_roster_id: 128 },
-    { unit_id: 1, alpha_roster_id: 129 },
-    { unit_id: 1, alpha_roster_id: 130 },
-    { unit_id: 1, alpha_roster_id: 131 },
+    { unit_id: 2, alpha_roster_id: 120 },
+    { unit_id: 2, alpha_roster_id: 121 },
+    { unit_id: 2, alpha_roster_id: 122 },
+    { unit_id: 2, alpha_roster_id: 123 },
+    { unit_id: 2, alpha_roster_id: 124 },
+    { unit_id: 2, alpha_roster_id: 125 },
+    { unit_id: 2, alpha_roster_id: 126 },
+    { unit_id: 2, alpha_roster_id: 127 },
+    { unit_id: 2, alpha_roster_id: 128 },
+    { unit_id: 2, alpha_roster_id: 129 },
+    { unit_id: 2, alpha_roster_id: 130 },
+    { unit_id: 2, alpha_roster_id: 131 },
     { unit_id: 2, alpha_roster_id: 132 },
     { unit_id: 2, alpha_roster_id: 133 },
     { unit_id: 2, alpha_roster_id: 134 },
