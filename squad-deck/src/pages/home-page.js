@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Papa from "papaparse";
 import { SdUserContext } from "../components/sd-user-context";
 import { faPencil, faCheck, faUser } from "@fortawesome/free-solid-svg-icons";
+import { gradeEmblemUrl } from "../helpers/grade-emblems";
 
 const HomePage = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -71,6 +72,7 @@ const HomePage = () => {
       ...update,
       alpha_roster_id: el.id
     }
+    setUpdate({})
 
     const submitUpdates = async () => {
       const response = await fetch(
@@ -121,17 +123,22 @@ const HomePage = () => {
                     <FrontSide className="FrontSide">
                       <div className="whole-card">
                         <div className="cdHdr">
-                          {el.grade !== "" && (
-                            <>
-                              {/* <p>{el.grade}</p> */}
-                              <img
-                                src={el.grade_emblem_img}
-                                alt={el.name + "grade"}
-                                height="20px"
-                              />
-                            </>
-                          )}
-                          <h4>{el.full_name}</h4>
+                          <select 
+                            onChange={handleChange}
+                            id="grade"
+                            name="grade" 
+                          >
+                            {Object.keys(gradeEmblemUrl).map(grade => {
+                              return <option value={grade}>{grade}</option>
+                            })}
+                          </select>
+                          <input
+                            type="text"
+                            name="full_name"
+                            id="full_name"
+                            placeholder={el.full_name}
+                            onChange={handleChange}
+                          />
                           <p>{el.doe}</p>
                         </div>
                         <img
@@ -139,7 +146,13 @@ const HomePage = () => {
                           alt={el.full_name + "profile picture"}
                           height="100px"
                         />
-                        <h4>{el.duty_title}</h4>
+                        <input
+                          type="text"
+                          name="duty_title"
+                          id="duty_title"
+                          placeholder={el.duty_title}
+                          onChange={handleChange}
+                        />
                         <p>{el.cafsc}</p>
                         <img
                           src={el.career_field_img}
@@ -162,10 +175,21 @@ const HomePage = () => {
                         />
                         <button
                           className="save-button"
-                          onClick={e => handleSaveClick(e, el)}
+                          onClick={(e) => handleSaveClick(e, el)}
+                          style={{
+                            zIndex: "999",
+                            border: "none",
+                            backgroundColor: "transparent",
+                            backgroundRepeat: "no-repeat",
+                            cursor: "pointer",
+                            overflow: "hidden",
+                          }}
                         >
-                          {/* <FontAwesomeIcon className='edit-button' icon={faPencil} /> */}
-                          Save
+                          <FontAwesomeIcon
+                            className="save-button"
+                            icon={faCheck}
+                            color="white"
+                          />
                         </button>
                       </div>
                     </FrontSide>
@@ -198,12 +222,32 @@ const HomePage = () => {
                         onChange={handleChange}
                       />
                       <h4>Hobbies</h4>
-                      <p>{el.hobbies}</p>
+                      <input
+                        type="text"
+                        name="hobbies"
+                        id="hobbies"
+                        placeholder={el.hobbies}
+                        onChange={handleChange}
+                      />
                       {/* <h4>Interesting Fact</h4>
                     <p>{el.interesting_fact}</p> */}
-                      <button className="save-button" onClick={e => handleSaveClick(e, el)}>
-                        {/* <FontAwesomeIcon className='edit-button' icon={faPencil} /> */}
-                        Save
+                      <button
+                        className="save-button"
+                        onClick={(e) => handleSaveClick(e, el)}
+                        style={{
+                          zIndex: "999",
+                          border: "none",
+                          backgroundColor: "transparent",
+                          backgroundRepeat: "no-repeat",
+                          cursor: "pointer",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          className="save-button"
+                          icon={faCheck}
+                          color="white"
+                        />
                       </button>
                     </BackSide>
                   </Flippy>
@@ -223,7 +267,7 @@ const HomePage = () => {
                             <>
                               {/* <p>{el.grade}</p> */}
                               <img
-                                src={el.grade_emblem_img}
+                                src={gradeEmblemUrl[el.grade]}
                                 alt={el.name + "grade"}
                                 height="20px"
                               />
@@ -254,9 +298,20 @@ const HomePage = () => {
                         <button
                           className="edit-button"
                           onClick={(e) => handleEditModeClick(e, el)}
+                          style={{
+                            zIndex: "999",
+                            border: "none",
+                            backgroundColor: "transparent",
+                            backgroundRepeat: "no-repeat",
+                            cursor: "pointer",
+                            overflow: "hidden",
+                          }}
                         >
-                          {/* <FontAwesomeIcon className='edit-button' icon={faPencil} /> */}
-                          Edit
+                          <FontAwesomeIcon
+                            className="edit-button"
+                            icon={faPencil}
+                            color="white"
+                          />
                         </button>
                       </div>
                     </FrontSide>
@@ -288,9 +343,20 @@ const HomePage = () => {
                       <button
                         className="edit-button"
                         onClick={(e) => handleEditModeClick(e, el)}
+                        style={{
+                          zIndex: "999",
+                          border: "none",
+                          backgroundColor: "transparent",
+                          backgroundRepeat: "no-repeat",
+                          cursor: "pointer",
+                          overflow: "hidden",
+                        }}
                       >
-                        {/* <FontAwesomeIcon className='edit-button' icon={faPencil} /> */}
-                        Edit
+                        <FontAwesomeIcon
+                          className="edit-button"
+                          icon={faPencil}
+                          color="white"
+                        />
                       </button>
                     </BackSide>
                   </Flippy>

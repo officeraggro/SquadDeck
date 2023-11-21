@@ -11,6 +11,7 @@ import AuthenticationGuard from "./components/authentication-guard";
 import { SdUserContext } from "./components/sd-user-context";
 import OrgChartPage from "./pages/org-chart-page";
 import UnitOnboardingPage from "./pages/unit-onboarding-page";
+import ImageUploadTest from "./pages/image-upload-test";
 
 const App = () => {
 	const [sdUser, setSdUser] = useState({});
@@ -32,6 +33,7 @@ const App = () => {
 					<Route path="/" element={<LandingPage />} />
 					<Route path="/signup" element={<SignupPage />} />
 					<Route path="/onboarding" element={<UnitOnboardingPage />} />
+					<Route path="/img-upload" element={<ImageUploadTest />} />
 
 					{/* private */}
 					<Route path="/home" element={<HomePage />} />
