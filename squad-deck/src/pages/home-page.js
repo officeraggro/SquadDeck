@@ -21,6 +21,8 @@ const HomePage = () => {
   const clickedCard = useRef();
   const isSubmitted = useRef(false)
   const isMounted = useRef(false);
+  const isChecked = useRef(true)
+  const isHidden = useRef(false)
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -48,7 +50,7 @@ const HomePage = () => {
       };
       fetchAlphaRoster();
     }
-  }, [sdUser, isSubmitted.current]);
+  }, [sdUser, isSubmitted.current, isHidden.current]);
 
   const handleEditModeClick = (e, elem) => {
     e.stopPropagation();
@@ -67,6 +69,7 @@ const HomePage = () => {
     setEditMode(false);
     clickedCard.current = null;
     isSubmitted.current = !isSubmitted.current
+    isChecked.current = true
 
     const updateObj = {
       ...update,
@@ -88,7 +91,7 @@ const HomePage = () => {
 
   const displayDependents = (num) => {
     const dependentsArray = [];
-    for (let i = 0; i <= num; i++) {
+    for (let i = 0; i < num; i++) {
       dependentsArray.push(
         <FontAwesomeIcon
           icon={faUser}
@@ -97,10 +100,18 @@ const HomePage = () => {
           key={i * 8}
         />
       );
-
-      return <>{dependentsArray}</>;
     }
+
+    return <>{dependentsArray}</>;
   };
+
+  const toggleShowFamily = () => {
+    if (isHidden.current) {
+      isHidden.current = false
+    } else {
+      isHidden.current = true
+    }
+  }
 
   return (
     <>
@@ -123,13 +134,13 @@ const HomePage = () => {
                     <FrontSide className="FrontSide">
                       <div className="whole-card">
                         <div className="cdHdr">
-                          <select 
+                          <select
                             onChange={handleChange}
                             id="grade"
-                            name="grade" 
+                            name="grade"
                           >
-                            {Object.keys(gradeEmblemUrl).map(grade => {
-                              return <option value={grade}>{grade}</option>
+                            {Object.keys(gradeEmblemUrl).map((grade) => {
+                              return <option value={grade}>{grade}</option>;
                             })}
                           </select>
                           <input
@@ -194,14 +205,63 @@ const HomePage = () => {
                       </div>
                     </FrontSide>
                     <BackSide className="BackSide">
-                      <h3>{el.go_by}</h3>
+                      <input
+                        type="text"
+                        name="go_by"
+                        id="go_by"
+                        placeholder={el.go_by}
+                        onChange={handleChange}
+                      />
                       <hr />
                       <h4>Hometown</h4>
                       <p>
                         {el.home_city}, {el.home_state}
                       </p>
-                      <h4>Family</h4>
-                      <div className="dependents">
+                            <h4>Family</h4>
+                            <input 
+                              type="checkbox"
+                              name="hide_family"
+                              id="hide_family"
+                              value="true"
+                              // onClick={e => toggleShowFamily(hidden)}
+                              onChange={toggleShowFamily}
+                            />
+                            {el.spouse_name !== "" ? (
+                              <>
+                                <label htmlFor="spouse_name">Spouse</label>
+                                <input
+                                  type="checkbox"
+                                  name="spouse_name"
+                                  id="spouse_name"
+                                  value=""
+                                  checked={isChecked.current}
+                                  onClick={e => isChecked.current = false}
+                                  onChange={handleChange}
+                                />
+                              </>
+                            ) : (
+                              <>
+                                <label htmlFor="spouse_name">Spouse</label>
+                                <input
+                                  type="checkbox"
+                                  name="spouse_name"
+                                  id="spouse_name"
+                                  value="Mah Wahf"
+                                  onChange={handleChange}
+                                />
+                            <br />
+                            <label htmlFor="children_num">Children</label>
+                            <input
+                              type="number"
+                              name="children_num"
+                              id="children_num"
+                              min="0"
+                              onChange={handleChange}
+                            />
+                          </>
+                        )
+                      }
+                      {/* <div className="dependents">
                         {el.spouse_name !== "" && (
                           <FontAwesomeIcon
                             icon={faUser}
@@ -211,8 +271,8 @@ const HomePage = () => {
                         )}
                         {el.children_num > 0 &&
                           displayDependents(el.children_num)}
-                      </div>
-                      <h4>Favorite Movie</h4>
+                      </div> */}
+                      <label htmlFor="favorite_movie">Favorite Movie</label>
                       <input
                         type="text"
                         name="favorite_movie"
@@ -221,7 +281,7 @@ const HomePage = () => {
                         // value={el.favorite_movie}
                         onChange={handleChange}
                       />
-                      <h4>Hobbies</h4>
+                      <label htmlFor="hobbies">Hobbies</label>
                       <input
                         type="text"
                         name="hobbies"
@@ -322,18 +382,25 @@ const HomePage = () => {
                       <p>
                         {el.home_city}, {el.home_state}
                       </p>
-                      <h4>Family</h4>
-                      <div className="dependents">
-                        {el.spouse_name !== "" && (
-                          <FontAwesomeIcon
-                            icon={faUser}
-                            color={"white"}
-                            size={"lg"}
-                          />
-                        )}
-                        {el.children_num > 0 &&
-                          displayDependents(el.children_num)}
-                      </div>
+                      {/* {!isHidden.current && clickedCard.current == el
+                      && (
+                        <> */}
+                          <h4>Family</h4>
+                          <div className="dependents">
+                            {el.spouse_name !== "" && (
+                              <FontAwesomeIcon
+                                icon={faUser}
+                                color={"white"}
+                                size={"lg"}
+                              />
+                            )}
+                            {el.children_num > 0 &&
+                              displayDependents(el.children_num)}
+                          </div>
+                        {/* </>
+                      )
+                      } */}
+                      {/* <p>{el.spouse_name !== "" && <span><strong>Spouse:</strong> {el.spouse_name}</span>},&nbsp;<span><strong>Children:</strong> {el.children_names}</span></p> */}
                       <h4>Favorite Movie</h4>
                       <p>{el.favorite_movie}</p>
                       <h4>Hobbies</h4>
