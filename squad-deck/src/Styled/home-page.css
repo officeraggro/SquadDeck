@@ -1,8 +1,8 @@
 /* Cards */
 .FlippyCard {
     width: 20vw;
-    height: 35vh;
-    min-height: 35vh;
+    height: 50vh;
+    min-height: 40vh;
     min-width: 20vw;
 }
 

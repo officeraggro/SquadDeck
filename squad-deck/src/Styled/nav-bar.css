@@ -39,6 +39,10 @@
     margin-top: 90px;
 }
 
+.toggle:focus {
+    background-color: none;
+}
+
 .menu-bar {
     height: 100vh;
     display: flex;

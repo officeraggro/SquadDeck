@@ -124,7 +124,6 @@ const HomePage = () => {
           <h1 className="unitHdr">{data.unit_abbr} SquadDeck</h1>
           <SearchBar className="searchBarCp"/>
         </div>
-          <Link to="/org">Org Chart</Link>
         <div className="cardCnt">
           {(searchData?.length > 0 ? searchData : data?.alpha_roster || []).map((el, indx) => {
             return (
