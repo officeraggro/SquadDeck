@@ -48,6 +48,10 @@
     position: relative;
 }
 
+.toggle {
+    background-color: transparent !important;
+}
+
 /* Title style */
 
 .title {
