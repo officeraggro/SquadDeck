@@ -13,6 +13,9 @@ const Dropbox = styled.div`
 	margin-left: auto;
 	margin-right: auto;
 `;
+const DropboxMessage = styled.div`
+	margin-left: 200px;
+`;
 
 const UserBox = styled.tr`
 	border: solid 1px #000;
@@ -84,10 +87,27 @@ const Dropzone = () => {
 	};
 
 	// from dropzone pkg
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+	const { acceptedFiles, fileRejections, getRootProps, getInputProps, isDragActive } = useDropzone({
 		onDrop,
 		accept: { "text/csv": [".csv"] },
 	});
+
+	const acceptedFileItems = acceptedFiles.map(file => (
+		<li key={file.path}>
+		  {file.path} - {file.size} bytes
+		</li>
+	  ));
+	
+	  const fileRejectionItems = fileRejections.map(({ file, errors }) => (
+		<li key={file.path}>
+		  {file.path} - {file.size} bytes
+		  <ul>
+			{errors.map(e => (
+			  <li key={e.code}>{e.message}</li>
+			))}
+		  </ul>
+		</li>
+	  ));
 
 	return (
 		<div>
@@ -99,6 +119,11 @@ const Dropzone = () => {
 					<p>Drag n' drop files here, or click to select files</p>
 				)}
 			</Dropbox>
+			<DropboxMessage>
+				<h4>Accepted files</h4>
+				<ul>{acceptedFileItems}</ul>
+				<h4>Rejected files</h4>
+				<ul>{fileRejectionItems}</ul>
 			{data.length ? (
 				<table className="table">
 					<thead>
@@ -125,6 +150,7 @@ const Dropzone = () => {
 					</tbody>
 				</table>
 			) : null}
+			</DropboxMessage>
 		</div>
 	);
 };

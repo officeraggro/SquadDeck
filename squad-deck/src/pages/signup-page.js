@@ -69,6 +69,7 @@ const SignupPage = () => {
   };
 
   const createNewAuth0User = async (userObj) => {
+    console.log(userObj)
     const signupUrl =
       "https://" + process.env.REACT_APP_AUTH0_DOMAIN + "/dbconnections/signup";
 
