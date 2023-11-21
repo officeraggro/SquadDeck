@@ -224,7 +224,7 @@ const HomePage = () => {
                         {el.home_city}, {el.home_state}
                       </p>
                             <h4>Family</h4>
-                            <input 
+                            <input
                               type="checkbox"
                               name="hide_family"
                               id="hide_family"

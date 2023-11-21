@@ -13,7 +13,7 @@ import OrgChartPage from "./pages/org-chart-page";
 import UnitOnboardingPage from "./pages/unit-onboarding-page";
 import SearchContext from "./components/SearchContext";
 import ImageUploadTest from "./pages/image-upload-test";
-
+import UploadPage from "./pages/upload-page";
 
 const App = () => {
   const [sdUser, setSdUser] = useState({});
@@ -45,9 +45,10 @@ const App = () => {
             <Route path="/onboarding" element={<UnitOnboardingPage />} />
             <Route path="/img-upload" element={<ImageUploadTest />} />
 
-            {/* private */}
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/org" element={<OrgChartPage />} />
+					{/* private */}
+					<Route path="/home" element={<HomePage />} />
+					<Route path="/org" element={<AuthenticationGuard component={OrgChartPage} />} />
+					<Route path="/upload" element={<AuthenticationGuard component={UploadPage} />}/>
 
             {/* catch-all */}
             <Route path="/callback" element={<CallbackPage />} />
