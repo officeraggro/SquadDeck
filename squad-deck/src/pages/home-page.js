@@ -5,16 +5,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Dropzone from "../components/Dropzone";
 import Flippy, { FrontSide, BackSide } from "react-flippy";
 import "../Styled/home-page.css";
+import "../Styled/search-bar.css";
 import { Link } from "react-router-dom";
 import Papa from "papaparse";
 import { SdUserContext } from "../components/sd-user-context";
 import { faPencil, faCheck, faUser } from "@fortawesome/free-solid-svg-icons";
+import SearchContext from "../components/SearchContext";
+import SearchBar from "../components/SearchBar/SearchBar";
 import { gradeEmblemUrl } from "../helpers/grade-emblems";
 
 const HomePage = () => {
   const { user, isAuthenticated } = useAuth0();
+  const { searchData, setSearchData } = useContext(SearchContext);
   const { sdUser, setSdUser } = useContext(SdUserContext);
-  const [data, setData] = useState([]);
+  const { data, setData } = useContext(SearchContext);
   const ref = useRef();
   const [editMode, setEditMode] = useState(false);
   const [update, setUpdate] = useState({});
@@ -116,10 +120,13 @@ const HomePage = () => {
   return (
     <>
       <PageLayout>
-        <h1>{data.unit_abbr} SquadDeck</h1>
-        <Link to="/org">Org Chart</Link>
+        <div className="cardCntHdr">
+          <h1 className="unitHdr">{data.unit_abbr} SquadDeck</h1>
+          <SearchBar className="searchBarCp"/>
+        </div>
+          <Link to="/org">Org Chart</Link>
         <div className="cardCnt">
-          {data?.alpha_roster?.map((el, indx) => {
+          {(searchData?.length > 0 ? searchData : data?.alpha_roster || []).map((el, indx) => {
             return (
               <div>
                 {editMode && clickedCard.current == el ? (

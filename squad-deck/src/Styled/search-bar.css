@@ -1,0 +1,29 @@
+.searchbar {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    text-align: right;
+    margin-right: 3vw;
+}
+
+.searchIcon {
+    height: 3vh;
+    background-color: rgb(210, 209, 209);
+    padding: 5px;
+    border-radius: 5px;
+    margin: 0 3px;
+    align-self: center;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.70);
+}
+
+.searchIcon:hover {
+    background-color: rgb(137, 133, 133);
+}
+.searchInput {
+    width: 20vw;
+    height: 4vh;
+    border-radius: 5px;
+    cursor:text;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.705);
+}

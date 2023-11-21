@@ -1,7 +1,7 @@
 /* Cards */
 .FlippyCard {
     width: 15vw;
-    height: 50vh;
+    height: 35vh;
     min-height: 35vh;
 }
 
@@ -34,4 +34,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.unitHdr {
+    text-align: center;
 }

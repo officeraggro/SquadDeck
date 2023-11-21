@@ -2,12 +2,7 @@ import { useState, useEffect } from "react";
 import "../../Styled/nav-bar.css";
 import styled from "styled-components";
 import { Layout, Menu, Button, theme } from "antd";
-import {
-	HomeOutlined,
-	BarsOutlined,
-	MenuFoldOutlined,
-	MenuUnfoldOutlined,
-} from "@ant-design/icons";
+import { HomeOutlined, BarsOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 
 
