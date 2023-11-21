@@ -1,5 +1,6 @@
 .top-nav-bar {
     position: fixed;
+    background-color: aliceblue;
     top: 0;
     left: 0;
     height: 90px;
@@ -27,7 +28,7 @@
     margin-right: 50px;
     gap: 20px;
 }
-
+]=
 .user-picture {
     border-radius: 50%;
 }

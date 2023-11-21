@@ -5,15 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Dropzone from "../components/Dropzone";
 import Flippy, { FrontSide, BackSide } from "react-flippy";
 import "../Styled/home-page.css";
+import "../Styled/search-bar.css";
 import { Link } from "react-router-dom";
 import Papa from "papaparse";
 import { SdUserContext } from "../components/sd-user-context";
 import { faPencil, faCheck, faUser } from "@fortawesome/free-solid-svg-icons";
+import SearchContext from "../components/SearchContext";
+import SearchBar from "../components/SearchBar/SearchBar";
 
 const HomePage = () => {
   const { user, isAuthenticated } = useAuth0();
+  const { searchData, setSearchData } = useContext(SearchContext);
   const { sdUser, setSdUser } = useContext(SdUserContext);
-  const [data, setData] = useState([]);
+  const { data, setData } = useContext(SearchContext);
   const ref = useRef();
   const isMounted = useRef(false);
 
@@ -64,86 +68,91 @@ const HomePage = () => {
   return (
     <>
       <PageLayout>
-        <h1>{data.unit_abbr} SquadDeck</h1>
-        <Link to="/org">Org Chart</Link>
+        <div className="cardCntHdr">
+          <h1 className="unitHdr">{data.unit_abbr} SquadDeck</h1>
+          <SearchBar className="searchBarCp"/>
+        </div>
+          <Link to="/org">Org Chart</Link>
         <div className="cardCnt">
-          {data?.alpha_roster?.map((el, indx) => {
-            return (
-              <Flippy
-                className="FlippyCard"
-                flipOnHover={false}
-                flipOnClick={true}
-                flipDirection="horizontal"
-                ref={ref}
-                key={indx}
-              >
-                <FrontSide className="FrontSide">
-                  <div className="cdHdr">
-                    {el.grade !== "" && (
-                      <>
-                        {/* <p>{el.grade}</p> */}
-                        <img
-                          src={el.grade_emblem_img}
-                          alt={el.name + "grade"}
-                          height="20px"
+          {(searchData?.length > 0 ? searchData : data?.alpha_roster || []).map(
+            (el, indx) => {
+              return (
+                <Flippy
+                  className="FlippyCard"
+                  flipOnHover={false}
+                  flipOnClick={true}
+                  flipDirection="horizontal"
+                  ref={ref}
+                  key={indx}>
+                  <FrontSide className="FrontSide">
+                    <div className="cdHdr">
+                      {el.grade !== "" && (
+                        <>
+                          {/* <p>{el.grade}</p> */}
+                          <img
+                            src={el.grade_emblem_img}
+                            alt={el.name + "grade"}
+                            height="20px"
+                          />
+                        </>
+                      )}
+                      <h4>{el.full_name}</h4>
+                      <p>{el.doe}</p>
+                    </div>
+                    <img
+                      src={el.personal_img}
+                      alt={el.full_name + "profile picture"}
+                      height="100px"
+                    />
+                    <h4>{el.duty_title}</h4>
+                    <p>{el.cafsc}</p>
+                    <img
+                      src={el.career_field_img}
+                      alt={el.name + "career field"}
+                      height="20px"
+                    />
+                    <h4>Supervisor:</h4>
+                    <p>{el.supv_name}</p>
+                    <img
+                      src={el.achievement_img}
+                      alt={el.full_name + "achievements"}
+                      height="15px"
+                    />
+                    <div>
+                      <FontAwesomeIcon icon={faPencil} />
+                    </div>
+                  </FrontSide>
+                  <BackSide className="BackSide">
+                    <h3>{el.go_by}</h3>
+                    <hr />
+                    <h4>Hometown</h4>
+                    <p>
+                      {el.home_city}, {el.home_state}
+                    </p>
+                    <h4>Family</h4>
+                    <div className="dependents">
+                      {el.spouse_name !== "" && (
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          color={"white"}
+                          size={"lg"}
                         />
-                      </>
-                    )}
-                    <h4>{el.full_name}</h4>
-                    <p>{el.doe}</p>
-                  </div>
-                  <img
-                    src={el.personal_img}
-                    alt={el.full_name + "profile picture"}
-                    height="100px"
-                  />
-                  <h4>{el.duty_title}</h4>
-                  <p>{el.cafsc}</p>
-                  <img
-                    src={el.career_field_img}
-                    alt={el.name + "career field"}
-                    height="20px"
-                  />
-                  <h4>Supervisor:</h4>
-                  <p>{el.supv_name}</p>
-                  <img
-                    src={el.achievement_img}
-                    alt={el.full_name + "achievements"}
-                    height="15px"
-                  />
-                  <div>
-                    <FontAwesomeIcon icon={faPencil} />
-                  </div>
-                </FrontSide>
-                <BackSide className="BackSide">
-                  <h3>{el.go_by}</h3>
-                  <hr />
-                  <h4>Hometown</h4>
-                  <p>
-                    {el.home_city}, {el.home_state}
-                  </p>
-                  <h4>Family</h4>
-                  <div className="dependents">
-                    {el.spouse_name !== "" && (
-                      <FontAwesomeIcon
-                        icon={faUser}
-                        color={"white"}
-                        size={"lg"}
-                      />
-                    )}
-                    {el.children_num > 0 && displayDependents(el.children_num)}
-                  </div>
-                  <h4>Favorite Movie</h4>
-                  <p>{el.favorite_movie}</p>
-                  <h4>Hobbies</h4>
-                  <p>{el.hobbies}</p>
-                  {/* <h4>Interesting Fact</h4>
+                      )}
+                      {el.children_num > 0 &&
+                        displayDependents(el.children_num)}
+                    </div>
+                    <h4>Favorite Movie</h4>
+                    <p>{el.favorite_movie}</p>
+                    <h4>Hobbies</h4>
+                    <p>{el.hobbies}</p>
+                    {/* <h4>Interesting Fact</h4>
                   <p>{el.interesting_fact}</p> */}
-                  <FontAwesomeIcon icon={faPencil} />
-                </BackSide>
-              </Flippy>
-            );
-          })}
+                    <FontAwesomeIcon icon={faPencil} />
+                  </BackSide>
+                </Flippy>
+              );
+            }
+          )}
         </div>
         {/* <Dropzone /> */}
       </PageLayout>
