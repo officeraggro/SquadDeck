@@ -124,7 +124,6 @@ const HomePage = () => {
           <h1 className="unitHdr">{data.unit_abbr} SquadDeck</h1>
           <SearchBar className="searchBarCp"/>
         </div>
-          <Link to="/org">Org Chart</Link>
         <div className="cardCnt">
           {(searchData?.length > 0 ? searchData : data?.alpha_roster || []).map((el, indx) => {
             return (
@@ -225,7 +224,7 @@ const HomePage = () => {
                         {el.home_city}, {el.home_state}
                       </p>
                             <h4>Family</h4>
-                            <input 
+                            <input
                               type="checkbox"
                               name="hide_family"
                               id="hide_family"

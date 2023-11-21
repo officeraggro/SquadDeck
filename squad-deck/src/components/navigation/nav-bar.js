@@ -30,7 +30,6 @@ const NavBar = () => {
 								height="35px"
 								className="user-picture"
 							/>
-							<LogoutButton />
 						</>
 					)}
 				</div>

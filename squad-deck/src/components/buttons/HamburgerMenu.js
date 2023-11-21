@@ -35,14 +35,15 @@ const HamburgerMenu = () => {
 									returnTo: "http://localhost:3001/",
 								},
 							});
-						} else if (key === 'menu') {
+						} else if (key === 'menu' || key === 'toggle') {
 							console.log('Menu clicked!')
 						} else {
 							navigate(key);
 						}
 					}}
 				>
-					<Button
+					<Menu.Item
+						key="toggle"
 						type="text"
 						className="toggle"
 						onClick={() => setCollapsed(!collapsed)}
