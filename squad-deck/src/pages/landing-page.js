@@ -8,7 +8,6 @@ const LandingPage = () => {
             <PageLayout>
                 <h1>This is the landing page.</h1>
             </PageLayout>
-            {/* <Dropzone /> */}
         </>
     )
 }
