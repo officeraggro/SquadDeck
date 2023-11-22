@@ -57,7 +57,7 @@ const SignupPage = () => {
         family_name: full_name[1],
         name: form.name,
         nickname: form.username,
-        picture: "http://example.org/jdoe.png",
+        picture: "https://freesvg.org/img/abstract-user-flat-3.png",
         user_metadata: {},
       };
       createNewAuth0User(userForm);

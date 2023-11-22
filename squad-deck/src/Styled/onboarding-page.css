@@ -31,13 +31,14 @@
   text-align: center;
   align-items: center;
   height: auto;
-  width: 320px;
+  width: 350px;
   white-space: normal;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   padding: 40px;
   margin-top: 100px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
 }
 
@@ -72,7 +73,7 @@
   background-color: #6999e2;
   border-radius: 50px;
   height: 3rem;
-  width: 12rem;
+  width: 20rem;
   color: #ffff;
   font-size: 16px;
   border: none;
@@ -83,7 +84,7 @@
   background-color: #6999e2;
   border-radius: 50px;
   height: 3rem;
-  width: 18rem;
+  width: 20rem;
   color: #ffff;
   font-size: 16px;
   border: none;
