@@ -16,12 +16,12 @@ const NavBar = () => {
 					<h1 className="title">SquadDeck</h1>
 				</div>
 				<div className="top-nav-right">
-					{!isAuthenticated && (
+					{/* {!isAuthenticated && (
 						<>
 							<LoginButton />
 							<SignupButton />
 						</>
-					)}
+					)} */}
 					{isAuthenticated && (
 						<>
 							<img

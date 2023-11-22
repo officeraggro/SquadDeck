@@ -46,7 +46,7 @@ const App = () => {
             <Route path="/img-upload" element={<ImageUploadTest />} />
 
 					{/* private */}
-					<Route path="/home" element={<AuthenticationGuard component={HomePage} />} />
+					<Route path="/home" element={<HomePage />} />
 					<Route path="/org" element={<AuthenticationGuard component={OrgChartPage} />} />
 					<Route path="/upload" element={<AuthenticationGuard component={UploadPage} />}/>
 

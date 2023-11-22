@@ -7,7 +7,7 @@ const LoginButton = () => {
   const handleLogin = async () => {
     await loginWithRedirect({
       appState: {
-        returnTo: "/home",
+        returnTo: "/callback",
       },
     });
   };

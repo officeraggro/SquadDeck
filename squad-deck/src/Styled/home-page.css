@@ -33,10 +33,31 @@
 
 .cdHdr {
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
 }
 
 .unitHdr {
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    gap: 25px;
+    justify-content: center;
 }
+
+.unitImg {
+    height: 120px;
+}
+
+.loader {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+}
+
+.loader-spinner {
+    height: 300px;
+    color: cornflowerblue;
+}
+

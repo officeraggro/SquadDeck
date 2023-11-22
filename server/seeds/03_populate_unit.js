@@ -10,14 +10,16 @@ exports.seed = async function (knex) {
       unit_full_name: "SQUADRONLRAFB",
       unit_abbr: "VQ1234",
       unit_parent: "AF",
-      unit_emblem_url: "foobar",
+      unit_emblem_url:
+        "https://cfw.sarna.net/wiki/images/6/65/Federated_Suns_Logo.png",
       unit_station: "Vandenburg",
     },
     {
       unit_full_name: "SQUADRONVSFB",
       unit_abbr: "NM1234",
       unit_parent: "AF",
-      unit_emblem_url: "foobar",
+      unit_emblem_url:
+        "https://cfw.sarna.net/wiki/images/9/92/Dragons_Fury_logo.png",
       unit_station: "South Carolina",
     },
   ]);

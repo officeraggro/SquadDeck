@@ -23,38 +23,37 @@ const HomePage = () => {
   const [editMode, setEditMode] = useState(false);
   const [update, setUpdate] = useState({});
   const clickedCard = useRef();
-  const isSubmitted = useRef(false)
+  const isSubmitted = useRef(false);
   const isMounted = useRef(false);
-  const isChecked = useRef(true)
-  const isHidden = useRef(false)
+  const isChecked = useRef(true);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      const fetchUserDetails = async () => {
-        const response = await fetch(
-          `http://localhost:8080/users/${user.email}`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setSdUser(data);
-        }
-      };
-      fetchUserDetails();
-    }
-  }, [isAuthenticated]);
-
-  useEffect(() => {
-    if (sdUser.length) {
-      const fetchAlphaRoster = async () => {
-        const response = await fetch(
-          `http://localhost:8080/units/${sdUser[0].user_unit_id}/roster`
-        );
+    const fetchUserDetails = async () => {
+      const response = await fetch(`http://localhost:8080/users/${user.email}`);
+      if (response.ok) {
         const data = await response.json();
-        setData(data);
-      };
-      fetchAlphaRoster();
+        setSdUser(data);
+      }
+    };
+    fetchUserDetails();
+  }, []);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      if (sdUser.length) {
+        const fetchAlphaRoster = async () => {
+          const response = await fetch(
+            `http://localhost:8080/units/${sdUser[0].user_unit_id}/roster`
+          );
+          const data = await response.json();
+          setData(data);
+        };
+        fetchAlphaRoster();
+      }
+    } else {
+      isMounted.current = true;
     }
-  }, [sdUser, isSubmitted.current, isHidden.current]);
+  }, [sdUser, isSubmitted.current]);
 
   const handleEditModeClick = (e, elem) => {
     e.stopPropagation();
@@ -72,25 +71,26 @@ const HomePage = () => {
   const handleSaveClick = (e, el) => {
     setEditMode(false);
     clickedCard.current = null;
-    isSubmitted.current = !isSubmitted.current
-    isChecked.current = true
+    isSubmitted.current = !isSubmitted.current;
+    isChecked.current = true;
 
     const updateObj = {
       ...update,
-      alpha_roster_id: el.id
-    }
-    setUpdate({})
+      alpha_roster_id: el.id,
+    };
+    setUpdate({});
 
     const submitUpdates = async () => {
       const response = await fetch(
-        `http://localhost:8080/units/${sdUser[0].user_unit_id}/roster/${el.id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updateObj)
+        `http://localhost:8080/units/${sdUser[0].user_unit_id}/roster/${el.id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updateObj),
         }
       );
     };
-    submitUpdates()
+    submitUpdates();
   };
 
   const displayDependents = (num) => {
@@ -109,86 +109,185 @@ const HomePage = () => {
     return <>{dependentsArray}</>;
   };
 
-  const toggleShowFamily = () => {
-    if (isHidden.current) {
-      isHidden.current = false
-    } else {
-      isHidden.current = true
-    }
-  }
+  // const toggleShowFamily = () => {
+  //   if (isHidden.current) {
+  //     isHidden.current = false
+  //   } else {
+  //     isHidden.current = true
+  //   }
+  // }
 
   return (
     <>
       <PageLayout>
         <div className="cardCntHdr">
-          <h1 className="unitHdr">{data.unit_abbr} SquadDeck</h1>
-          <SearchBar className="searchBarCp"/>
+          <div className="unitHdr">
+            <img
+              src={data.unit_emblem_url}
+              alt={data.unit_abbr + "emblem"}
+              className="unitImg"
+            />
+            <h1 className="unitHdr">{data.unit_abbr} SquadDeck</h1>
+          </div>
+          <SearchBar className="searchBarCp" />
         </div>
         <div className="cardCnt">
-          {(searchData?.length > 0 ? searchData : data?.alpha_roster || []).map((el, indx) => {
-            return (
-              <div>
-                {editMode && clickedCard.current == el ? (
-                  <Flippy
-                    className="FlippyCard"
-                    flipOnHover={false}
-                    flipOnClick={false}
-                    flipDirection="horizontal"
-                    ref={ref}
-                    key={indx}
-                  >
-                    <FrontSide className="FrontSide">
-                      <div className="whole-card">
-                        <div className="cdHdr">
-                          <select
-                            onChange={handleChange}
-                            id="grade"
-                            name="grade"
-                          >
-                            {Object.keys(gradeEmblemUrl).map((grade) => {
-                              return <option value={grade}>{grade}</option>;
-                            })}
-                          </select>
+          {(searchData?.length > 0 ? searchData : data?.alpha_roster || []).map(
+            (el, indx) => {
+              return (
+                <div>
+                  {editMode && clickedCard.current == el ? (
+                    <Flippy
+                      className="FlippyCard"
+                      flipOnHover={false}
+                      flipOnClick={false}
+                      flipDirection="horizontal"
+                      ref={ref}
+                      key={indx}
+                    >
+                      <FrontSide className="FrontSide">
+                        <div className="whole-card">
+                          <div className="cdHdr">
+                            <select
+                              onChange={handleChange}
+                              id="grade"
+                              name="grade"
+                            >
+                              {Object.keys(gradeEmblemUrl).map((grade) => {
+                                return <option value={grade}>{grade}</option>;
+                              })}
+                            </select>
+                            <input
+                              type="text"
+                              name="full_name"
+                              id="full_name"
+                              placeholder={el.full_name}
+                              onChange={handleChange}
+                            />
+                            <p>{el.doe}</p>
+                          </div>
+                          <img
+                            src={el.personal_img}
+                            alt={el.full_name + "profile picture"}
+                            height="100px"
+                          />
                           <input
                             type="text"
-                            name="full_name"
-                            id="full_name"
-                            placeholder={el.full_name}
+                            name="duty_title"
+                            id="duty_title"
+                            placeholder={el.duty_title}
                             onChange={handleChange}
                           />
-                          <p>{el.doe}</p>
+                          <p>{el.cafsc}</p>
+                          <img
+                            src={el.career_field_img}
+                            alt={el.name + "career field"}
+                            height="20px"
+                          />
+                          <label htmlFor="supv_name">Supervisor:</label>
+                          <input
+                            type="text"
+                            name="supv_name"
+                            id="supv_name"
+                            placeholder={el.supv_name}
+                            onChange={handleChange}
+                          />
+                          <img
+                            src={el.achievement_img}
+                            alt={el.full_name + "achievements"}
+                            height="15px"
+                          />
+                          <button
+                            className="save-button"
+                            onClick={(e) => handleSaveClick(e, el)}
+                            style={{
+                              zIndex: "999",
+                              border: "none",
+                              backgroundColor: "transparent",
+                              backgroundRepeat: "no-repeat",
+                              cursor: "pointer",
+                              overflow: "hidden",
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              className="save-button"
+                              icon={faCheck}
+                              color="white"
+                            />
+                          </button>
                         </div>
-                        <img
-                          src={el.personal_img}
-                          alt={el.full_name + "profile picture"}
-                          height="100px"
-                        />
+                      </FrontSide>
+                      <BackSide className="BackSide">
                         <input
                           type="text"
-                          name="duty_title"
-                          id="duty_title"
-                          placeholder={el.duty_title}
+                          name="go_by"
+                          id="go_by"
+                          placeholder={el.go_by}
                           onChange={handleChange}
                         />
-                        <p>{el.cafsc}</p>
-                        <img
-                          src={el.career_field_img}
-                          alt={el.name + "career field"}
-                          height="20px"
-                        />
-                        <h4>Supervisor:</h4>
+                        <hr />
+                        <h4>Hometown</h4>
+                        <p>
+                          {el.home_city}, {el.home_state}
+                        </p>
+                        <h4>Family</h4>
+                        {/* <input
+                              type="checkbox"
+                              name="hide_family"
+                              id="hide_family"
+                              value="true"
+                              onChange={toggleShowFamily}
+                            /> */}
+                        {el.spouse_name !== "" ? (
+                          <>
+                            <label htmlFor="spouse_name">Spouse</label>
+                            <input
+                              type="checkbox"
+                              name="spouse_name"
+                              id="spouse_name"
+                              value=""
+                              checked={isChecked.current}
+                              onClick={(e) => (isChecked.current = false)}
+                              onChange={handleChange}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <label htmlFor="spouse_name">Spouse</label>
+                            <input
+                              type="checkbox"
+                              name="spouse_name"
+                              id="spouse_name"
+                              value="Mah Wahf"
+                              onChange={handleChange}
+                            />
+                            <br />
+                            <label htmlFor="children_num">Children</label>
+                            <input
+                              type="number"
+                              name="children_num"
+                              id="children_num"
+                              min="0"
+                              onChange={handleChange}
+                            />
+                          </>
+                        )}
+                        <label htmlFor="favorite_movie">Favorite Movie</label>
                         <input
                           type="text"
-                          name="supv_name"
-                          id="supv_name"
-                          placeholder={el.supv_name}
-                          // value={el.supv_name}
+                          name="favorite_movie"
+                          id="favorite_movie"
+                          placeholder={el.favorite_movie}
+                          // value={el.favorite_movie}
                           onChange={handleChange}
                         />
-                        <img
-                          src={el.achievement_img}
-                          alt={el.full_name + "achievements"}
-                          height="15px"
+                        <label htmlFor="hobbies">Hobbies</label>
+                        <input
+                          type="text"
+                          name="hobbies"
+                          id="hobbies"
+                          placeholder={el.hobbies}
+                          onChange={handleChange}
                         />
                         <button
                           className="save-button"
@@ -208,159 +307,100 @@ const HomePage = () => {
                             color="white"
                           />
                         </button>
-                      </div>
-                    </FrontSide>
-                    <BackSide className="BackSide">
-                      <input
-                        type="text"
-                        name="go_by"
-                        id="go_by"
-                        placeholder={el.go_by}
-                        onChange={handleChange}
-                      />
-                      <hr />
-                      <h4>Hometown</h4>
-                      <p>
-                        {el.home_city}, {el.home_state}
-                      </p>
-                            <h4>Family</h4>
-                            <input
-                              type="checkbox"
-                              name="hide_family"
-                              id="hide_family"
-                              value="true"
-                              // onClick={e => toggleShowFamily(hidden)}
-                              onChange={toggleShowFamily}
-                            />
-                            {el.spouse_name !== "" ? (
+                      </BackSide>
+                    </Flippy>
+                  ) : (
+                    <Flippy
+                      className="FlippyCard"
+                      flipOnHover={false}
+                      flipOnClick={true}
+                      flipDirection="horizontal"
+                      ref={ref}
+                      key={indx}
+                    >
+                      <FrontSide className="FrontSide">
+                        <div className="whole-card">
+                          <div className="cdHdr">
+                            {el.grade !== "" && (
                               <>
-                                <label htmlFor="spouse_name">Spouse</label>
-                                <input
-                                  type="checkbox"
-                                  name="spouse_name"
-                                  id="spouse_name"
-                                  value=""
-                                  checked={isChecked.current}
-                                  onClick={e => isChecked.current = false}
-                                  onChange={handleChange}
+                                <img
+                                  src={gradeEmblemUrl[el.grade]}
+                                  alt={el.name + "grade"}
+                                  height="20px"
                                 />
                               </>
-                            ) : (
-                              <>
-                                <label htmlFor="spouse_name">Spouse</label>
-                                <input
-                                  type="checkbox"
-                                  name="spouse_name"
-                                  id="spouse_name"
-                                  value="Mah Wahf"
-                                  onChange={handleChange}
-                                />
-                            <br />
-                            <label htmlFor="children_num">Children</label>
-                            <input
-                              type="number"
-                              name="children_num"
-                              id="children_num"
-                              min="0"
-                              onChange={handleChange}
-                            />
-                          </>
-                        )
-                      }
-                      {/* <div className="dependents">
-                        {el.spouse_name !== "" && (
-                          <FontAwesomeIcon
-                            icon={faUser}
-                            color={"white"}
-                            size={"lg"}
+                            )}
+                            <h4>{el.full_name}</h4>
+                            <p>{el.doe}</p>
+                          </div>
+                          <img
+                            src={el.personal_img}
+                            alt={el.full_name + "profile picture"}
+                            height="100px"
                           />
-                        )}
-                        {el.children_num > 0 &&
-                          displayDependents(el.children_num)}
-                      </div> */}
-                      <label htmlFor="favorite_movie">Favorite Movie</label>
-                      <input
-                        type="text"
-                        name="favorite_movie"
-                        id="favorite_movie"
-                        placeholder={el.favorite_movie}
-                        // value={el.favorite_movie}
-                        onChange={handleChange}
-                      />
-                      <label htmlFor="hobbies">Hobbies</label>
-                      <input
-                        type="text"
-                        name="hobbies"
-                        id="hobbies"
-                        placeholder={el.hobbies}
-                        onChange={handleChange}
-                      />
-                      {/* <h4>Interesting Fact</h4>
-                    <p>{el.interesting_fact}</p> */}
-                      <button
-                        className="save-button"
-                        onClick={(e) => handleSaveClick(e, el)}
-                        style={{
-                          zIndex: "999",
-                          border: "none",
-                          backgroundColor: "transparent",
-                          backgroundRepeat: "no-repeat",
-                          cursor: "pointer",
-                          overflow: "hidden",
-                        }}
-                      >
-                        <FontAwesomeIcon
-                          className="save-button"
-                          icon={faCheck}
-                          color="white"
-                        />
-                      </button>
-                    </BackSide>
-                  </Flippy>
-                ) : (
-                  <Flippy
-                    className="FlippyCard"
-                    flipOnHover={false}
-                    flipOnClick={true}
-                    flipDirection="horizontal"
-                    ref={ref}
-                    key={indx}
-                  >
-                    <FrontSide className="FrontSide">
-                      <div className="whole-card">
-                        <div className="cdHdr">
-                          {el.grade !== "" && (
-                            <>
-                              {/* <p>{el.grade}</p> */}
-                              <img
-                                src={gradeEmblemUrl[el.grade]}
-                                alt={el.name + "grade"}
-                                height="20px"
-                              />
-                            </>
-                          )}
-                          <h4>{el.full_name}</h4>
-                          <p>{el.doe}</p>
+                          <h4>{el.duty_title}</h4>
+                          <p>{el.cafsc}</p>
+                          <img
+                            src={el.career_field_img}
+                            alt={el.name + "career field"}
+                            height="20px"
+                          />
+                          <h4>Supervisor:</h4>
+                          <p>{el.supv_name}</p>
+                          <img
+                            src={el.achievement_img}
+                            alt={el.full_name + "achievements"}
+                            height="15px"
+                          />
+                          <button
+                            className="edit-button"
+                            onClick={(e) => handleEditModeClick(e, el)}
+                            style={{
+                              zIndex: "999",
+                              border: "none",
+                              backgroundColor: "transparent",
+                              backgroundRepeat: "no-repeat",
+                              cursor: "pointer",
+                              overflow: "hidden",
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              className="edit-button"
+                              icon={faPencil}
+                              color="white"
+                            />
+                          </button>
                         </div>
-                        <img
-                          src={el.personal_img}
-                          alt={el.full_name + "profile picture"}
-                          height="100px"
-                        />
-                        <h4>{el.duty_title}</h4>
-                        <p>{el.cafsc}</p>
-                        <img
-                          src={el.career_field_img}
-                          alt={el.name + "career field"}
-                          height="20px"
-                        />
-                        <h4>Supervisor:</h4>
-                        <p>{el.supv_name}</p>
-                        <img
-                          src={el.achievement_img}
-                          alt={el.full_name + "achievements"}
-                          height="15px"
-                        />
+                      </FrontSide>
+                      <BackSide className="BackSide">
+                        <h3>{el.go_by}</h3>
+                        <hr />
+                        <h4>Hometown</h4>
+                        <p>
+                          {el.home_city}, {el.home_state}
+                        </p>
+                        <h4>Family</h4>
+                        <div className="dependents">
+                          {el.spouse_name !== "" && (
+                            <FontAwesomeIcon
+                              icon={faUser}
+                              color={"white"}
+                              size={"lg"}
+                            />
+                          )}
+                          {el.children_num > 0 &&
+                            displayDependents(el.children_num)}
+                        </div>
+                        {/* </>
+                      )
+                      } */}
+                        {/* <p>{el.spouse_name !== "" && <span><strong>Spouse:</strong> {el.spouse_name}</span>},&nbsp;<span><strong>Children:</strong> {el.children_names}</span></p> */}
+                        <h4>Favorite Movie</h4>
+                        <p>{el.favorite_movie}</p>
+                        <h4>Hobbies</h4>
+                        <p>{el.hobbies}</p>
+                        {/* <h4>Interesting Fact</h4>
+                    <p>{el.interesting_fact}</p> */}
                         <button
                           className="edit-button"
                           onClick={(e) => handleEditModeClick(e, el)}
@@ -379,64 +419,13 @@ const HomePage = () => {
                             color="white"
                           />
                         </button>
-                      </div>
-                    </FrontSide>
-                    <BackSide className="BackSide">
-                      <h3>{el.go_by}</h3>
-                      <hr />
-                      <h4>Hometown</h4>
-                      <p>
-                        {el.home_city}, {el.home_state}
-                      </p>
-                      {/* {!isHidden.current && clickedCard.current == el
-                      && (
-                        <> */}
-                          <h4>Family</h4>
-                          <div className="dependents">
-                            {el.spouse_name !== "" && (
-                              <FontAwesomeIcon
-                                icon={faUser}
-                                color={"white"}
-                                size={"lg"}
-                              />
-                            )}
-                            {el.children_num > 0 &&
-                              displayDependents(el.children_num)}
-                          </div>
-                        {/* </>
-                      )
-                      } */}
-                      {/* <p>{el.spouse_name !== "" && <span><strong>Spouse:</strong> {el.spouse_name}</span>},&nbsp;<span><strong>Children:</strong> {el.children_names}</span></p> */}
-                      <h4>Favorite Movie</h4>
-                      <p>{el.favorite_movie}</p>
-                      <h4>Hobbies</h4>
-                      <p>{el.hobbies}</p>
-                      {/* <h4>Interesting Fact</h4>
-                    <p>{el.interesting_fact}</p> */}
-                      <button
-                        className="edit-button"
-                        onClick={(e) => handleEditModeClick(e, el)}
-                        style={{
-                          zIndex: "999",
-                          border: "none",
-                          backgroundColor: "transparent",
-                          backgroundRepeat: "no-repeat",
-                          cursor: "pointer",
-                          overflow: "hidden",
-                        }}
-                      >
-                        <FontAwesomeIcon
-                          className="edit-button"
-                          icon={faPencil}
-                          color="white"
-                        />
-                      </button>
-                    </BackSide>
-                  </Flippy>
-                )}
-              </div>
-            );
-          })}
+                      </BackSide>
+                    </Flippy>
+                  )}
+                </div>
+              );
+            }
+          )}
         </div>
         {/* <Dropzone /> */}
       </PageLayout>

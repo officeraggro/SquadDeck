@@ -1,10 +1,10 @@
 
 const PageLoader = () => {
-  const loadingImg = "https://cdn.auth0.com/blog/hello-auth0/loader.svg";
+  const loadingImg = "https://samherbert.net/svg-loaders/svg-loaders/oval.svg";
 
   return (
     <div className="loader">
-      <img src={loadingImg} alt="Loading..." />
+      <img src={loadingImg} alt="Loading..." className="loader-spinner"/>
     </div>
   )
 }

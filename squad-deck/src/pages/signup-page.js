@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import '../Styled/signup-page.css'
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -111,95 +112,127 @@ const SignupPage = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSignUp}>
-        <h1>Sign Up</h1>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            placeholder="Enter Name"
-            id="name"
-            name="name"
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="unit">Unit</label>
-          <select
-            className="unitsDropDown"
-            onChange={handleChange}
-            id="unit"
-            name="unit"
-          >
-            <option value="Select unit">Select unit</option>
-            {units?.map((unit, indx) => (
-              <option value={unit.unit_abbr} key={indx}>
-                {unit.unit_abbr}
-              </option>
-            ))}
-          </select>
-          <br />
-        </div>
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            placeholder="Enter Username"
-            id="username"
-            name="username"
-            required
-            onChange={handleChange}
-          />
-          <br />
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            placeholder="Enter Email"
-            id="email"
-            name="email"
-            required
-            onChange={handleChange}
-          />
-          <br />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            id="password"
-            name="password"
-            required
-            onChange={handleChange}
-          />
-          <br />
-        </div>
-        <div>
-          <label htmlFor="passwordRepeat">Repeat Password</label>
-          <input
-            type="password"
-            placeholder="Repeat Password"
-            id="passwordRepeat"
-            name="passwordRepeat"
-            required
-            onChange={handleChange}
-          />
-        </div>
+    <section className="signup-main">
+      <div className="signup-grid-container">
+        <div className="signup-form-container">
+          <form onSubmit={handleSignUp}>
+            <header className="signup-header">Sign Up</header>
+            <div>
+              {/* <label htmlFor="name" className="form-input-label">
+                Name
+              </label> */}
+              <br />
+              <input
+                type="text"
+                placeholder="Enter Name"
+                id="name"
+                name="name"
+                className="signup-input"
+                required
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              {/* <label htmlFor="unit" className="form-input-label">
+                Unit
+              </label> */}
+              <br />
+              <select
+                className="signup-units-dropdown"
+                onChange={handleChange}
+                id="unit"
+                name="unit"
+                required
+              >
+                <option value="Select unit">Select unit</option>
+                {units?.map((unit, indx) => (
+                  <option value={unit.unit_abbr} key={indx}>
+                    {unit.unit_abbr}
+                  </option>
+                ))}
+              </select>
+              <br />
+            </div>
+            <div>
+              {/* <label htmlFor="username" className="form-input-label">
+                Username
+              </label> */}
+              <br />
+              <input
+                type="text"
+                placeholder="Enter Username"
+                id="username"
+                name="username"
+                className="signup-input"
+                required
+                onChange={handleChange}
+              />
+              <br />
+            </div>
+            <div>
+              {/* <label htmlFor="email" className="form-input-label">
+                Email
+              </label> */}
+              <br />
+              <input
+                type="text"
+                placeholder="Enter Email"
+                id="email"
+                name="email"
+                className="signup-input"
+                required
+                onChange={handleChange}
+              />
+              <br />
+            </div>
+            <div>
+              {/* <label htmlFor="password" className="form-input-label">
+                Password
+              </label> */}
+              <br />
+              <input
+                type="password"
+                placeholder="Enter Password"
+                id="password"
+                name="password"
+                className="signup-input"
+                required
+                onChange={handleChange}
+              />
+              <br />
+            </div>
+            <div>
+              {/* <label htmlFor="passwordRepeat" className="form-input-label">
+                Repeat Password
+              </label> */}
+              <br />
+              <input
+                type="password"
+                placeholder="Repeat Password"
+                id="passwordRepeat"
+                name="passwordRepeat"
+                className="signup-input"
+                required
+                onChange={handleChange}
+              />
+            </div>
 
-        <div>
-          <button type="submit">Sign Up</button>
-          <button type="reset">Cancel</button>
+            <div className="signup-button-container">
+              <button type="submit" className="signup-submit-button">
+                Sign Up
+              </button>
+              <button type="reset" className="cancel-button">
+                Cancel
+              </button>
+            </div>
+            <div className="signup-footer">
+              <p>Already signed up? </p>
+              <button onClick={handleLogin} className="signup-footer-login-button">Log In</button>
+            </div>
+          </form>
         </div>
-        <div>
-          <span>Already signed up? </span>
-          <button onClick={handleLogin}>Log In</button>
-        </div>
-      </form>
-    </div>
+      </div>
+    </section>
   );
 };
 
