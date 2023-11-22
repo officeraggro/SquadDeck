@@ -2,13 +2,9 @@ import { useContext, useEffect } from "react";
 import OnboardingFormContext from "./onboarding-form-context";
 
 const NewUnitForm = () => {
-  const { 
-    title, 
-    page, 
-    setPage, 
-    unitForm, 
-    setUnitForm 
-  } = useContext(OnboardingFormContext);
+  const { title, page, setPage, unitForm, setUnitForm } = useContext(
+    OnboardingFormContext
+  );
 
   const handleUnitFormChange = (e) => {
     setUnitForm((prev) => ({
@@ -29,10 +25,7 @@ const NewUnitForm = () => {
 
   return (
     <div>
-      <header>
-        <h3>Step 1 - Enter {title[page]}</h3>
-        <h4>Instructions</h4>
-        <p>Provide the requested information about your unit by filling out the relevant form fields. When finished, click "Next" to continue.</p>
+      <header className="onboarding-header">
         <div className="form-nav-button-container">
           <button
             type="button"
@@ -41,6 +34,14 @@ const NewUnitForm = () => {
           >
             Next
           </button>
+        </div>
+        <h3>Step 1 - Enter {title[page]}</h3>
+        <div className="onboarding-instructions">
+          <h4>Instructions</h4>
+          <p>
+            Provide the requested information about your unit by filling out the
+            relevant form fields. When finished, click "Next" to continue.
+          </p>
         </div>
       </header>
 
@@ -54,6 +55,7 @@ const NewUnitForm = () => {
             id="unit_full_name"
             name="unit_full_name"
             required
+            className="onboarding-input"
             onChange={handleUnitFormChange}
           />
           <br />
@@ -66,6 +68,7 @@ const NewUnitForm = () => {
             id="unit_abbr"
             name="unit_abbr"
             required
+            className="onboarding-input"
             onChange={handleUnitFormChange}
           />
           <br />
@@ -78,6 +81,7 @@ const NewUnitForm = () => {
             id="unit_parent"
             name="unit_parent"
             required
+            className="onboarding-input"
             onChange={handleUnitFormChange}
           />
           <br />
@@ -89,6 +93,7 @@ const NewUnitForm = () => {
             placeholder="Enter Unit Emblem Url"
             id="unit_emblem_url"
             name="unit_emblem_url"
+            className="onboarding-input"
             onChange={handleUnitFormChange}
           />
           <br />
@@ -101,6 +106,7 @@ const NewUnitForm = () => {
             id="unit_station"
             name="unit_station"
             required
+            className="onboarding-input"
             onChange={handleUnitFormChange}
           />
           <br />

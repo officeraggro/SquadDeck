@@ -16,7 +16,7 @@ const UnitOnboardingForm = ({ units }) => {
     }
     
     return (
-        <div>
+        <div className='onboarding-form-container'>
             {display[page]}
         </div>
     )

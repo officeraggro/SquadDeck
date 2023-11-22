@@ -29,7 +29,7 @@
   justify-content: flex-start;
   text-align: center;
   align-items: center;
-  height: 655px;
+  height: auto;
   width: 320px;
   white-space: normal;
   border-radius: 5px;
@@ -75,7 +75,7 @@
 .signup-button-container {
     display: flex;
     flex-direction: column;
-    padding: 18px;
+    padding-top: 30px;
     gap: 16px;
 }
 
@@ -89,13 +89,30 @@
     border: none; 
 }
 
+/* .onabording-prompt {
+    flex: 1;
+    display: flex;
+    justify-content: left;
+    text-align: left;
+} */
+
+.onboarding-prompt p {
+    text-align: left;
+    margin-left: 10px;
+}
+
+.onboarding-prompt a {
+    text-decoration: none;
+    color: #6999e2
+}
+
 .signup-footer {
     flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    margin-left: 18px;
+    margin-left: 10px;
     gap: 14px;
 }
 

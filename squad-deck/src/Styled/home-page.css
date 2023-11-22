@@ -1,63 +1,61 @@
 /* Cards */
 .FlippyCard {
-    width: 20vw;
-    height: 50vh;
-    min-height: 40vh;
-    min-width: 20vw;
+  width: 20vw;
+  height: 50vh;
+  min-height: 40vh;
+  min-width: 20vw;
 }
 
 .FrontSide {
-    background-color: #41669d;
-    border-radius: 25px;
-    padding: 0;
-    margin: 0 auto;
-    text-align: center;
+  background-color: #41669d;
+  border-radius: 25px;
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .BackSide {
-    background-color: #41669d;
-    border-radius: 25px;
-    padding: 0;
-    margin: 0 auto;
-    text-align: center;
+  background-color: #41669d;
+  border-radius: 25px;
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .cardCnt {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
 }
 
 .cdHdr {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .unitHdr {
-    display: flex;
-    flex-direction: row;
-    align-items:center;
-    gap: 25px;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 25px;
+  justify-content: center;
 }
 
 .unitImg {
-    height: 120px;
+  height: 120px;
 }
 
 .loader {
-    position: absolute;
-    top: 30%;
-    left: 40%;
+  position: absolute;
+  top: 30%;
+  left: 40%;
 }
 
 .loader-spinner {
-    height: 300px;
-    color: cornflowerblue;
+  height: 300px;
 }
-

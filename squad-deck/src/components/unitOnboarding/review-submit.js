@@ -59,13 +59,7 @@ const ReviewAndSubmit = () => {
 
   return (
     <>
-      <header>
-        <h3>Step 4 - {title[page]}</h3>
-        <h4>Instructions</h4>
-        <p>Review the information below. Once finished, click 'Submit' </p>
-        <p>
-          <strong>Note:</strong> only CSV (*.csv) files are supported.
-        </p>
+      <header className="onboarding-header">
         <div className="form-nav-button-container">
           <button
             type="button"
@@ -74,6 +68,11 @@ const ReviewAndSubmit = () => {
           >
             Prev
           </button>
+        </div>
+        <h3>Step 4 - {title[page]}</h3>
+        <div className="onboarding-instructions">
+          <h4>Instructions</h4>
+          <p>Review the information below. Once finished, click 'Submit' </p>
         </div>
       </header>
 
@@ -96,11 +95,17 @@ const ReviewAndSubmit = () => {
           })}
         </ol>
       </div>
-      <div>
-        <button type="submit" onClick={handleSubmit}>
+      <div className='onboarding-submit-button-container'>
+        <button 
+          type="submit"
+          className='onboarding-submit-button' 
+          onClick={handleSubmit}>
           Submit
         </button>
-        <button type="button" onClick={handleAbort}>
+        <button 
+          type="button"
+          className='onboarding-cancel-button' 
+          onClick={handleAbort}>
           Start Over
         </button>
       </div>

@@ -15,17 +15,7 @@ const AlphaRosterUpload = () => {
 
     return (
       <>
-        <header>
-          <h3>Step 3 - {title[page]}</h3>
-          <h4>Instructions</h4>
-          <p>
-            Upload an alpha roster to Squad Deck by dragging and dropping the
-            file onto the field below or clicking on the field and selecting the
-            file to upload.
-          </p>
-          <p>
-            <strong>Note:</strong> only CSV (*.csv) files are supported.
-          </p>
+        <header className='onboarding-header'>
           <div className="form-nav-button-container">
             <button
               type="button"
@@ -41,6 +31,20 @@ const AlphaRosterUpload = () => {
             >
               Next
             </button>
+          </div>
+          <h3>Step 3 - {title[page]}</h3>
+          <div className="onboarding-instructions">
+            <h4>Instructions</h4>
+            <p>
+              Upload an alpha roster to Squad Deck by dragging and dropping the
+              file onto the field below or clicking on the field and selecting the
+              file to upload.
+            </p>
+            <p>
+              <strong>Note:</strong> only CSV (*.csv) files are supported.
+            </p>
+          </div>
+          <div className="form-nav-button-container">
           </div>
         </header>
         <Dropzone />

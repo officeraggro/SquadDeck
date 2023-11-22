@@ -40,12 +40,7 @@ const NewWorkCentersForm = ({ units }) => {
 
   return (
     <div>
-      <header>
-        <h3>Step 2 - Enter {title[page]}</h3>
-        <h4>Instructions</h4>
-        <p>Use the form below to enter information about <strong>{unitForm.unit_abbr}</strong> workcenters</p>
-        <p>Add each work center by filling out the relevant fields. When finished with a workstation, click "Add Work Center" to submit.</p>
-        <p>When you are finished adding workcenters, click the "Next" button.</p>
+      <header className="onboarding-header">
         <div className="form-nav-button-container">
           <button
             type="button"
@@ -62,22 +57,38 @@ const NewWorkCentersForm = ({ units }) => {
             Next
           </button>
         </div>
+        <h3>Step 2 - Enter {title[page]}</h3>
+        <div className="onboarding-instructions">
+          <h4>Instructions</h4>
+          <p>
+            Use the form below to enter information about{" "}
+            <strong>{unitForm.unit_abbr}</strong> workcenters
+            <br /><br />
+            Add each work center by filling out the relevant fields. When finished
+            with a workstation, click "Add Work Center" to submit.
+            <br /><br/>
+            When you are finished adding workcenters, click the "Next" button.
+          </p>
+        </div>
       </header>
 
-      {shopForm.length
-        && (
-          <>
-            <div>
-              <h5>{units.unit_abbr} workcenters added:</h5>
-              <ul>
-                {shopForm.map((elem, indx) => {
-                  return <li key={indx * 9}>NAME: {elem.workcenter_name} ABBR: {elem.workcenter_abbr} PARENT: {elem.workcenter_parent}</li>
-                })}
-              </ul>
-            </div>
-          </>
-        )
-      }
+      {shopForm.length && (
+        <>
+          <div>
+            <h5>{units.unit_abbr} workcenters added:</h5>
+            <ul>
+              {shopForm.map((elem, indx) => {
+                return (
+                  <li key={indx * 9}>
+                    NAME: {elem.workcenter_name} ABBR: {elem.workcenter_abbr}{" "}
+                    PARENT: {elem.workcenter_parent}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </>
+      )}
 
       <form onSubmit={(e) => handleShopSubmit}>
         <div>
@@ -88,6 +99,7 @@ const NewWorkCentersForm = ({ units }) => {
             placeholder="Enter Work Center Name"
             id="workcenter_name"
             name="workcenter_name"
+            className="onboarding-input"
             required
             onChange={handleWorkCenterFormChange}
           />
@@ -100,6 +112,7 @@ const NewWorkCentersForm = ({ units }) => {
             placeholder="Enter Workcenter Parent"
             id="workcenter_parent"
             name="workcenter_parent"
+            className="onboarding-input"
             required
             onChange={handleWorkCenterFormChange}
           />
@@ -112,6 +125,7 @@ const NewWorkCentersForm = ({ units }) => {
             placeholder="Enter Workcenter Abbreviation"
             id="workcenter_abbr"
             name="workcenter_abbr"
+            className="onboarding-input"
             required
             onChange={handleWorkCenterFormChange}
           />
@@ -124,12 +138,16 @@ const NewWorkCentersForm = ({ units }) => {
             placeholder="Enter Workcenter Logo Url"
             id="workcenter_emblem_url"
             name="workcenter_emblem_url"
+            className="onboarding-input"
             onChange={handleWorkCenterFormChange}
           />
           <br />
         </div>
         <div>
-          <button type="reset" onClick={addWorkCenter}>
+          <button 
+            type="reset" 
+            className="add-workcenter-button"
+            onClick={addWorkCenter}>
             Add Work Center
           </button>
         </div>

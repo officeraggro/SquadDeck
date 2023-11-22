@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { OnboardingFormProvider } from "../components/unitOnboarding/onboarding-form-context";
 import UnitOnboardingForm from "../components/unitOnboarding/unit-onboarding-form";
+import '../Styled/onboarding-page.css'
 
 const UnitOnboardingPage = () => {
   const [units, setUnits] = useState();
@@ -18,12 +19,16 @@ const UnitOnboardingPage = () => {
 
   return (
     <>
-      <header>
-        <h1>New Unit Onboarding</h1>
-      </header>
-      <OnboardingFormProvider>
-        <UnitOnboardingForm units={units} />
-      </OnboardingFormProvider>
+      <div className='onboarding-main'>
+        <div className='onboarding-grid-container'>
+          <header onboarding-header>
+            <h1>New Unit Onboarding</h1>
+          </header>
+          <OnboardingFormProvider>
+              <UnitOnboardingForm units={units} />
+          </OnboardingFormProvider>
+        </div>
+      </div>
     </>
   );
 };

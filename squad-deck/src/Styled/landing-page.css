@@ -24,7 +24,7 @@
   text-align: center;
   position: absolute;
   font-size: 78pt;
-  font-family: "Black Ops One";
+  font-family:"Black Ops One";
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -44,7 +44,7 @@
   background-color: rgb(120, 120, 134);
   border: 2px solid rgb(120, 120, 134);
   color: white;
-  font-family: 'Roboto';
+  font-family: Roboto;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -54,7 +54,7 @@
 }
 
 .login-button:hover, .signup-button:hover {
-    background-color: rgb(117, 117, 175);
+    background-color: #41669d;
     color: white;
     border: 2px solid rgb(120, 120, 134);
 }

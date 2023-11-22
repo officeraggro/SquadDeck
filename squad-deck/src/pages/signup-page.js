@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../Styled/signup-page.css'
 
 const SignupPage = () => {
@@ -224,6 +224,9 @@ const SignupPage = () => {
               <button type="reset" className="cancel-button">
                 Cancel
               </button>
+            </div>
+            <div className='onboarding-prompt'>
+              <p>Don't see your unit listed? <Link to='/onboarding'>New Unit Onboarding</Link></p>
             </div>
             <div className="signup-footer">
               <p>Already signed up? </p>
