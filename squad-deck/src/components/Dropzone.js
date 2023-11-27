@@ -4,173 +4,155 @@ import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 import Papa from "papaparse";
 import { RosterUploadContext } from "./roster-upload-context";
-
-const Dropbox = styled.div`
-  background-color: grey;
-  border-radius: 10px;
-  height: 100px;
-  width: 200px;
-  display: flex;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-`;
-const DropboxMessage = styled.div`
-  margin-left: 200px;
-`;
-
-const UserBox = styled.tr`
-  border: solid 1px #000;
-  border-radius: 5px;
-  padding: 10px;
-`;
+import "../Styled/dropzone-page.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const Dropzone = () => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [data, setData] = useState([]);
-  const { sdUser } = useContext(SdUserContext);
-  const { setRosterUpload } = useContext(RosterUploadContext);
+	const [selectedFiles, setSelectedFiles] = useState([]);
+	const [data, setData] = useState([]);
+	const { sdUser } = useContext(SdUserContext);
+	const { setRosterUpload } = useContext(RosterUploadContext);
 
-  // edit alpha roster database after dropping
-  useEffect(() => {
-    const postRoster = async () => {
-      if (data.length) {
-        await fetch(
-          `http://localhost:8080/units/${sdUser[0].user_unit_id}/roster`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          }
-          );
-        }
-      };
-      postRoster();
-      setRosterUpload(true);
-  }, [data]);
+	// edit alpha roster database after dropping
+	useEffect(() => {
+		const postRoster = async () => {
+			if (data.length) {
+				await fetch(
+					`http://localhost:8080/units/${sdUser[0].user_unit_id}/roster`,
+					{
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(data),
+					}
+				);
+			}
+		};
+		postRoster();
+		setRosterUpload(true);
+	}, [data]);
 
-  // process file data each time it uploads
-  useEffect(() => {
-    if (selectedFiles.length > 0) {
-      handleFileUpload();
+	// process file data each time it uploads
+	useEffect(() => {
+		if (selectedFiles.length > 0) {
+			handleFileUpload();
+		}
+	}, [selectedFiles]);
 
-    }
-  }, [selectedFiles]);
+	// after dropping, set file and handle file data
+	const onDrop = useCallback((acceptedFiles) => {
+		// do something w/ files
+		setSelectedFiles(
+			acceptedFiles.map((file) =>
+				Object.assign(file, {
+					preview: URL.createObjectURL(file),
+				})
+			)
+		);
+	}, []);
 
-  // after dropping, set file and handle file data
-  const onDrop = useCallback((acceptedFiles) => {
-    // do something w/ files
-    setSelectedFiles(
-      acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      )
-    );
+	const handleFileUpload = () => {
+		const file = selectedFiles[0];
+		Papa.parse(file, {
+			header: true,
+			skipEmptyLines: true,
+			complete: (results) => {
+				// console.log("These are the results: " + results.data);
+				const originalData = results.data.map((user) => {
+					// console.log(user);
+					for (const key in user) {
+						if (isSSN(user[key])) {
+							user[key] = "[Invalid value]";
+						}
+					}
+					return user;
+				});
+				setData(originalData);
+			},
+		});
+	};
 
-  }, []);
+	// check for SSN values
+	const isSSN = (number) => {
+		const ssnPattern = /^\d{3}(?:[-]\d{2})(?:[-]\d{4})?$/;
+		return ssnPattern.test(number);
+	};
 
-  const handleFileUpload = () => {
-    const file = selectedFiles[0];
-    Papa.parse(file, {
-      header: true,
-      skipEmptyLines: true,
-      complete: (results) => {
-        // console.log("These are the results: " + results.data);
-        const originalData = results.data.map((user) => {
-          // console.log(user);
-          for (const key in user) {
-            if (isSSN(user[key])) {
-              user[key] = "[Invalid value]";
-            }
-          }
-          return user;
-        });
-        setData(originalData);
+	// from dropzone pkg
+	const {
+		acceptedFiles,
+		fileRejections,
+		getRootProps,
+		getInputProps,
+		isDragActive,
+	} = useDropzone({
+		onDrop,
+		accept: { "text/csv": [".csv"] },
+	});
 
-      },
-    });
-  };
+	const acceptedFileItems = acceptedFiles.map((file) => (
+		<ul key={file.path}>
+			{file.path} &#x28;{file.size} bytes&#41;
+		</ul>
+	));
 
-  // check for SSN values
-  const isSSN = (number) => {
-    const ssnPattern = /^\d{3}(?:[-]\d{2})(?:[-]\d{4})?$/;
-    return ssnPattern.test(number);
-  };
+	const fileRejectionItems = fileRejections.map(({ file, errors }) => (
+		<ul key={file.path}>
+			{file.path} &#x28;{file.size} bytes&#41;
+			<ul>
+				{errors.map((e) => (
+					<ul key={e.code}>{e.message}</ul>
+				))}
+			</ul>
+		</ul>
+	));
 
-  // from dropzone pkg
-  const {
-    acceptedFiles,
-    fileRejections,
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
-    onDrop,
-    accept: { "text/csv": [".csv"] },
-  });
-
-  const acceptedFileItems = acceptedFiles.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
-
-  const fileRejectionItems = fileRejections.map(({ file, errors }) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-      <ul>
-        {errors.map((e) => (
-          <li key={e.code}>{e.message}</li>
-        ))}
-      </ul>
-    </li>
-  ));
-
-  return (
-    <div>
-      <Dropbox {...getRootProps()}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop files here</p>
-        ) : (
-          <p>Drag n' drop files here, or click to select files</p>
-        )}
-      </Dropbox>
-      <DropboxMessage>
-        <h4>Accepted files</h4>
-        <ul>{acceptedFileItems}</ul>
-        <h4>Rejected files</h4>
-        <ul>{fileRejectionItems}</ul>
-        {data.length ? (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>SSAN</th>
-                <th>Grade</th>
-                <th>PAS</th>
-                <th>Office Symbol</th>
-                <th>Duty Phone</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((row, index) => (
-                <UserBox key={index}>
-                  <td>{row.FULL_NAME}</td>
-                  <td>{row.SSAN}</td>
-                  <td>{row.GRADE}</td>
-                  <td>{row.ASSIGNED_PAS_CLEARTEXT}</td>
-                  <td>{row.OFFICE_SYMBOL}</td>
-                  <td>{row.DUTY_PHONE}</td>
-                </UserBox>
-              ))}
-            </tbody>
-          </table>
-        ) : null}
-      </DropboxMessage>
-    </div>
-  );
+	return (
+		<div className="dropContainer">
+			<h2>Upload Alpha Roster</h2>
+			<div className="dropbox" {...getRootProps()}>
+				<FontAwesomeIcon icon={faCloudArrowUp} size={"3x"} color="white" />
+				<input {...getInputProps()} />
+				{isDragActive ? (
+					<div>Drop files here</div>
+				) : (
+					<div>Select a .csv file or drag here</div>
+				)}
+			</div>
+			<div className="dropboxMessage">
+				<table id="file_status">
+					<tr>
+						<th>Accepted</th>
+						<th>Rejected</th>
+					</tr>
+					<tr>
+						<td>{acceptedFileItems}</td>
+						<td>{fileRejectionItems}</td>
+					</tr>
+				</table>
+				{data.length ? (
+					<table id="dropzone">
+						<tr>
+							<th>Name</th>
+							<th>Grade</th>
+							<th>PAS</th>
+							<th>Office Symbol</th>
+							<th>Duty Phone</th>
+						</tr>
+						{data.map((row, index) => (
+							<tr key={index}>
+								<td>{row.FULL_NAME}</td>
+								<td>{row.GRADE}</td>
+								<td>{row.ASSIGNED_PAS_CLEARTEXT}</td>
+								<td>{row.OFFICE_SYMBOL}</td>
+								<td>{row.DUTY_PHONE}</td>
+							</tr>
+						))}
+					</table>
+				) : null}
+			</div>
+		</div>
+	);
 };
 
 export default Dropzone;

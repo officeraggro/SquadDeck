@@ -8,8 +8,6 @@ const UploadPage = () => {
 	return  (
 		<>
 			<PageLayout>
-				<h2>Upload Alpha Roster:</h2>
-				<h5>(.cvs only)</h5>
 				<Dropzone />
 			</PageLayout>
 		</>

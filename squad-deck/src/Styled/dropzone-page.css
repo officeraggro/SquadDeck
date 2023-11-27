@@ -1,0 +1,86 @@
+.dropContainer {
+  text-align: center;
+  height: 100%;
+  padding: 0 2rem;
+}
+.dropbox {
+  background-color: lightblue;
+  border-radius: 10px;
+  height: 200px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.dropboxMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.userBox {
+  border: solid 1px #000;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#file_status {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+#file_status th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: lightseagreen;
+  color: white;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 50%;
+}
+
+#file_status td, #file_status th {
+  border: 1px solid #ddd;
+}
+
+#file_status td {
+  text-align: start;
+}
+
+#file_status tr:nth-child(even){background-color: #f2f2f2;}
+
+#file_status tr:hover {background-color: #ddd;}
+
+#dropzone {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+#dropzone th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#dropzone td, #dropzone th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#dropzone tr:nth-child(even){background-color: #f2f2f2;}
+
+#dropzone tr:hover {background-color: #ddd;}
