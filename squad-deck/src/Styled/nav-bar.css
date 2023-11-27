@@ -22,6 +22,16 @@
     left: 0;
 }
 
+.top-nav-middle {
+    display: flex;
+    align-items: start;
+    flex: 1;
+    top: 0;
+    position: absolute;
+    left: 80px;
+    z-index: -999;
+}
+
 .top-nav-right {
     flex: 1;
     display: flex;

@@ -5,7 +5,14 @@ import { SdUserContext } from "../sd-user-context";
 import "../../Styled/nav-bar.css";
 import styled from "styled-components";
 import { Layout, Menu, Button, theme } from "antd";
-import { HomeOutlined, BarsOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import {
+	HomeOutlined,
+	BarsOutlined,
+	MenuFoldOutlined,
+	MenuUnfoldOutlined,
+	LogoutOutlined,
+	SettingOutlined,
+} from "@ant-design/icons";
 
 const { Header, Sider } = Layout;
 
@@ -35,8 +42,8 @@ const HamburgerMenu = () => {
 									returnTo: "http://localhost:3001/",
 								},
 							});
-						} else if (key === 'menu' || key === 'toggle') {
-							console.log('Menu clicked!')
+						} else if (key === "menu" || key === "toggle") {
+							console.log("Menu clicked!");
 						} else {
 							navigate(key);
 						}
@@ -55,9 +62,9 @@ const HamburgerMenu = () => {
 					<Menu.SubMenu key="menu" icon={<BarsOutlined />} title="Menu">
 						<Menu.Item key="/org">Org Chart</Menu.Item>
 						<Menu.Item key="/upload">Upload Roster</Menu.Item>
-						<Menu.Item key="signout">Sign Out</Menu.Item>
-						<Menu.Item key="/settings">Settings</Menu.Item>
 					</Menu.SubMenu>
+					<Menu.Item key="signout" icon={<LogoutOutlined />}>Sign Out</Menu.Item>
+					<Menu.Item key="/settings" icon={<SettingOutlined />}>Settings</Menu.Item>
 				</Menu>
 			</Sider>
 		</Layout>
