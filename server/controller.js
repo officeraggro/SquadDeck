@@ -67,6 +67,14 @@ const createNewWorkCenters = (workcenters) => {
   return knex("workcenters").insert([workcenters]);
 };
 
+const getRosterByUnitId = (unit_id) => {
+ return knex('alpha_roster AS ar')
+        .select('ar.*')
+        .join('units_alpha_roster AS uar', 'uar.alpha_roster_id', '=', 'ar.id')
+        .where('uar.unit_id', '=', unit_id)
+        .orderBy('ar.id', 'desc')
+}
+
 module.exports = {
   getFullRoster,
   getPersonnelDetails,
@@ -78,4 +86,5 @@ module.exports = {
   updatePersonnelDetails,
   createNewUnit,
   createNewWorkCenters,
+  getRosterByUnitId,
 };
