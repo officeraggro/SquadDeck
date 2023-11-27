@@ -10,6 +10,8 @@ import {
 	BarsOutlined,
 	MenuFoldOutlined,
 	MenuUnfoldOutlined,
+	LogoutOutlined,
+	SettingOutlined,
 } from "@ant-design/icons";
 
 const { Header, Sider } = Layout;
@@ -61,8 +63,8 @@ const HamburgerMenu = () => {
 						<Menu.Item key="/org">Org Chart</Menu.Item>
 						<Menu.Item key="/upload">Upload Roster</Menu.Item>
 					</Menu.SubMenu>
-					<Menu.Item key="signout">Sign Out</Menu.Item>
-					<Menu.Item key="/settings">Settings</Menu.Item>
+					<Menu.Item key="signout" icon={<LogoutOutlined />}>Sign Out</Menu.Item>
+					<Menu.Item key="/settings" icon={<SettingOutlined />}>Settings</Menu.Item>
 				</Menu>
 			</Sider>
 		</Layout>

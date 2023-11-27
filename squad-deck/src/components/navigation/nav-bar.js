@@ -13,6 +13,8 @@ const NavBar = () => {
 			<div className="top-nav-bar">
 				<div className="top-nav-left">
 					{isAuthenticated && <HamburgerMenu />}
+				</div>
+				<div className="top-nav-middle">
 					<h1 className="title">SquadDeck</h1>
 				</div>
 				<div className="top-nav-right">
