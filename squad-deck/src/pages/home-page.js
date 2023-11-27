@@ -39,8 +39,6 @@ const HomePage = () => {
   const isChecked = useRef(true);
   const date = new Date();
 
-  const [searchTerm, setSearchTerm] = useState("");
-
   // Fetch additional logged in user details from db to get user unit id
   useEffect(() => {
     if (isAuthenticated && sdUser.length === 0) {

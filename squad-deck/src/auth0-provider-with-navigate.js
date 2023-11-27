@@ -18,19 +18,19 @@ const Auth0ProviderWithNavigate = ({ children }) => {
     }
 
     return (
-        <Auth0Provider
-            domain={domain}
-            clientId={clientId}
-            authorizationParams={{
-                redirect_uri: redirectUri,
-            }}
-            onRedirectCallback={onRedirectCallback}
-            useRefreshTokens={ true }
-            cacheLocation='memory'
-        >
-            {children}
-        </Auth0Provider>
-    )
+      <Auth0Provider
+        domain={domain}
+        clientId={clientId}
+        authorizationParams={{
+          redirect_uri: redirectUri,
+        }}
+        onRedirectCallback={onRedirectCallback}
+        useRefreshTokens={true}
+        cacheLocation="localstorage"
+      >
+        {children}
+      </Auth0Provider>
+    );
 }
 
 export default Auth0ProviderWithNavigate
