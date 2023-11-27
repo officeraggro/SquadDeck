@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import {  v4 } from 'uuid'
+import { v4 } from "uuid";
 import Flippy, { FrontSide, BackSide } from "react-flippy";
 import PageLayout from "../components/page-layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,7 +27,7 @@ const HomePage = () => {
   const { searchData, setSearchData } = useContext(SearchContext);
   const { sdUser, setSdUser } = useContext(SdUserContext);
   const { data, setData } = useContext(SearchContext);
-  const { rosterUpload } = useContext(RosterUploadContext);
+  const { rosterUpload, setRosterUpload } = useContext(RosterUploadContext);
   const cardRef = useRef();
   const [editMode, setEditMode] = useState(false);
   const [update, setUpdate] = useState({});
@@ -71,7 +71,15 @@ const HomePage = () => {
     } else {
       isMounted.current = true;
     }
-  }, [sdUser, submitted, rosterUpload]);
+  }, [sdUser, submitted]);
+
+  // If a new alpha roster was uploaded on the alpha roster upload page, toggle submitted to re-fetch card data
+  useEffect(() => {
+    if (rosterUpload === true) {
+      setSubmitted(!submitted);
+      setRosterUpload(false);
+    }
+  }, []);
 
   // Set card to write mode
   const handleEditModeClick = (e, elem) => {
@@ -119,7 +127,10 @@ const HomePage = () => {
   // Upload new personal image
   const uploadImage = async (e, el) => {
     if (imageUpload === null) return;
-    const imageRef = ref(storage, `squad-deck/card/portraits/$${v4()}-${imageUpload.name}`);
+    const imageRef = ref(
+      storage,
+      `squad-deck/card/portraits/$${v4()}-${imageUpload.name}`
+    );
 
     const response = await uploadBytes(imageRef, imageUpload);
     const url = await getDownloadURL(imageRef);
@@ -130,15 +141,18 @@ const HomePage = () => {
     };
 
     const writeUrlToDb = async () => {
-      const response = await fetch(`http://localhost:8080/units/${sdUser[0].user_unit_id}/roster/${el.id}`, {
-        method: "PATCH",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(uploadObj),
-      });
-      window.alert('New profile picture uploaded successfully')
+      const response = await fetch(
+        `http://localhost:8080/units/${sdUser[0].user_unit_id}/roster/${el.id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(uploadObj),
+        }
+      );
+      window.alert("New profile picture uploaded successfully");
     };
     writeUrlToDb();
-    setImageUpload(null)
+    setImageUpload(null);
   };
 
   const displayDependents = (num) => {
@@ -164,6 +178,8 @@ const HomePage = () => {
   //     isHidden.current = true
   //   }
   // }
+
+  // console.log(rosterUpload)
 
   return (
     <>

@@ -29,7 +29,7 @@ const Dropzone = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [data, setData] = useState([]);
   const { sdUser } = useContext(SdUserContext);
-  const { rosterUpload, setRosterUpload } = useContext(RosterUploadContext)
+  const { setRosterUpload } = useContext(RosterUploadContext);
 
   // edit alpha roster database after dropping
   useEffect(() => {
@@ -42,17 +42,18 @@ const Dropzone = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           }
-        );
-		setRosterUpload(!rosterUpload)
-      }
-    };
-    postRoster();
+          );
+        }
+      };
+      postRoster();
+      setRosterUpload(true);
   }, [data]);
 
   // process file data each time it uploads
   useEffect(() => {
     if (selectedFiles.length > 0) {
       handleFileUpload();
+
     }
   }, [selectedFiles]);
 
@@ -66,6 +67,7 @@ const Dropzone = () => {
         })
       )
     );
+
   }, []);
 
   const handleFileUpload = () => {
@@ -74,9 +76,9 @@ const Dropzone = () => {
       header: true,
       skipEmptyLines: true,
       complete: (results) => {
-        console.log("These are the results: " + results.data);
+        // console.log("These are the results: " + results.data);
         const originalData = results.data.map((user) => {
-          console.log(user);
+          // console.log(user);
           for (const key in user) {
             if (isSSN(user[key])) {
               user[key] = "[Invalid value]";
@@ -84,8 +86,8 @@ const Dropzone = () => {
           }
           return user;
         });
-
         setData(originalData);
+
       },
     });
   };
