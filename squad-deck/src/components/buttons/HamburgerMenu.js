@@ -37,6 +37,7 @@ const HamburgerMenu = () => {
 					onClick={({ key }) => {
 						if (key === "signout") {
 							setSdUser([]);
+							localStorage.clear()
 							logout({
 								logoutParams: {
 									returnTo: "http://localhost:3001/",

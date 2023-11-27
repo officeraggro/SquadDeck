@@ -11,7 +11,7 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     localStorage.setItem('searchTerm', JSON.stringify(searchTerm))
-    const searchTermLower = searchTerm.toLowerCase();
+    const searchTermLower = searchTerm?.toLowerCase();
     const searchResults = data.alpha_roster.filter((item) =>
       Object.values(item).some(
         (val) =>
@@ -24,7 +24,7 @@ const SearchBar = () => {
 
   const handleSearchWithUpdate = () => {
     const search = JSON.parse(localStorage.getItem('searchTerm'))
-    const searchTermLower = search.toLowerCase();
+    const searchTermLower = search?.toLowerCase();
     const searchResults = data.alpha_roster.filter((item) =>
       Object.values(item).some(
         (val) =>
