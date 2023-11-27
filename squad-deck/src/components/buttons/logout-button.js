@@ -8,6 +8,7 @@ const LogoutButton = () => {
 
   const handleLogout = () => {
     setSdUser([])
+    localStorage.clear()
     logout({
       logoutParams: {
         returnTo: 'http://localhost:3001/',

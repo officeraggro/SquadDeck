@@ -6,6 +6,7 @@ import LandingPage from "./pages/landing-page";
 import HomePage from "./pages/home-page";
 import MissingPage from "./pages/missing-page";
 import SignupPage from "./pages/signup-page";
+import UserProfile from "./pages/profile-page";
 import CallbackPage from "./pages/callback-page";
 import AuthenticationGuard from "./components/authentication-guard";
 import { SdUserContext } from "./components/sd-user-context";
@@ -21,6 +22,7 @@ const App = () => {
   const [searchData, setSearchData] = useState([])
   const [rosterUpload, setRosterUpload] = useState(false)
   const [data, setData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("")
   const { isLoading } = useAuth0();
 
 
@@ -39,19 +41,19 @@ const App = () => {
   return (
     <>
       <SdUserContext.Provider value={{ sdUser, setSdUser }}>
-        <SearchContext.Provider value={{ data, setData, searchData, setSearchData }}>
+        <SearchContext.Provider value={{ data, setData, searchTerm, setSearchTerm, searchData, setSearchData }}>
           <RosterUploadContext.Provider value={{ rosterUpload, setRosterUpload }}>
             <Routes>
               {/* public */}
               <Route path="/" element={<LandingPage />} />
               <Route path="/signup" element={<SignupPage />} />
               <Route path="/onboarding" element={<UnitOnboardingPage />} />
-              <Route path="/img-upload" element={<ImageUploadTest />} />
 
             {/* private */}
             <Route path="/home" element={<HomePage />} />
             <Route path="/org" element={<AuthenticationGuard component={OrgChartPage} />} />
             <Route path="/upload" element={<AuthenticationGuard component={UploadPage} />}/>
+            <Route path="/profile" element={<AuthenticationGuard component={UserProfile} />} />
 
               {/* catch-all */}
               <Route path="/callback" element={<CallbackPage />} />
