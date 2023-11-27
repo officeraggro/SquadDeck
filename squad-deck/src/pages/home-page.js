@@ -8,10 +8,11 @@ import PageLayout from "../components/page-layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPen,
-  faPencil,
+  // faPencil,
   faCheck,
   faUser,
   faUpload,
+  // faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { SdUserContext } from "../components/sd-user-context";
 import SearchContext from "../components/SearchContext";
@@ -24,7 +25,7 @@ import { RosterUploadContext } from "../components/roster-upload-context";
 
 const HomePage = () => {
   const [imageUpload, setImageUpload] = useState(null);
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { searchData, setSearchData } = useContext(SearchContext);
   const { sdUser, setSdUser } = useContext(SdUserContext);
   const { data, setData } = useContext(SearchContext);
@@ -37,6 +38,8 @@ const HomePage = () => {
   const isMounted = useRef(false);
   const isChecked = useRef(true);
   const date = new Date();
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Fetch additional logged in user details from db to get user unit id
   useEffect(() => {
@@ -64,15 +67,15 @@ const HomePage = () => {
           const response = await fetch(
             `http://localhost:8080/units/${sdUser[0].user_unit_id}/roster`
           );
-          const data = await response.json();
-          setData(data);
+          const results = await response.json();
+          setData(results);
         };
         fetchAlphaRoster();
       }
     } else {
       isMounted.current = true;
     }
-  }, [sdUser, submitted, searchData]);
+  }, [sdUser, submitted]);
 
   // If a new alpha roster was uploaded on the alpha roster upload page, toggle submitted to re-fetch card data
   useEffect(() => {

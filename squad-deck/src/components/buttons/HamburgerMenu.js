@@ -62,6 +62,7 @@ const HamburgerMenu = () => {
 					<Menu.SubMenu key="menu" icon={<BarsOutlined />} title="Menu">
 						<Menu.Item key="/org">Org Chart</Menu.Item>
 						<Menu.Item key="/upload">Upload Roster</Menu.Item>
+						<Menu.Item key="/profile">Profile</Menu.Item>
 					</Menu.SubMenu>
 					<Menu.Item key="signout" icon={<LogoutOutlined />}>Sign Out</Menu.Item>
 					<Menu.Item key="/settings" icon={<SettingOutlined />}>Settings</Menu.Item>
