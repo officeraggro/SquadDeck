@@ -11,15 +11,16 @@ const UnitOnboardingForm = ({ units }) => {
     const display = {
         0: <NewUnitForm />,
         1: <NewWorkCentersForm units={ units } />,
-        2: <AlphaRosterUpload />,
-        3: <ReviewAndSubmit />
+        2: <ReviewAndSubmit />
     }
     
     return (
-        <div className='onboarding-form-container'>
+      <>
+        <div className="onboarding-form-container">
             {display[page]}
         </div>
-    )
+      </>
+    );
 }
 
 export default UnitOnboardingForm

@@ -12,12 +12,14 @@ import { SdUserContext } from "./components/sd-user-context";
 import OrgChartPage from "./pages/org-chart-page";
 import UnitOnboardingPage from "./pages/unit-onboarding-page";
 import SearchContext from "./components/SearchContext";
+import { RosterUploadContext } from "./components/roster-upload-context";
 import ImageUploadTest from "./pages/image-upload-test";
 import UploadPage from "./pages/upload-page";
 
 const App = () => {
-  const [sdUser, setSdUser] = useState({});
+  const [sdUser, setSdUser] = useState([]);
   const [searchData, setSearchData] = useState([])
+  const [rosterUpload, setRosterUpload] = useState(false)
   const [data, setData] = useState([]);
   const { isLoading } = useAuth0();
 
@@ -38,22 +40,24 @@ const App = () => {
     <>
       <SdUserContext.Provider value={{ sdUser, setSdUser }}>
         <SearchContext.Provider value={{ data, setData, searchData, setSearchData }}>
-          <Routes>
-            {/* public */}
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/onboarding" element={<UnitOnboardingPage />} />
-            <Route path="/img-upload" element={<ImageUploadTest />} />
+          <RosterUploadContext.Provider value={{ rosterUpload, setRosterUpload }}>
+            <Routes>
+              {/* public */}
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/onboarding" element={<UnitOnboardingPage />} />
+              <Route path="/img-upload" element={<ImageUploadTest />} />
 
-					{/* private */}
-					<Route path="/home" element={<HomePage />} />
-					<Route path="/org" element={<AuthenticationGuard component={OrgChartPage} />} />
-					<Route path="/upload" element={<AuthenticationGuard component={UploadPage} />}/>
+            {/* private */}
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/org" element={<AuthenticationGuard component={OrgChartPage} />} />
+            <Route path="/upload" element={<AuthenticationGuard component={UploadPage} />}/>
 
-            {/* catch-all */}
-            <Route path="/callback" element={<CallbackPage />} />
-            <Route path="/*" element={<MissingPage />} />
-          </Routes>
+              {/* catch-all */}
+              <Route path="/callback" element={<CallbackPage />} />
+              <Route path="/*" element={<MissingPage />} />
+            </Routes>
+          </RosterUploadContext.Provider>
         </SearchContext.Provider>
       </SdUserContext.Provider>
     </>

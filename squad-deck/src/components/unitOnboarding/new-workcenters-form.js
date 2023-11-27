@@ -40,7 +40,6 @@ const NewWorkCentersForm = ({ units }) => {
 
   return (
     <div>
-      <header className="onboarding-header">
         <div className="form-nav-button-container">
           <button
             type="button"
@@ -70,17 +69,18 @@ const NewWorkCentersForm = ({ units }) => {
             When you are finished adding workcenters, click the "Next" button.
           </p>
         </div>
-      </header>
 
-      {shopForm.length && (
+      {shopForm.length
+      ? (
         <>
-          <div>
+          <div className="workcenters-added">
             <h5>{units.unit_abbr} workcenters added:</h5>
-            <ul>
+            <ul className="workcenters-list">
               {shopForm.map((elem, indx) => {
                 return (
                   <li key={indx * 9}>
-                    NAME: {elem.workcenter_name} ABBR: {elem.workcenter_abbr}{" "}
+                    NAME: {elem.workcenter_name},{" "}
+                    ABBR: {elem.workcenter_abbr}{" "},
                     PARENT: {elem.workcenter_parent}
                   </li>
                 );
@@ -88,11 +88,16 @@ const NewWorkCentersForm = ({ units }) => {
             </ul>
           </div>
         </>
+      )
+      : (
+        <>
+        </>
       )}
 
       <form onSubmit={(e) => handleShopSubmit}>
         <div>
-          <label htmlFor="workcenter_name">Workcenter Name</label>
+          <br />
+          {/* <label htmlFor="workcenter_name">Workcenter Name</label> */}
           <input
             autoFocus
             type="text"
@@ -106,7 +111,8 @@ const NewWorkCentersForm = ({ units }) => {
           <br />
         </div>
         <div>
-          <label htmlFor="workcenter_parent">Workcenter Parent</label>
+          <br />
+          {/* <label htmlFor="workcenter_parent">Workcenter Parent</label> */}
           <input
             type="text"
             placeholder="Enter Workcenter Parent"
@@ -119,7 +125,8 @@ const NewWorkCentersForm = ({ units }) => {
           <br />
         </div>
         <div>
-          <label htmlFor="workcenter_abbr">Workcenter Abbreviation</label>
+          <br />
+          {/* <label htmlFor="workcenter_abbr">Workcenter Abbreviation</label> */}
           <input
             type="text"
             placeholder="Enter Workcenter Abbreviation"
@@ -131,7 +138,7 @@ const NewWorkCentersForm = ({ units }) => {
           />
           <br />
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="workcenter_emblem_url">Workcenter Logo</label>
           <input
             type="text"
@@ -142,7 +149,7 @@ const NewWorkCentersForm = ({ units }) => {
             onChange={handleWorkCenterFormChange}
           />
           <br />
-        </div>
+        </div> */}
         <div>
           <button 
             type="reset" 

@@ -1,43 +1,61 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import PageLayout from "../components/page-layout";
 import { useAuth0 } from "@auth0/auth0-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Dropzone from "../components/Dropzone";
+import { storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {  v4 } from 'uuid'
 import Flippy, { FrontSide, BackSide } from "react-flippy";
-import "../Styled/home-page.css";
-import "../Styled/search-bar.css";
-import { Link } from "react-router-dom";
-import Papa from "papaparse";
+import PageLayout from "../components/page-layout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPen,
+  faPencil,
+  faCheck,
+  faUser,
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
 import { SdUserContext } from "../components/sd-user-context";
-import { faPencil, faCheck, faUser } from "@fortawesome/free-solid-svg-icons";
 import SearchContext from "../components/SearchContext";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { gradeEmblemUrl } from "../helpers/grade-emblems";
+import "../Styled/home-page.css";
+import "../Styled/search-bar.css";
+import { RosterUploadContext } from "../components/roster-upload-context";
 
 const HomePage = () => {
+  const [imageUpload, setImageUpload] = useState(null);
   const { user, isAuthenticated } = useAuth0();
   const { searchData, setSearchData } = useContext(SearchContext);
   const { sdUser, setSdUser } = useContext(SdUserContext);
   const { data, setData } = useContext(SearchContext);
-  const ref = useRef();
+  const { rosterUpload } = useContext(RosterUploadContext);
+  const cardRef = useRef();
   const [editMode, setEditMode] = useState(false);
   const [update, setUpdate] = useState({});
+  const [submitted, setSubmitted] = useState(false);
   const clickedCard = useRef();
-  const isSubmitted = useRef(false);
   const isMounted = useRef(false);
   const isChecked = useRef(true);
+  const date = new Date();
 
+  // Fetch additional logged in user details from db to get user unit id
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      const response = await fetch(`http://localhost:8080/users/${user.email}`);
-      if (response.ok) {
-        const data = await response.json();
-        setSdUser(data);
-      }
-    };
-    fetchUserDetails();
+    if (isAuthenticated && sdUser.length === 0) {
+      const fetchUserDetails = async () => {
+        const response = await fetch(`http://localhost:8080/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: user.email }),
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setSdUser(data);
+        }
+      };
+      fetchUserDetails();
+    }
   }, []);
 
+  // Fetch all alpha roster info by user unit id
   useEffect(() => {
     if (isMounted.current) {
       if (sdUser.length) {
@@ -53,14 +71,16 @@ const HomePage = () => {
     } else {
       isMounted.current = true;
     }
-  }, [sdUser, isSubmitted.current]);
+  }, [sdUser, submitted, rosterUpload]);
 
+  // Set card to write mode
   const handleEditModeClick = (e, elem) => {
     e.stopPropagation();
     clickedCard.current = elem;
     setEditMode(true);
   };
 
+  // Write user input to update form
   const handleChange = (e) => {
     setUpdate((prev) => ({
       ...prev,
@@ -68,10 +88,10 @@ const HomePage = () => {
     }));
   };
 
+  // Commit card edits to db and return card to read mode
   const handleSaveClick = (e, el) => {
     setEditMode(false);
     clickedCard.current = null;
-    isSubmitted.current = !isSubmitted.current;
     isChecked.current = true;
 
     const updateObj = {
@@ -89,8 +109,36 @@ const HomePage = () => {
           body: JSON.stringify(updateObj),
         }
       );
+      if (response.ok) {
+        setSubmitted(!submitted);
+      }
     };
     submitUpdates();
+  };
+
+  // Upload new personal image
+  const uploadImage = async (e, el) => {
+    if (imageUpload === null) return;
+    const imageRef = ref(storage, `squad-deck/card/portraits/$${v4()}-${imageUpload.name}`);
+
+    const response = await uploadBytes(imageRef, imageUpload);
+    const url = await getDownloadURL(imageRef);
+
+    const uploadObj = {
+      personal_img: url,
+      alpha_roster_id: el.id,
+    };
+
+    const writeUrlToDb = async () => {
+      const response = await fetch(`http://localhost:8080/units/${sdUser[0].user_unit_id}/roster/${el.id}`, {
+        method: "PATCH",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(uploadObj),
+      });
+      window.alert('New profile picture uploaded successfully')
+    };
+    writeUrlToDb();
+    setImageUpload(null)
   };
 
   const displayDependents = (num) => {
@@ -135,14 +183,15 @@ const HomePage = () => {
           {(searchData?.length > 0 ? searchData : data?.alpha_roster || []).map(
             (el, indx) => {
               return (
-                <div>
+                <div key={indx}>
                   {editMode && clickedCard.current == el ? (
+                    // Card edit mode
                     <Flippy
                       className="FlippyCard"
                       flipOnHover={false}
                       flipOnClick={false}
                       flipDirection="horizontal"
-                      ref={ref}
+                      ref={cardRef}
                       key={indx}
                     >
                       <FrontSide className="FrontSide">
@@ -152,18 +201,22 @@ const HomePage = () => {
                               onChange={handleChange}
                               id="grade"
                               name="grade"
+                              className="card-edit-dropdown"
                             >
                               {Object.keys(gradeEmblemUrl).map((grade) => {
                                 return <option value={grade}>{grade}</option>;
                               })}
                             </select>
-                            <input
-                              type="text"
-                              name="full_name"
-                              id="full_name"
-                              placeholder={el.full_name}
-                              onChange={handleChange}
-                            />
+                            <div className="card-edit-div">
+                              <input
+                                type="text"
+                                name="full_name"
+                                id="full_name"
+                                className="card-edit-input"
+                                placeholder={el.full_name}
+                                onChange={handleChange}
+                              />
+                            </div>
                             <p>{el.doe}</p>
                           </div>
                           <img
@@ -172,9 +225,23 @@ const HomePage = () => {
                             height="100px"
                           />
                           <input
+                            type="file"
+                            onChange={(e) => {
+                              setImageUpload(e.target.files[0]);
+                            }}
+                          />
+                          <button
+                            onClick={(e) => {
+                              uploadImage(e, el);
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faUpload} />
+                          </button>
+                          <input
                             type="text"
                             name="duty_title"
                             id="duty_title"
+                            className="card-edit-input"
                             placeholder={el.duty_title}
                             onChange={handleChange}
                           />
@@ -182,13 +249,14 @@ const HomePage = () => {
                           <img
                             src={el.career_field_img}
                             alt={el.name + "career field"}
-                            height="20px"
+                            className="career-field-emblem"
                           />
                           <label htmlFor="supv_name">Supervisor:</label>
                           <input
                             type="text"
                             name="supv_name"
                             id="supv_name"
+                            className="card-edit-input"
                             placeholder={el.supv_name}
                             onChange={handleChange}
                           />
@@ -198,7 +266,7 @@ const HomePage = () => {
                             height="15px"
                           />
                           <button
-                            className="save-button"
+                            className="edit-save-button"
                             onClick={(e) => handleSaveClick(e, el)}
                             style={{
                               zIndex: "999",
@@ -210,7 +278,7 @@ const HomePage = () => {
                             }}
                           >
                             <FontAwesomeIcon
-                              className="save-button"
+                              className="edit-save-button"
                               icon={faCheck}
                               color="white"
                             />
@@ -245,6 +313,7 @@ const HomePage = () => {
                               type="checkbox"
                               name="spouse_name"
                               id="spouse_name"
+                              className="card-edit-checkbox"
                               value=""
                               checked={isChecked.current}
                               onClick={(e) => (isChecked.current = false)}
@@ -258,6 +327,7 @@ const HomePage = () => {
                               type="checkbox"
                               name="spouse_name"
                               id="spouse_name"
+                              className="card-edit-checkbox"
                               value="Mah Wahf"
                               onChange={handleChange}
                             />
@@ -278,7 +348,6 @@ const HomePage = () => {
                           name="favorite_movie"
                           id="favorite_movie"
                           placeholder={el.favorite_movie}
-                          // value={el.favorite_movie}
                           onChange={handleChange}
                         />
                         <label htmlFor="hobbies">Hobbies</label>
@@ -310,12 +379,13 @@ const HomePage = () => {
                       </BackSide>
                     </Flippy>
                   ) : (
+                    // Card read mode
                     <Flippy
                       className="FlippyCard"
                       flipOnHover={false}
                       flipOnClick={true}
                       flipDirection="horizontal"
-                      ref={ref}
+                      ref={cardRef}
                       key={indx}
                     >
                       <FrontSide className="FrontSide">
@@ -344,6 +414,7 @@ const HomePage = () => {
                             src={el.career_field_img}
                             alt={el.name + "career field"}
                             height="20px"
+                            className="career-field-emblem"
                           />
                           <h4>Supervisor:</h4>
                           <p>{el.supv_name}</p>
@@ -366,7 +437,7 @@ const HomePage = () => {
                           >
                             <FontAwesomeIcon
                               className="edit-button"
-                              icon={faPencil}
+                              icon={faPen}
                               color="white"
                             />
                           </button>
@@ -380,7 +451,7 @@ const HomePage = () => {
                           {el.home_city}, {el.home_state}
                         </p>
                         <h4>Family</h4>
-                        <div className="dependents">
+                        <div className="dependents-container">
                           {el.spouse_name !== "" && (
                             <FontAwesomeIcon
                               icon={faUser}
@@ -415,7 +486,7 @@ const HomePage = () => {
                         >
                           <FontAwesomeIcon
                             className="edit-button"
-                            icon={faPencil}
+                            icon={faPen}
                             color="white"
                           />
                         </button>

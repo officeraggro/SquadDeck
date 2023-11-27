@@ -59,8 +59,7 @@ const ReviewAndSubmit = () => {
 
   return (
     <>
-      <header className="onboarding-header">
-        <div className="form-nav-button-container">
+        <div className="form-nav-button-container-last">
           <button
             type="button"
             className="form-nav-button"
@@ -74,9 +73,8 @@ const ReviewAndSubmit = () => {
           <h4>Instructions</h4>
           <p>Review the information below. Once finished, click 'Submit' </p>
         </div>
-      </header>
 
-      <div>
+      <div className="onboarding-review">
         <h3>Unit Information</h3>
         <p>Unit Name: {unitForm.unit_full_name}</p>
         <p>Unit Abbreviation: {unitForm.unit_abbr}</p>

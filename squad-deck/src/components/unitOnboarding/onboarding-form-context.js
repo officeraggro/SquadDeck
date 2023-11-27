@@ -23,19 +23,21 @@ export const OnboardingFormProvider = ({ children }) => {
   const [shopForm, setShopForm] = useState([]);
 
   return (
-    <OnboardingFormContext.Provider
-      value={{
-        title,
-        page,
-        setPage,
-        unitForm,
-        setUnitForm,
-        shopForm,
-        setShopForm,
-      }}
-    >
-      {children}
-    </OnboardingFormContext.Provider>
+    <>
+      <OnboardingFormContext.Provider
+        value={{
+          title,
+          page,
+          setPage,
+          unitForm,
+          setUnitForm,
+          shopForm,
+          setShopForm,
+        }}
+      >
+        {children}
+      </OnboardingFormContext.Provider>
+    </>
   );
 };
 

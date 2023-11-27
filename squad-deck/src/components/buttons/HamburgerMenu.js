@@ -29,7 +29,7 @@ const HamburgerMenu = () => {
 					className="menu-bar"
 					onClick={({ key }) => {
 						if (key === "signout") {
-							setSdUser({});
+							setSdUser([]);
 							logout({
 								logoutParams: {
 									returnTo: "http://localhost:3001/",

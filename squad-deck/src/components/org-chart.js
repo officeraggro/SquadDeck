@@ -40,9 +40,6 @@ const OrgChart = () => {
 
   return (
     <>
-      <div className="go-home-link">
-        <Link to="/">Back</Link>
-      </div>
       <div className="flow-container">
         <div className="flow-container-item">
           <div style={chartStyle}>

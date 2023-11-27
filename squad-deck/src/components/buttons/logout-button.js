@@ -7,7 +7,7 @@ const LogoutButton = () => {
   const { setSdUser } = useContext(SdUserContext)
 
   const handleLogout = () => {
-    setSdUser({})
+    setSdUser([])
     logout({
       logoutParams: {
         returnTo: 'http://localhost:3001/',

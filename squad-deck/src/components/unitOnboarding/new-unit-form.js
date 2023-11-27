@@ -1,10 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import OnboardingFormContext from "./onboarding-form-context";
 
 const NewUnitForm = () => {
-  const { title, page, setPage, unitForm, setUnitForm } = useContext(
-    OnboardingFormContext
-  );
+  const [existingUnits, setExistingUnits] = useState([])
+  const { 
+    title, 
+    page, 
+    setPage, 
+    unitForm, 
+    setUnitForm } = useContext(OnboardingFormContext);
 
   const handleUnitFormChange = (e) => {
     setUnitForm((prev) => ({
@@ -13,19 +17,37 @@ const NewUnitForm = () => {
     }));
   };
 
-  // const handleNumChange = (e) => {
-  //   setNumShops(e.target.value)
+  const handleNext = () => {
+    // Check if unit already exists. If so, alert user
+    if (checkUnitExists()) {
+      window.alert('Unit already exists')
+    } else {
+      // IF new unit, proceed to next page in form
+      setPage((prev) => prev + 1);
+    }
+  }
+  
+
+  // const handleUnitSubmit = (e) => {
+  //   e.preventDefault();
   // };
 
-  const handleNext = () => setPage((prev) => prev + 1);
+  const checkUnitExists = () => {
+        for (let unit of existingUnits) {
+          if (unit.unit_abbr === unitForm.unit_abbr) {
+            return true
+          }
+        }
+  }
 
-  const handleUnitSubmit = (e) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+    fetch("http://localhost:8080/units")
+      .then(res => res.json())
+      .then(data => setExistingUnits(data))
+  })
 
   return (
     <div>
-      <header className="onboarding-header">
         <div className="form-nav-button-container">
           <button
             type="button"
@@ -43,11 +65,9 @@ const NewUnitForm = () => {
             relevant form fields. When finished, click "Next" to continue.
           </p>
         </div>
-      </header>
-
-      <form onSubmit={handleUnitSubmit}>
+      <form>
         <div>
-          <label htmlFor="unit_full_name">Unit Name</label>
+          {/* <label htmlFor="unit_full_name">Unit Name</label> */}
           <input
             autoFocus
             type="text"
@@ -61,7 +81,8 @@ const NewUnitForm = () => {
           <br />
         </div>
         <div>
-          <label htmlFor="unit_abbr">Abbreviation</label>
+          <br />
+          {/* <label htmlFor="unit_abbr">Abbreviation</label> */}
           <input
             type="text"
             placeholder="Enter Unit Abberviation"
@@ -74,7 +95,8 @@ const NewUnitForm = () => {
           <br />
         </div>
         <div>
-          <label htmlFor="unit_parent">Parent Organization</label>
+          <br />
+          {/* <label htmlFor="unit_parent">Parent Organization</label> */}
           <input
             type="text"
             placeholder="Enter Parent Organization"
@@ -86,7 +108,7 @@ const NewUnitForm = () => {
           />
           <br />
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="unit_emblem_url">Unit Emblem</label>
           <input
             type="text"
@@ -97,9 +119,10 @@ const NewUnitForm = () => {
             onChange={handleUnitFormChange}
           />
           <br />
-        </div>
+        </div> */}
         <div>
-          <label htmlFor="unit_station">Base</label>
+          {/* <label htmlFor="unit_station">Base</label> */}
+          <br />
           <input
             type="text"
             placeholder="Enter Unit Station"
@@ -111,20 +134,6 @@ const NewUnitForm = () => {
           />
           <br />
         </div>
-        {/* <div>
-          <label htmlFor="workcenter_number">Number of Workcenters</label>
-          <input
-            type="number"
-            id="workcenter_number"
-            name="workcenter_number"
-            required
-            onChange={handleNumChange}
-          />
-          <br />
-        </div> */}
-        {/* <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
-        <button type="reset">Cancel</button> */}
       </form>
     </div>
   );

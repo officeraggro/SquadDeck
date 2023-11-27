@@ -21,7 +21,7 @@ const UnitOnboardingPage = () => {
     <>
       <div className='onboarding-main'>
         <div className='onboarding-grid-container'>
-          <header onboarding-header>
+          <header className='onboarding-header'>
             <h1>New Unit Onboarding</h1>
           </header>
           <OnboardingFormProvider>

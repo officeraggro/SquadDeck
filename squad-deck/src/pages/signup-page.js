@@ -8,7 +8,8 @@ const SignupPage = () => {
   const { loginWithRedirect } = useAuth0();
   const [units, setUnits] = useState();
   const [form, setForm] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
     unit: "",
     email: "",
     username: "",
@@ -44,7 +45,6 @@ const SignupPage = () => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    const full_name = form.name.split(" ");
 
     if (form.password === form.passwordRepeat) {
       const userForm = {
@@ -53,9 +53,9 @@ const SignupPage = () => {
         password: form.password,
         connection: process.env.REACT_APP_AUTH0_CONNECTION,
         username: form.username,
-        given_name: full_name[0],
-        family_name: full_name[1],
-        name: form.name,
+        given_name: form.first_name,
+        family_name: form.last_name,
+        name: form.first_name + " " + form.last_name,
         nickname: form.username,
         picture: "https://freesvg.org/img/abstract-user-flat-3.png",
         user_metadata: {},
@@ -70,7 +70,6 @@ const SignupPage = () => {
   };
 
   const createNewAuth0User = async (userObj) => {
-    console.log(userObj)
     const signupUrl =
       "https://" + process.env.REACT_APP_AUTH0_DOMAIN + "/dbconnections/signup";
 
@@ -81,6 +80,7 @@ const SignupPage = () => {
       },
       body: JSON.stringify(userObj),
     });
+
     if (response.ok) {
       const data = await response.json();
       const unit = units.filter((unit) => unit.unit_abbr === form.unit)
@@ -107,7 +107,8 @@ const SignupPage = () => {
       body: JSON.stringify(dbObj),
     });
     if (response.ok) {
-      const data = await response.json();
+      // window.alert('Account creation successful. Log in to continue.')
+      // const data = await response.json();
     }
   };
 
@@ -117,16 +118,31 @@ const SignupPage = () => {
         <div className="signup-form-container">
           <form onSubmit={handleSignUp}>
             <header className="signup-header">Sign Up</header>
+            <div className="signup-form-group">
             <div>
               {/* <label htmlFor="name" className="form-input-label">
-                Name
+                First Name
+              </label> */}
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  id="first_name"
+                  name="first_name"
+                  className="signup-input"
+                  required
+                  onChange={handleChange}
+                />
+            </div>
+            <div>
+              {/* <label htmlFor="name">
+                Last Name
               </label> */}
               <br />
               <input
                 type="text"
-                placeholder="Enter Name"
-                id="name"
-                name="name"
+                placeholder="Last Name"
+                id="last_name"
+                name="last_name"
                 className="signup-input"
                 required
                 onChange={handleChange}
@@ -144,7 +160,7 @@ const SignupPage = () => {
                 name="unit"
                 required
               >
-                <option value="Select unit">Select unit</option>
+                <option value="Select unit" className='signup-units-dropdown-options'>Select unit</option>
                 {units?.map((unit, indx) => (
                   <option value={unit.unit_abbr} key={indx}>
                     {unit.unit_abbr}
@@ -160,7 +176,7 @@ const SignupPage = () => {
               <br />
               <input
                 type="text"
-                placeholder="Enter Username"
+                placeholder="Username"
                 id="username"
                 name="username"
                 className="signup-input"
@@ -176,7 +192,7 @@ const SignupPage = () => {
               <br />
               <input
                 type="text"
-                placeholder="Enter Email"
+                placeholder="Email"
                 id="email"
                 name="email"
                 className="signup-input"
@@ -192,7 +208,7 @@ const SignupPage = () => {
               <br />
               <input
                 type="password"
-                placeholder="Enter Password"
+                placeholder="Password"
                 id="password"
                 name="password"
                 className="signup-input"
@@ -225,12 +241,23 @@ const SignupPage = () => {
                 Cancel
               </button>
             </div>
-            <div className='onboarding-prompt'>
-              <p>Don't see your unit listed? <Link to='/onboarding'>New Unit Onboarding</Link></p>
+            <div className="onboarding-prompt">
+              <p>
+                Don't see your unit listed?{" "}
+                <Link to="/onboarding">New Unit Onboarding</Link>
+              </p>
             </div>
             <div className="signup-footer">
               <p>Already signed up? </p>
-              <button onClick={handleLogin} className="signup-footer-login-button">Log In</button>
+              <button
+                onClick={handleLogin}
+                className="signup-footer-login-button"
+              >
+                Log In
+              </button>
+            </div>
+
+
             </div>
           </form>
         </div>
