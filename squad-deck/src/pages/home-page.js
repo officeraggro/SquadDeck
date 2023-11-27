@@ -498,7 +498,6 @@ const HomePage = () => {
                         {/* <h4>Interesting Fact</h4>
                     <p>{el.interesting_fact}</p> */}
                         <button
-                          className="edit-button"
                           onClick={(e) => handleEditModeClick(e, el)}
                           style={{
                             zIndex: "999",
