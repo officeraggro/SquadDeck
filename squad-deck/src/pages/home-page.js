@@ -17,6 +17,7 @@ import { SdUserContext } from "../components/sd-user-context";
 import SearchContext from "../components/SearchContext";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { gradeEmblemUrl } from "../helpers/grade-emblems";
+import { occupationEmblemUrl } from "../helpers/grade-emblems";
 import "../Styled/home-page.css";
 import "../Styled/search-bar.css";
 import { RosterUploadContext } from "../components/roster-upload-context";
@@ -71,7 +72,7 @@ const HomePage = () => {
     } else {
       isMounted.current = true;
     }
-  }, [sdUser, submitted]);
+  }, [sdUser, submitted, searchData]);
 
   // If a new alpha roster was uploaded on the alpha roster upload page, toggle submitted to re-fetch card data
   useEffect(() => {
@@ -178,8 +179,6 @@ const HomePage = () => {
   //     isHidden.current = true
   //   }
   // }
-
-  // console.log(rosterUpload)
 
   return (
     <>
@@ -322,29 +321,17 @@ const HomePage = () => {
                               value="true"
                               onChange={toggleShowFamily}
                             /> */}
-                        {el.spouse_name !== "" ? (
+                        {el.marital_status === "M" ? (
                           <>
-                            <label htmlFor="spouse_name">Spouse</label>
+                            <label htmlFor="marital_status">Spouse</label>
                             <input
                               type="checkbox"
-                              name="spouse_name"
-                              id="spouse_name"
+                              name="marital_status"
+                              id="marital_status"
                               className="card-edit-checkbox"
-                              value=""
+                              value="D"
                               checked={isChecked.current}
                               onClick={(e) => (isChecked.current = false)}
-                              onChange={handleChange}
-                            />
-                          </>
-                        ) : (
-                          <>
-                            <label htmlFor="spouse_name">Spouse</label>
-                            <input
-                              type="checkbox"
-                              name="spouse_name"
-                              id="spouse_name"
-                              className="card-edit-checkbox"
-                              value="Mah Wahf"
                               onChange={handleChange}
                             />
                             <br />
@@ -354,6 +341,29 @@ const HomePage = () => {
                               name="children_num"
                               id="children_num"
                               min="0"
+                              max="10"
+                              onChange={handleChange}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <label htmlFor="marital_status">Spouse</label>
+                            <input
+                              type="checkbox"
+                              name="marital_status"
+                              id="marital_status"
+                              className="card-edit-checkbox"
+                              value="M"
+                              onChange={handleChange}
+                            />
+                            <br />
+                            <label htmlFor="children_num">Children</label>
+                            <input
+                              type="number"
+                              name="children_num"
+                              id="children_num"
+                              min="0"
+                              max="10"
                               onChange={handleChange}
                             />
                           </>
@@ -427,7 +437,7 @@ const HomePage = () => {
                           <h4>{el.duty_title}</h4>
                           <p>{el.cafsc}</p>
                           <img
-                            src={el.career_field_img}
+                            src={occupationEmblemUrl[el.cafsc.substring(0, 3)]}
                             alt={el.name + "career field"}
                             height="20px"
                             className="career-field-emblem"
@@ -468,7 +478,7 @@ const HomePage = () => {
                         </p>
                         <h4>Family</h4>
                         <div className="dependents-container">
-                          {el.spouse_name !== "" && (
+                          {el.marital_status === "M" && (
                             <FontAwesomeIcon
                               icon={faUser}
                               color={"white"}
