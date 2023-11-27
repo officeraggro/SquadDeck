@@ -15,6 +15,7 @@ const UserProfile = () => {
     <>
       <PageLayout>
         <h1>Profile Page</h1>
+        <p></p>
       </PageLayout>
     </>
   );
