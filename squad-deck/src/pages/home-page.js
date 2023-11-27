@@ -207,8 +207,7 @@ const HomePage = () => {
                       flipOnClick={false}
                       flipDirection="horizontal"
                       ref={cardRef}
-                      key={indx}
-                    >
+                      key={indx}>
                       <FrontSide className="FrontSide">
                         <div className="whole-card">
                           <div className="cdHdr">
@@ -216,8 +215,7 @@ const HomePage = () => {
                               onChange={handleChange}
                               id="grade"
                               name="grade"
-                              className="card-edit-dropdown"
-                            >
+                              className="card-edit-dropdown">
                               {Object.keys(gradeEmblemUrl).map((grade) => {
                                 return <option value={grade}>{grade}</option>;
                               })}
@@ -248,8 +246,7 @@ const HomePage = () => {
                           <button
                             onClick={(e) => {
                               uploadImage(e, el);
-                            }}
-                          >
+                            }}>
                             <FontAwesomeIcon icon={faUpload} />
                           </button>
                           <input
@@ -290,8 +287,7 @@ const HomePage = () => {
                               backgroundRepeat: "no-repeat",
                               cursor: "pointer",
                               overflow: "hidden",
-                            }}
-                          >
+                            }}>
                             <FontAwesomeIcon
                               className="edit-save-button"
                               icon={faCheck}
@@ -394,8 +390,7 @@ const HomePage = () => {
                             backgroundRepeat: "no-repeat",
                             cursor: "pointer",
                             overflow: "hidden",
-                          }}
-                        >
+                          }}>
                           <FontAwesomeIcon
                             className="save-button"
                             icon={faCheck}
@@ -412,8 +407,7 @@ const HomePage = () => {
                       flipOnClick={true}
                       flipDirection="horizontal"
                       ref={cardRef}
-                      key={indx}
-                    >
+                      key={indx}>
                       <FrontSide className="FrontSide">
                         <div className="whole-card">
                           <div className="cdHdr">
@@ -432,8 +426,10 @@ const HomePage = () => {
                           <img
                             src={el.personal_img}
                             alt={el.full_name + "profile picture"}
-                            height="100px"
+                            className="profile-picture"
+                            height="200px"
                           />
+                          <div className="duty-info">
                           <h4>{el.duty_title}</h4>
                           <p>{el.cafsc}</p>
                           <img
@@ -444,13 +440,14 @@ const HomePage = () => {
                           />
                           <h4>Supervisor:</h4>
                           <p>{el.supv_name}</p>
+                          </div>
                           <img
                             src={el.achievement_img}
                             alt={el.full_name + "achievements"}
                             height="15px"
+                            className="achievements-img"
                           />
                           <button
-                            className="edit-button"
                             onClick={(e) => handleEditModeClick(e, el)}
                             style={{
                               zIndex: "999",
@@ -459,8 +456,7 @@ const HomePage = () => {
                               backgroundRepeat: "no-repeat",
                               cursor: "pointer",
                               overflow: "hidden",
-                            }}
-                          >
+                            }}>
                             <FontAwesomeIcon
                               className="edit-button"
                               icon={faPen}
@@ -508,8 +504,7 @@ const HomePage = () => {
                             backgroundRepeat: "no-repeat",
                             cursor: "pointer",
                             overflow: "hidden",
-                          }}
-                        >
+                          }}>
                           <FontAwesomeIcon
                             className="edit-button"
                             icon={faPen}

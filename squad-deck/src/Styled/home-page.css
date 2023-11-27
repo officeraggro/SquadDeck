@@ -1,13 +1,19 @@
 /* Cards */
+html {
+  background-color: #fca311;
+}
+
+
+
 .FlippyCard {
-  width: 20vw;
+  width: 15vw;
   height: 50vh;
-  min-height: 40vh;
-  min-width: 20vw;
+  min-height: 550px;
+  min-width: 350px;
 }
 
 .FrontSide {
-  background-color: #41669d;
+  background-color:#e5e5e5;
   border-radius: 25px;
   padding: 0;
   margin: 0 auto;
@@ -15,7 +21,7 @@
 }
 
 .BackSide {
-  background-color: #41669d;
+  background-image: linear-gradient(white,#007ACC, #FF6B6B);
   border-radius: 25px;
   padding: 0;
   margin: 0 auto;
@@ -36,7 +42,37 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  height: 5pc;
+  color: rgb(10, 4, 4)44, 236, 236);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+.cdHdr img {
+height: 3pc;
+margin: 5px;
+}
+
+.profile-picture {
+  height: 250px;
+  background-color: black;
+  background-size: cover;
+  width: 315px;
+}
+
+.duty-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+
+
+.duty-info h4,
+.duty-info p {
+  margin: 2px 10px;
+  color: rgb(7, 1, 1);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+} 
 
 .unitHdr {
   display: flex;
@@ -44,6 +80,7 @@
   align-items: center;
   gap: 25px;
   justify-content: center;
+  color: white
 }
 
 .dependents-container {
@@ -96,8 +133,23 @@
 }
 
 .career-field-emblem {
-  min-height: 45px;
-  max-height: 45px;
-  background-color: rgb(34, 32, 32);
+  min-height: auto;
+  max-height: auto;
+  background-color: black;
   clip-path: circle();
+  position: absolute;
+  right: 0px;
+  
+}
+
+.achievements-img {
+  position: relative;
+  top: 3vh;
+}
+
+.edit-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  height: 15px;
 }
