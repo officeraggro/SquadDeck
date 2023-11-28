@@ -1,21 +1,13 @@
-import { useContext } from 'react'
-import { useAuth0 } from "@auth0/auth0-react";
-import { SdUserContext } from "../components/sd-user-context";
 import PageLayout from "../components/page-layout";
+import Profile from '../components/user-profile';
+import "../Styled/profile-page.css"
 
 const UserProfile = () => {
-  const { user } = useAuth0();
-  const { sdUser} = useContext(SdUserContext);
-
-  console.log(user)
-  console.log(sdUser)
-
 
   return (
     <>
       <PageLayout>
-        <h1>Profile Page</h1>
-        <p></p>
+        <Profile />
       </PageLayout>
     </>
   );
