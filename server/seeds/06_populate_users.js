@@ -23,7 +23,7 @@ exports.seed = async function(knex) {
       user_profile_img:
         "https://s.gravatar.com/avatar/1c25cd340642e5327bfedb8eb9b96fa0?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fks.png",
       unit_abbr: "NM1234",
-      role: "admin  ",
+      role: "admin",
       user_unit_id: "2",
     },
     {
@@ -55,6 +55,26 @@ exports.seed = async function(knex) {
       unit_abbr: "VQ1234",
       role: "admin",
       user_unit_id: "1",
+    },
+    {
+      email: "fern1982@mail.local",
+      uname: "franstead",
+      user_id: "auth0|656650ff14508dd8f05101f9",
+      user_profile_img:
+        "https://s.gravatar.com/avatar/f20d39e2cc0378d16eed50debd7033ab?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Ffe.png",
+      unit_abbr: "VQ1234",
+      role: "user",
+      user_unit_id: "1",
+    },
+    {
+      email: "dominator1337@mail.local",
+      uname: "fdomanek",
+      user_id: "auth0|656654b014508dd8f05105b9",
+      user_profile_img:
+        "https://s.gravatar.com/avatar/528cfda4bb2420bd67e42be2de464a1e?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdo.png",
+      unit_abbr: "NM1234",
+      role: "user",
+      user_unit_id: "2",
     },
   ]);
 };
