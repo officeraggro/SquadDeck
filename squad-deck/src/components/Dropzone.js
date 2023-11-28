@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import { SdUserContext } from "../components/sd-user-context";
 import { useDropzone } from "react-dropzone";
-import styled from "styled-components";
 import Papa from "papaparse";
 import { RosterUploadContext } from "./roster-upload-context";
 import "../Styled/dropzone-page.css";
@@ -122,8 +121,8 @@ const Dropzone = () => {
 			<div className="dropboxMessage">
 				<table id="file_status">
 					<tr>
-						<th>Accepted</th>
-						<th>Rejected</th>
+						<th id="accepted">Accepted</th>
+						<th id="rejected">Rejected</th>
 					</tr>
 					<tr>
 						<td>{acceptedFileItems}</td>

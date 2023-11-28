@@ -171,7 +171,7 @@ const HomePage = () => {
       dependentsArray.push(
         <FontAwesomeIcon
           icon={faUser}
-          color={"white"}
+          color={"black"}
           size={"sm"}
           key={i * 8}
         />
@@ -199,7 +199,7 @@ const HomePage = () => {
               alt={data.unit_abbr + "emblem"}
               className="unitImg"
             />
-            <h1 className="unitHdr">{data.unit_abbr} SquadDeck</h1>
+            <h1 className="unitHdr"color="black">{data.unit_abbr} SquadDeck</h1>
           </div>
           <SearchBar className="searchBarCp" />
         </div>
@@ -217,6 +217,7 @@ const HomePage = () => {
                       flipDirection="horizontal"
                       ref={cardRef}
                       key={indx}>
+                      
                       <FrontSide className="FrontSide">
                         <div className="whole-card">
                           <div className="cdHdr">
@@ -300,7 +301,7 @@ const HomePage = () => {
                             <FontAwesomeIcon
                               className="edit-save-button"
                               icon={faCheck}
-                              color="white"
+                              color="blue"
                             />
                           </button>
                         </div>
@@ -403,7 +404,7 @@ const HomePage = () => {
                           <FontAwesomeIcon
                             className="save-button"
                             icon={faCheck}
-                            color="white"
+                            color="blue"
                           />
                         </button>
                       </BackSide>
@@ -490,7 +491,7 @@ const HomePage = () => {
                           {el.marital_status === "M" && (
                             <FontAwesomeIcon
                               icon={faUser}
-                              color={"white"}
+                              color={"black"}
                               size={"lg"}
                             />
                           )}
@@ -522,7 +523,7 @@ const HomePage = () => {
                           <FontAwesomeIcon
                             className="edit-button"
                             icon={faPen}
-                            color="white"
+                            color="blue"
                           />
                         </button>
 
