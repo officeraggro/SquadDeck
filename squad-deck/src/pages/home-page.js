@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -25,7 +26,7 @@ import { RosterUploadContext } from "../components/roster-upload-context";
 
 const HomePage = () => {
   const [imageUpload, setImageUpload] = useState(null);
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const { searchData, setSearchData } = useContext(SearchContext);
   const { sdUser, setSdUser } = useContext(SdUserContext);
   const { data, setData } = useContext(SearchContext);
@@ -34,10 +35,17 @@ const HomePage = () => {
   const [editMode, setEditMode] = useState(false);
   const [update, setUpdate] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate()
   const clickedCard = useRef();
   const isMounted = useRef(false);
   const isChecked = useRef(true);
   const date = new Date();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/callback')
+    }
+  }, [])
 
   // Fetch additional logged in user details from db to get user unit id
   useEffect(() => {
@@ -259,11 +267,11 @@ const HomePage = () => {
                             onChange={handleChange}
                           />
                           <p>{el.cafsc}</p>
-                          <img
+                          {/* <img
                             src={el.career_field_img}
                             alt={el.name + "career field"}
                             className="career-field-emblem"
-                          />
+                          /> */}
                           <label htmlFor="supv_name">Supervisor:</label>
                           <input
                             type="text"
@@ -448,22 +456,26 @@ const HomePage = () => {
                             height="15px"
                             className="achievements-img"
                           />
-                          <button
-                            onClick={(e) => handleEditModeClick(e, el)}
-                            style={{
-                              zIndex: "999",
-                              border: "none",
-                              backgroundColor: "transparent",
-                              backgroundRepeat: "no-repeat",
-                              cursor: "pointer",
-                              overflow: "hidden",
-                            }}>
-                            <FontAwesomeIcon
-                              className="edit-button"
-                              icon={faPen}
-                              color="white"
-                            />
-                          </button>
+                          {sdUser[0]?.role === 'admin'
+                          && (
+                            <button
+                              onClick={(e) => handleEditModeClick(e, el)}
+                              style={{
+                                zIndex: "999",
+                                border: "none",
+                                backgroundColor: "transparent",
+                                backgroundRepeat: "no-repeat",
+                                cursor: "pointer",
+                                overflow: "hidden",
+                              }}>
+                              <FontAwesomeIcon
+                                className="edit-button"
+                                icon={faPen}
+                                color="white"
+                              />
+                            </button>
+                          )
+                          }
                         </div>
                       </FrontSide>
                       <BackSide className="BackSide">
@@ -495,6 +507,8 @@ const HomePage = () => {
                         <p>{el.hobbies}</p>
                         {/* <h4>Interesting Fact</h4>
                     <p>{el.interesting_fact}</p> */}
+                    {sdUser[0]?.role === 'admin'
+                    && (
                         <button
                           onClick={(e) => handleEditModeClick(e, el)}
                           style={{
@@ -511,6 +525,9 @@ const HomePage = () => {
                             color="white"
                           />
                         </button>
+
+                    )
+                    }
                       </BackSide>
                     </Flippy>
                   )}
