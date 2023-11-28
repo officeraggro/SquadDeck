@@ -22,6 +22,7 @@ import { occupationEmblemUrl } from "../helpers/grade-emblems";
 import "../Styled/home-page.css";
 import "../Styled/search-bar.css";
 import { RosterUploadContext } from "../components/roster-upload-context";
+import YearsOfService from "../components/YearsOfService";
 
 const HomePage = () => {
   const [imageUpload, setImageUpload] = useState(null);
@@ -191,7 +192,9 @@ const HomePage = () => {
               alt={data.unit_abbr + "emblem"}
               className="unitImg"
             />
-            <h1 className="unitHdr"color="black">{data.unit_abbr} SquadDeck</h1>
+            <h1 className="unitHdr" color="black">
+              {data.unit_abbr} SquadDeck
+            </h1>
           </div>
           <SearchBar className="searchBarCp" />
         </div>
@@ -209,10 +212,9 @@ const HomePage = () => {
                       flipDirection="horizontal"
                       ref={cardRef}
                       key={indx}>
-                      
                       <FrontSide className="FrontSide">
                         <div className="whole-card">
-                          <div className="cdHdr">
+                          <div className="cdHdr-edit-mode">
                             <select
                               onChange={handleChange}
                               id="grade"
@@ -238,9 +240,11 @@ const HomePage = () => {
                             src={el.personal_img}
                             alt={el.full_name + "profile picture"}
                             height="100px"
+                            className="profile-picture"
                           />
                           <input
                             type="file"
+                            id="file-select"
                             onChange={(e) => {
                               setImageUpload(e.target.files[0]);
                             }}
@@ -249,7 +253,10 @@ const HomePage = () => {
                             onClick={(e) => {
                               uploadImage(e, el);
                             }}>
-                            <FontAwesomeIcon icon={faUpload} />
+                            <FontAwesomeIcon
+                              icon={faUpload}
+                              className="file-upload"
+                            />
                           </button>
                           <input
                             type="text"
@@ -259,28 +266,31 @@ const HomePage = () => {
                             placeholder={el.duty_title}
                             onChange={handleChange}
                           />
-                          <p>{el.cafsc}</p>
-                          <img
+                          {/* <p>{el.cafsc}</p> */}
+                          {/* <img
                             src={el.career_field_img}
                             alt={el.name + "career field"}
                             className="career-field-emblem"
-                          />
-                          <label htmlFor="supv_name">Supervisor:</label>
-                          <input
-                            type="text"
-                            name="supv_name"
-                            id="supv_name"
-                            className="card-edit-input"
-                            placeholder={el.supv_name}
-                            onChange={handleChange}
-                          />
+                          /> */}
+                          <div className="edit-supv-label">
+                            <label htmlFor="supv_name">Supervisor:</label>
+                          </div>
+                          <div>
+                            <input
+                              type="text"
+                              name="supv_name"
+                              id="supv_name"
+                              className="card-edit-input-supv"
+                              placeholder={el.supv_name}
+                              onChange={handleChange}
+                            />
+                          </div>
                           <img
                             src={el.achievement_img}
                             alt={el.full_name + "achievements"}
                             height="15px"
                           />
                           <button
-                            className="edit-save-button"
                             onClick={(e) => handleSaveClick(e, el)}
                             style={{
                               zIndex: "999",
@@ -293,6 +303,7 @@ const HomePage = () => {
                             <FontAwesomeIcon
                               className="edit-save-button"
                               icon={faCheck}
+                              size={"1.75x"}
                               color="blue"
                             />
                           </button>
@@ -432,16 +443,18 @@ const HomePage = () => {
                             height="200px"
                           />
                           <div className="duty-info">
-                          <h4>{el.duty_title}</h4>
-                          <p>{el.cafsc}</p>
-                          <img
-                            src={occupationEmblemUrl[el.cafsc.substring(0, 3)]}
-                            alt={el.name + "career field"}
-                            height="20px"
-                            className="career-field-emblem"
-                          />
-                          <h4>Supervisor:</h4>
-                          <p>{el.supv_name}</p>
+                            <h4>{el.duty_title}</h4>
+                            <p>{el.cafsc}</p>
+                            <img
+                              src={
+                                occupationEmblemUrl[el.cafsc.substring(0, 3)]
+                              }
+                              alt={el.name + "career field"}
+                              height="20px"
+                              className="career-field-emblem"
+                            />
+                            <h4>Supervisor:</h4>
+                            <p>{el.supv_name}</p>
                           </div>
                           <img
                             src={el.achievement_img}
