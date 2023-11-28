@@ -39,11 +39,23 @@
   margin-top: 20px;
 }
 
-#file_status th {
+#accepted {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #FCA311;
+  background-color: rgb(66, 211, 66);
+  color: white;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 50%;
+}
+
+#rejected {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgb(211, 66, 66);
   color: white;
   text-align: center;
   padding-left: 10px;
@@ -61,7 +73,7 @@
 
 #file_status tr:nth-child(even){background-color: #f2f2f2;}
 
-#file_status tr:hover {background-color: #ddd;}
+#file_status tr:hover {background-color: #a1a1a1;}
 
 #dropzone {
   font-family: Arial, Helvetica, sans-serif;
@@ -88,4 +100,7 @@
 
 #dropzone tr:nth-child(even){background-color: #f2f2f2;}
 
-#dropzone tr:hover {background-color: #ddd;}
+#dropzone tr:nth-child(odd){background-color: #c4c4c4;}
+
+#dropzone tr:hover {background-color: #868686;}
+
