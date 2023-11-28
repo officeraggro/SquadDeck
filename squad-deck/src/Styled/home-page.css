@@ -78,7 +78,7 @@ margin: 5px;
   width: 80%;
   text-align: left;
   border-radius: 10px;
-} 
+}
 
 .unitHdr {
   display: flex;
@@ -145,7 +145,7 @@ margin: 5px;
   clip-path: circle();
   position: absolute;
   right: 0px;
-  
+
 }
 
 .achievements-img {

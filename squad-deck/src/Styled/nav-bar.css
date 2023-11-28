@@ -1,6 +1,6 @@
 .top-nav-bar {
     position: fixed;
-    background-color: aliceblue;
+    background-color: #14213D;
     top: 0;
     left: 0;
     height: 90px;
@@ -9,7 +9,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgb(109, 135, 184);
     z-index: 999;
 }
 
@@ -83,4 +82,8 @@
                  -6px -2px 5px rgb(154, 163, 230);
     transform: rotateY(10deg);
 
+}
+
+.ant-menu{
+    background: #14213D;
 }
