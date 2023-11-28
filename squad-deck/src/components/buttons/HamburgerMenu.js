@@ -1,10 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { SdUserContext } from "../sd-user-context";
 import "../../Styled/nav-bar.css";
-import styled from "styled-components";
-import { Layout, Menu, Button, theme } from "antd";
+import { Layout, Menu, theme } from "antd";
 import {
 	HomeOutlined,
 	BarsOutlined,
@@ -14,7 +13,7 @@ import {
 	SettingOutlined,
 } from "@ant-design/icons";
 
-const { Header, Sider } = Layout;
+const { Sider } = Layout;
 
 const HamburgerMenu = () => {
 	const navigate = useNavigate();
