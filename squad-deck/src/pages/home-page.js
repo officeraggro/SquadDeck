@@ -311,7 +311,7 @@ const HomePage = () => {
                               className="edit-save-button"
                               icon={faCheck}
                               size={"1.75x"}
-                              color="blue"
+                              color="green"
                             />
                           </button>
                         </div>
@@ -325,96 +325,104 @@ const HomePage = () => {
                           onChange={handleChange}
                         />
                         <hr />
-                        <h4>Hometown</h4>
-                        <p>
-                          {el.home_city}, {el.home_state}
-                        </p>
-                        <h4>Family</h4>
-                        {/* <input
-                              type="checkbox"
-                              name="hide_family"
-                              id="hide_family"
-                              value="true"
-                              onChange={toggleShowFamily}
-                            /> */}
-                        {el.marital_status === "M" ? (
-                          <>
-                            <label htmlFor="marital_status">Spouse</label>
+                        <div className="edit-background-BS">
+                          <h4>Hometown</h4>
+                          <p>
+                            {el.home_city}, {el.home_state}
+                          </p>
+                          <h4>Family</h4>
+                          {/* <input
+                                type="checkbox"
+                                name="hide_family"
+                                id="hide_family"
+                                value="true"
+                                onChange={toggleShowFamily}
+                              /> */}
+                          {el.marital_status === "M" ? (
+                            <>
+                              <div className="family-cnt">
+                                <label htmlFor="marital_status">Spouse</label>
+                                <input
+                                  type="checkbox"
+                                  name="marital_status"
+                                  id="marital_status"
+                                  className="card-edit-checkbox"
+                                  value="D"
+                                  checked={isChecked.current}
+                                  onClick={(e) => (isChecked.current = false)}
+                                  onChange={handleChange}
+                                />
+                                <label htmlFor="children_num">Children</label>
+                                <input
+                                  type="number"
+                                  name="children_num"
+                                  id="children_num"
+                                  min="0"
+                                  max="10"
+                                  onChange={handleChange}
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="family-cnt">
+                                <label htmlFor="marital_status">Spouse</label>
+                                <input
+                                  type="checkbox"
+                                  name="marital_status"
+                                  id="marital_status"
+                                  className="card-edit-checkbox"
+                                  value="M"
+                                  onChange={handleChange}
+                                />
+                                  <label htmlFor="children_num">Children</label>
+                                  <input
+                                    type="number"
+                                    name="children_num"
+                                    id="children_num"
+                                    min="0"
+                                    max="10"
+                                    onChange={handleChange}
+                                  />
+                              </div>
+                            </>
+                          )}
+                          <label htmlFor="favorite_movie"><h4>Favorite Movie</h4></label>
+                          <div>
                             <input
-                              type="checkbox"
-                              name="marital_status"
-                              id="marital_status"
-                              className="card-edit-checkbox"
-                              value="D"
-                              checked={isChecked.current}
-                              onClick={(e) => (isChecked.current = false)}
+                              type="text"
+                              name="favorite_movie"
+                              id="favorite_movie"
+                              placeholder={el.favorite_movie}
                               onChange={handleChange}
                             />
-                            <br />
-                            <label htmlFor="children_num">Children</label>
+                          </div>
+                          <label htmlFor="hobbies"><h4>Hobbies</h4></label>
+                          <div>
                             <input
-                              type="number"
-                              name="children_num"
-                              id="children_num"
-                              min="0"
-                              max="10"
+                              type="text"
+                              name="hobbies"
+                              id="hobbies"
+                              placeholder={el.hobbies}
                               onChange={handleChange}
                             />
-                          </>
-                        ) : (
-                          <>
-                            <label htmlFor="marital_status">Spouse</label>
-                            <input
-                              type="checkbox"
-                              name="marital_status"
-                              id="marital_status"
-                              className="card-edit-checkbox"
-                              value="M"
-                              onChange={handleChange}
-                            />
-                            <br />
-                            <label htmlFor="children_num">Children</label>
-                            <input
-                              type="number"
-                              name="children_num"
-                              id="children_num"
-                              min="0"
-                              max="10"
-                              onChange={handleChange}
-                            />
-                          </>
-                        )}
-                        <label htmlFor="favorite_movie">Favorite Movie</label>
-                        <input
-                          type="text"
-                          name="favorite_movie"
-                          id="favorite_movie"
-                          placeholder={el.favorite_movie}
-                          onChange={handleChange}
-                        />
-                        <label htmlFor="hobbies">Hobbies</label>
-                        <input
-                          type="text"
-                          name="hobbies"
-                          id="hobbies"
-                          placeholder={el.hobbies}
-                          onChange={handleChange}
-                        />
-                        <button
-                          className="save-button"
-                          onClick={(e) => handleSaveClick(e, el)}
-                          style={{
-                            zIndex: "999",
-                            border: "none",
-                            backgroundColor: "transparent",
-                            backgroundRepeat: "no-repeat",
-                            cursor: "pointer",
-                            overflow: "hidden",
-                          }}>
-                          <FontAwesomeIcon
+                          </div>
+                          </div>
+                          <button
                             className="save-button"
+                            onClick={(e) => handleSaveClick(e, el)}
+                            style={{
+                              zIndex: "999",
+                              border: "none",
+                              backgroundColor: "transparent",
+                              backgroundRepeat: "no-repeat",
+                              cursor: "pointer",
+                              overflow: "hidden",
+                            }}>
+                          <FontAwesomeIcon
+                            className="edit-save-button"
                             icon={faCheck}
-                            color="white"
+                            color="green"
                           />
                         </button>
                       </BackSide>

@@ -1,7 +1,6 @@
 /* Cards */
 html {
   background-color: #fca311;
-  margin-bottom: 10px;
 }
 
 
@@ -22,6 +21,7 @@ html {
   margin: 0 auto;
   text-align: center;
   box-shadow: 10px 10px 10px 0px black;
+  color: white
 }
 
 .BackSide {
@@ -150,22 +150,23 @@ text-align: center;
 
 .card-edit-input {
   border: none;
+  text-align: center;
   border-radius: 50px;
   height: 2rem;
   width: 10rem;
   padding: 5px;
-  background-color: rgb(150, 159, 187);
+  background-color: rgb(255, 255, 255);
   color: white;
 }
 
 .card-edit-input:nth-child(5) {
   border: none;
   border-radius: 50px;
-  height: 2rem;
-  width: 20rem;
+  height: 2em;
+  width: 20em;
   padding: 5px;
   margin: 15px 0;
-  background-color: rgb(150, 159, 187);
+  background-color: rgb(255, 255, 255);
   color: white;
 }
 
@@ -174,9 +175,9 @@ text-align: center;
   border-radius: 50px;
   height: 2rem;
   width: 4rem;
-  background-color: rgb(150, 159, 187);
-  color: white;
-  color: rgb(255, 255, 255);
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  color: grey;
 }
 
 .edit-supv-label {
@@ -187,11 +188,12 @@ text-align: center;
 .card-edit-input-supv {
   border: none;
   border-radius: 50px;
-  height: 2rem;
-  width: 20rem;
+  height: 2em;
+  width: 20em;
   padding: 5px;
   margin: 15px 0;
-  background-color: rgb(150, 159, 187);
+  text-align: center;
+  background-color: rgb(255, 255, 255);
   color: white;
 }
 
@@ -228,6 +230,8 @@ text-align: center;
   right: 20px;
   bottom: 10px;
   padding: 5px;
+  background-color: rgba(159, 154, 154, 0.803);
+  border: 2px solid black;
 }
 
 
@@ -260,7 +264,7 @@ color: white;
   padding: 3px
 }
 .BackSideBox {
-  margin: 10px auto;
+  margin: 40px auto ;
   color: rgb(255, 255, 255);
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background-color: rgba(159, 154, 154, 0.803);
@@ -268,4 +272,37 @@ color: white;
   border: 4px solid black;
   border-radius: 8px;
   padding: 3px
+}
+
+.edit-background-BS {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  margin-top: 20%;
+  background-color: rgba(159, 154, 154, 0.73);
+  width: 80%;
+  border-radius: 10px;
+  border: 4px solid black;
+  color: #fff;
+}
+
+.edit-background-BS p {
+margin: 3px 0 10px 0 ;
+}
+
+.BackSide input[type="text"] {
+  border-radius: 20px;
+  margin: 10px 0;
+  text-align: center;
+  width: 18em;
+  height: 3em;
+}
+
+.edit-background-BS h4 {
+margin: 5px 0;
+}
+
+.family-cnt label {
+  margin: 0 10px;
 }
