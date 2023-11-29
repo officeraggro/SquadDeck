@@ -194,11 +194,13 @@ const HomePage = () => {
       <PageLayout>
         <div className="cardCntHdr">
           <div className="unitHdr">
-            <img
+            {data.unit_emblem_url !== ""      
+            && <img
               src={data.unit_emblem_url}
               alt={data.unit_abbr + "emblem"}
               className="unitImg"
             />
+            }
             <h1 className="unitHdr" color="black">
               {data.unit_abbr} SquadDeck
             </h1>
@@ -292,11 +294,13 @@ const HomePage = () => {
                               onChange={handleChange}
                             />
                           </div>
-                          <img
+                          {el.achievement_img !== ""
+                          && <img
                             src={el.achievement_img}
                             alt={el.full_name + "achievements"}
                             height="15px"
                           />
+                          }
                           <button
                             onClick={(e) => handleSaveClick(e, el)}
                             style={{
@@ -463,12 +467,14 @@ const HomePage = () => {
                             <h4>Supervisor:</h4>
                             <p>{el.supv_name}</p>
                           </div>
-                          <img
+                          {el.achievement_img !== ""
+                          && <img
                             src={el.achievement_img}
                             alt={el.full_name + "achievements"}
                             height="15px"
                             className="achievements-img"
                           />
+                          }
                           {sdUser[0]?.role === 'admin'
                           && (
                             <button

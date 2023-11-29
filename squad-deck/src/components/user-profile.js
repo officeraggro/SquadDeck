@@ -374,17 +374,19 @@ const Profile = () => {
                         <h4>Supervisor:</h4>
                         <p>{el.supv_name}</p>
                       </div>
-                        <img
-                          src={occupationEmblemUrl[el.cafsc.substring(0, 3)]}
-                          alt={el.name + " career field"}
-                          className="user-card-career-field-emblem"
-                        />
                       <img
-                        src={el.achievement_img}
-                        alt={el.full_name + "achievements"}
-                        height="15px"
-                        className="user-card-achievements-img"
+                        src={occupationEmblemUrl[el.cafsc.substring(0, 3)]}
+                        alt={el.name + " career field"}
+                        className="user-card-career-field-emblem"
                       />
+                      {el.achievement_img !== "" && (
+                        <img
+                          src={el.achievement_img}
+                          alt={el.full_name + "achievements"}
+                          height="15px"
+                          className="user-card-achievements-img"
+                        />
+                      )}
                       <div className="card-edit-button-container"></div>
                     </div>
 
