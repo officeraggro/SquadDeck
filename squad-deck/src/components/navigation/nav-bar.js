@@ -15,7 +15,7 @@ const NavBar = () => {
 					{isAuthenticated && <HamburgerMenu />}
 				</div>
 				<div className="top-nav-middle">
-					<h1 className="title">SquadDeck</h1>
+					<h1 className="title"></h1>
 				</div>
 				<div className="top-nav-right">
 					{/* {!isAuthenticated && (

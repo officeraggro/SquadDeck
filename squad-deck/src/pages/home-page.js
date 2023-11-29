@@ -24,7 +24,6 @@ import "../Styled/home-page.css";
 import "../Styled/search-bar.css";
 import { RosterUploadContext } from "../components/roster-upload-context";
 
-
 const HomePage = () => {
   const [imageUpload, setImageUpload] = useState(null);
   const { user, isAuthenticated } = useAuth0();
