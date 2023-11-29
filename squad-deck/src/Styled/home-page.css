@@ -1,6 +1,8 @@
 /* Cards */
 html {
   background-color: #fca311;
+  background-image: url("../Images/BackDropOpacity.png");  
+  background-size: 100vw;  
 }
 
 
