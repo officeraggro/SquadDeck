@@ -87,9 +87,9 @@ const OrgChart = () => {
       const createNodes = () => {
         const nodes = [];
         let parent_x = 0
-        let parent_y = 100
+        let parent_y = 0
         let child_x = 100
-        let child_y = 150
+        let child_y = -100
         for (let parent of hierarchy) {
           // create top level nodes
           nodes.push({
@@ -101,7 +101,7 @@ const OrgChart = () => {
             targetPosition: Position.Top,
             sourcePosition: Position.Bottom,
             selected: false,
-            style: { width: 100, height: 100 },
+            style: { width: 75, height: 75 },
           });
           parent_x += 100
           parent_y += 100
@@ -117,7 +117,7 @@ const OrgChart = () => {
                 targetPosition: Position.Top,
                 sourcePosition: Position.Bottom,
                 selected: false,
-                style: { width: 100, height: 100 },
+                style: { width: 75, height: 75 },
               });
               child_x += 100
               child_y += 100
