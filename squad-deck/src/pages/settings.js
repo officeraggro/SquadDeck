@@ -82,7 +82,7 @@ const Settings = () => {
 								className="menuButton"
 								onClick={() => setSetting(changePassword)}
 							>
-								Account Settings
+								Change Passwords
 							</button>
 							<button
 								className="menuButton"
