@@ -46,7 +46,7 @@ const Profile = () => {
   // Fetch all alpha roster info by user unit id
   useEffect(() => {
     if (isMounted.current) {
-      if (sdUser.length) {
+      if (sdUser.length && !data.length) {
         const fetchAlphaRoster = async () => {
           const response = await fetch(
             `http://localhost:8080/units/${sdUser[0].user_unit_id}/roster`
@@ -137,7 +137,7 @@ const Profile = () => {
       dependentsArray.push(
         <FontAwesomeIcon
           icon={faUser}
-          color={"white"}
+          color={"black"}
           size={"sm"}
           key={i * 8}
         />
@@ -371,15 +371,14 @@ const Profile = () => {
                       <div className="user-card-duty-info">
                         <h4>{el.duty_title}</h4>
                         <p>{el.cafsc}</p>
-                        <img
-                          src={occupationEmblemUrl[el.cafsc.substring(0, 3)]}
-                          alt={el.name + " career field"}
-                          height="20px"
-                          className="user-card-career-field-emblem"
-                        />
                         <h4>Supervisor:</h4>
                         <p>{el.supv_name}</p>
                       </div>
+                        <img
+                          src={occupationEmblemUrl[el.cafsc.substring(0, 3)]}
+                          alt={el.name + " career field"}
+                          className="user-card-career-field-emblem"
+                        />
                       <img
                         src={el.achievement_img}
                         alt={el.full_name + "achievements"}
@@ -396,7 +395,7 @@ const Profile = () => {
                         {el.marital_status === "M" && (
                           <FontAwesomeIcon
                             icon={faUser}
-                            color={"white"}
+                            color={"black"}
                             size={"2x"}
                           />
                         )}

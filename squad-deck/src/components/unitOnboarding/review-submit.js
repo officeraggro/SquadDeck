@@ -1,11 +1,13 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import OnboardingFormContext from "./onboarding-form-context";
+import { NewUnitOwnerContext } from "../new-unit-owner-context";
 
 const ReviewAndSubmit = () => {
   const navigate = useNavigate();
   const { title, page, setPage, unitForm, setUnitForm, shopForm, setShopForm } =
     useContext(OnboardingFormContext);
+  const { setNewUnitOwner } = useContext(NewUnitOwnerContext)
 
   const handlePrev = () => setPage((prev) => prev - 1);
 
@@ -48,7 +50,8 @@ const ReviewAndSubmit = () => {
             });
 
             setShopForm([]);
-            navigate('/')
+            setNewUnitOwner(true)
+            navigate('/signup')
           }
         }
         createNewWorkCenters()
@@ -68,7 +71,7 @@ const ReviewAndSubmit = () => {
             Prev
           </button>
         </div>
-        <h3>Step 4 - {title[page]}</h3>
+        <h3>Step 3 - {title[page]}</h3>
         <div className="onboarding-instructions">
           <h4>Instructions</h4>
           <p>Review the information below. Once finished, click 'Submit' </p>

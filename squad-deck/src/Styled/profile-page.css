@@ -91,11 +91,10 @@
 }
 
 .user-card-career-field-emblem {
-  position: absolute;
-  left: 900px;
-  height: 50px;
-  min-height: auto;
-  max-height: auto;
+  position: relative;
+  left: 13.5rem;
+  height: 40px;
+  width: 50px;
   background-color: black;
   clip-path: circle();
 }
@@ -134,7 +133,6 @@
   flex-direction: column;
   justify-content: center;
   gap: 0;
-  font-weight: 600;
   margin-top: 30px;
 }
 
