@@ -23,7 +23,7 @@ import { occupationEmblemUrl } from "../helpers/grade-emblems";
 import "../Styled/home-page.css";
 import "../Styled/search-bar.css";
 import { RosterUploadContext } from "../components/roster-upload-context";
-import YearsOfService from "../components/YearsOfService";
+
 
 const HomePage = () => {
   const [imageUpload, setImageUpload] = useState(null);

@@ -58,11 +58,18 @@ height: 3pc;
 margin: 5px;
 }
 
+.cdHdr h4 {
+flex-wrap: wrap;
+width: 115px;
+text-align: center;
+}
+
 .profile-picture {
   height: 250px;
   background-color: black;
   background-size: cover;
-  width: 315px;
+  width: 275px;
+  margin-left: 7px;
 }
 
 .duty-info {
