@@ -17,6 +17,7 @@ import { NewUnitOwnerContext } from "./components/new-unit-owner-context";
 import { RosterUploadContext } from "./components/roster-upload-context";
 import ImageUploadTest from "./pages/image-upload-test";
 import UploadPage from "./pages/upload-page";
+import Settings from "./pages/settings";
 
 const App = () => {
   const [sdUser, setSdUser] = useState([]);
@@ -27,13 +28,13 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { isLoading } = useAuth0();
 
-  if (isLoading) {
-    return (
-      <div>
-        <PageLoader size="100px" />
-      </div>
-    );
-  }
+	if (isLoading) {
+		return (
+			<div>
+				<PageLoader size="100px" />
+			</div>
+		);
+	}
 
   return (
     <>
@@ -60,24 +61,28 @@ const App = () => {
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/onboarding" element={<UnitOnboardingPage />} />
 
-                {/* private */}
-                <Route path="/home" element={<HomePage />} />
-                <Route
-                  path="/org"
-                  element={<AuthenticationGuard component={OrgChartPage} />}
-                />
-                <Route
-                  path="/upload"
-                  element={<AuthenticationGuard component={UploadPage} />}
-                />
-                <Route
-                  path="/profile"
-                  element={<AuthenticationGuard component={UserProfile} />}
-                />
-                <Route
-                  path="/callback"
-                  element={<AuthenticationGuard component={CallbackPage} />}
-                />
+							{/* private */}
+							<Route path="/home" element={<HomePage />} />
+							<Route
+								path="/org"
+								element={<AuthenticationGuard component={OrgChartPage} />}
+							/>
+							<Route
+								path="/upload"
+								element={<AuthenticationGuard component={UploadPage} />}
+							/>
+							<Route
+								path="/profile"
+								element={<AuthenticationGuard component={UserProfile} />}
+							/>
+							<Route
+								path="/callback"
+								element={<AuthenticationGuard component={CallbackPage} />}
+							/>
+							<Route
+								path="/settings"
+								element={<AuthenticationGuard component={Settings} />}
+							/>
 
                 {/* catch-all */}
                 <Route path="/*" element={<MissingPage />} />
