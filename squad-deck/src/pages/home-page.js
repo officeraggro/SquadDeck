@@ -23,7 +23,6 @@ import { occupationEmblemUrl } from "../helpers/grade-emblems";
 import "../Styled/home-page.css";
 import "../Styled/search-bar.css";
 import { RosterUploadContext } from "../components/roster-upload-context";
-// import YearsOfService from "../components/YearsOfService";
 
 const HomePage = () => {
   const [imageUpload, setImageUpload] = useState(null);
@@ -495,53 +494,55 @@ const HomePage = () => {
                       <BackSide className="BackSide">
                         <h3>{el.go_by}</h3>
                         <hr />
-                        <h4>Hometown</h4>
-                        <p>
-                          {el.home_city}, {el.home_state}
-                        </p>
-                        <h4>Family</h4>
-                        <div className="dependents-container">
-                          {el.marital_status === "M" && (
+                        <div className="BackSideBox">
+                          <h4>Hometown</h4>
+                          <p>
+                            {el.home_city}, {el.home_state}
+                          </p>
+                          <h4>Family</h4>
+                          <div className="dependents-container">
+                            {el.marital_status === "M" && (
+                              <FontAwesomeIcon
+                                icon={faUser}
+                                color={"black"}
+                                size={"lg"}
+                              />
+                            )}
+                            {el.children_num > 0 &&
+                              displayDependents(el.children_num)}
+                          </div>
+                          {/* </>
+                        )
+                        } */}
+                          {/* <p>{el.spouse_name !== "" && <span><strong>Spouse:</strong> {el.spouse_name}</span>},&nbsp;<span><strong>Children:</strong> {el.children_names}</span></p> */}
+                          <h4>Favorite Movie</h4>
+                          <p>{el.favorite_movie}</p>
+                          <h4>Hobbies</h4>
+                          <p>{el.hobbies}</p>
+                          {/* <h4>Interesting Fact</h4>
+                      <p>{el.interesting_fact}</p> */}
+                      {sdUser[0]?.role === 'admin'
+                      && (
+                          <button
+                            onClick={(e) => handleEditModeClick(e, el)}
+                            style={{
+                              zIndex: "999",
+                              border: "none",
+                              backgroundColor: "transparent",
+                              backgroundRepeat: "no-repeat",
+                              cursor: "pointer",
+                              overflow: "hidden",
+                            }}>
                             <FontAwesomeIcon
-                              icon={faUser}
-                              color={"black"}
-                              size={"lg"}
+                              className="edit-button"
+                              icon={faPen}
+                              color="white"
                             />
-                          )}
-                          {el.children_num > 0 &&
-                            displayDependents(el.children_num)}
-                        </div>
-                        {/* </>
-                      )
-                      } */}
-                        {/* <p>{el.spouse_name !== "" && <span><strong>Spouse:</strong> {el.spouse_name}</span>},&nbsp;<span><strong>Children:</strong> {el.children_names}</span></p> */}
-                        <h4>Favorite Movie</h4>
-                        <p>{el.favorite_movie}</p>
-                        <h4>Hobbies</h4>
-                        <p>{el.hobbies}</p>
-                        {/* <h4>Interesting Fact</h4>
-                    <p>{el.interesting_fact}</p> */}
-                    {sdUser[0]?.role === 'admin'
-                    && (
-                        <button
-                          onClick={(e) => handleEditModeClick(e, el)}
-                          style={{
-                            zIndex: "999",
-                            border: "none",
-                            backgroundColor: "transparent",
-                            backgroundRepeat: "no-repeat",
-                            cursor: "pointer",
-                            overflow: "hidden",
-                          }}>
-                          <FontAwesomeIcon
-                            className="edit-button"
-                            icon={faPen}
-                            color="white"
-                          />
-                        </button>
+                          </button>
 
-                    )
-                    }
+                      )
+                      }
+                        </div>
                       </BackSide>
                     </Flippy>
                   )}
