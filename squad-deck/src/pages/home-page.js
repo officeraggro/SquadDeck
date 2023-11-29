@@ -415,7 +415,7 @@ const HomePage = () => {
                           <FontAwesomeIcon
                             className="save-button"
                             icon={faCheck}
-                            color="blue"
+                            color="white"
                           />
                         </button>
                       </BackSide>
@@ -536,7 +536,7 @@ const HomePage = () => {
                           <FontAwesomeIcon
                             className="edit-button"
                             icon={faPen}
-                            color="blue"
+                            color="white"
                           />
                         </button>
 
