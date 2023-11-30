@@ -463,15 +463,17 @@ const HomePage = () => {
                           />
                           <div className="duty-info">
                             <h4>{el.duty_title}</h4>
-                            <p>{el.cafsc}</p>
-                            <img
-                              src={
-                                occupationEmblemUrl[el.cafsc.substring(0, 3)]
-                              }
-                              alt={el.name + "career field"}
-                              height="20px"
-                              className="career-field-emblem"
-                            />
+                            <div className="career-field-cnt">
+                              <p>{el.cafsc}</p>
+                              <img
+                                src={
+                                  occupationEmblemUrl[el.cafsc.substring(0, 3)]
+                                }
+                                alt={el.name + "career field"}
+                                height="20px"
+                                className="career-field-emblem"
+                              />
+                            </div>
                             <h4>Supervisor:</h4>
                             <p>{el.supv_name}</p>
                           </div>

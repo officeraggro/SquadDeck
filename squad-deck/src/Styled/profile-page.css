@@ -1,57 +1,78 @@
 .user-profile-container {
-  position: absolute;
-  top: 10rem;
-  left: 24rem;
+  margin: 200px auto;
   display: flex;
-  flex: 1;
-  flex-direction: row;
+  align-items: center;
   flex-wrap: nowrap;
+  justify-content: center;
   gap: 32px;
-  min-width: 68vw;
-  margin-top: 20px;
+  min-width: 1500px;
+  min-height: 800px;
+  width: 80%;
   height: 72vh;
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-.user-profile-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: left;
-  margin-top: 112px;
-  margin-left: 40px;
-  padding: 3px;
-  background-color: #e5e5e5;
-  width: 23rem;
-  height: 50vh;
-  border-radius: 35px;
+.profile-col1 {
+  display: grid;
+  grid-template-columns: minmax(500px, 1fr);
+  grid-template-rows: 80px 500px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 80px;
 }
 
+.profile-col1>div {
+  align-self: center;
+  justify-self: center;
+}
+
+.user-profile-details {
+  grid: 2 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #e5e5e5;
+  width: 23rem;
+  height: 500px;
+  border-radius: 25px;
+}
+
+
 .user-profile-details h4 {
-  margin-top: 20px;
-  margin-left: 20px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.user-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 475px);
+  grid-template-rows: 80px 500px 80px;
+}
+
+.user-cards-container>div {
+  align-self: center;
+  justify-self: center;
 }
 
 .user-card-front {
   display: flex;
   flex-direction: column;
-  align-items: left;
-  margin-top: 7rem;
-  margin-left: 3rem;
+  align-items: center;
+  grid-row: 2 /3;
   background-color: #e5e5e5;
-  height: 50vh;
-  min-width: 21vw;
+  height: 500px;
+  width: 400px;
   text-align: center;
   border-radius: 25px;
 }
 
 .user-card-hdr {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 95%;
+  margin: 0 15px;
   align-items: center;
   height: 5pc;
   color: rgb(10, 4, 4) 44, 236, 236;
@@ -64,8 +85,7 @@
 }
 
 .user-card-profile-picture {
-  margin-left: 75px;
-  height: 250px;
+  height: 200px;
   background-color: black;
   background-size: cover;
   width: 315px;
@@ -73,18 +93,19 @@
 }
 
 .user-card-duty-info {
-  display: flex;
-  flex-direction: column;
   align-items: flex-start;
   margin: 20px 0 20px 10px;
+  width: 318px;
+  height: 150px;
+  background-color: rgba(159, 154, 154, 0.266);
+  border-radius: 5px;
 }
 
 .user-card-duty-info h4,
 .user-card-duty-info p {
-  margin: 2px 10px;
+  margin: 6px 10px;
   color: rgb(7, 1, 1);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  background-color: rgba(159, 154, 154, 0.266);
   width: 80%;
   text-align: left;
   border-radius: 10px;
@@ -92,7 +113,8 @@
 
 .user-card-career-field-emblem {
   position: relative;
-  left: 13.5rem;
+  bottom: 123px;
+  left: 8.5pc;
   height: 40px;
   width: 50px;
   background-color: black;
@@ -101,20 +123,20 @@
 
 .user-card-achievements-img {
   position: relative;
+  bottom: 28px;
   height: 1.5rem;
   width: 4rem;
-  top: 3vh;
-  left: 13rem;
 }
 
 .user-card-back {
   display: flex;
+  grid-row: 2 /3;
+  grid-column: 2 / 3; 
   flex-direction: column;
   align-items: center;
-  margin-top: 7rem;
   background-color: #e5e5e5;
-  height: 50vh;
-  min-width: 21vw;
+  height: 500px;
+  width: 400px;
   border-radius: 25px;
 }
 
@@ -129,36 +151,28 @@
 }
 
 .user-card-hobbies-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0;
-  margin-top: 30px;
+  margin-top: 60px;
+  text-align: center;
 }
 
 .edit-save-button-container {
-  position: absolute;
-  top: 46rem;
-  left: 30rem;
+  grid-row: 3 / 4;
+  grid-column: 1 / 3;
 }
 
 .user-profile-title {
-  position: absolute;
-  top: 2rem;
-  left: 2.5rem;
+  grid-row: 1 / 2;
   background-color: #e5e5e5;
-  width: 15.5vw;
-  border-radius: 30px;
+  width: 370px;
+  border-radius: 20px;
   text-align: center;
 }
 
 .user-card-title {
-  position: absolute;
-  top: 2rem;
-  left: 30rem;
+  grid-column: 1/ 3;
   background-color: #e5e5e5;
-  width: 44vw;
-  border-radius: 30px;
+  width: 55pc;
+  border-radius: 20px;
   text-align: center;
 }
 
@@ -166,9 +180,10 @@
   border: none;
   border-radius: 50px;
   height: 2rem;
-  width: 15rem;
-  background-color: rgb(150, 159, 187);
-  color: rgb(255, 255, 255);
+  width: 12rem;
+  text-align: center;
+  background-color: #FFF;
+  color: #000;
 }
 
 .user-card-edit-dropdown {
@@ -176,17 +191,15 @@
   border-radius: 50px;
   height: 2rem;
   width: 4rem;
-  background-color: rgb(150, 159, 187);
-  color: rgb(255, 255, 255);
+  background-color: #FFF;
+  color: #000;
   text-align: center;
 }
 
 .user-card-update-pic-container {
   display: flex;
-  flex-direction: row;
   gap: 20px;
   margin-top: 13px;
-  margin-left: 70px;
 }
 
 input::file-selector-button {
@@ -220,26 +233,25 @@ input::file-selector-button {
 .duty-title-input-label {
   font-weight: 600;
   margin-top: 10px;
-  margin-left: 67px;
 }
 
 .user-card-duty-info .card-edit-input {
-  margin-left: 67px;
   margin-top: 5px;
+  width: 250px;
 }
 
 .card-edit-button {
   height: 4rem;
-  width: 66rem;
+  width: 55pc;
+  border-radius: 20px;
   border: none;
-  border-radius: 30px;
   font-size: 18pt;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .go_by-edit-label {
-  margin-top: 10px;
-  font-weight: 600;
+  font-weight: bolder;
+  text-align: center;
 }
 
 .user-card-dependents-edit-container {
@@ -250,25 +262,37 @@ input::file-selector-button {
 
 .user-card-children-num-input {
   border: none;
+  text-align: center;
   border-radius: 50px;
   height: 1.5rem;
   width: 4rem;
-  background-color: rgb(150, 159, 187);
-  color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .user-card-go_by-edit-container {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
-  gap: 5px;
+  margin-top: 10px;
+}
+
+.user-card-go_by-edit-container input {
+ width: 220px;
+ margin: 10px 0;
+}
+
+.edit-mde-hometown {
+ margin: 0;
 }
 
 .user-card-edit-hobbies-container {
-  display: flex;
-  flex-direction: column;
   margin-top: 20px;
-  gap: 10px;
+  text-align: center;
+}
+
+.user-card-edit-hobbies-container input{
+width: 220px;
+margin: 10px;
 }
 
 .user-card-hobbies-label {
@@ -277,9 +301,9 @@ input::file-selector-button {
 
 .card-save-button {
   height: 4rem;
-  width: 66rem;
+  width: 55pc;
+  border-radius: 20px;
   border: none;
-  border-radius: 30px;
   font-size: 18pt;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
