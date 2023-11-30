@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
+import Goback from "../Images/GoBackArrow.png"
 import Flippy, { FrontSide, BackSide } from "react-flippy";
 import PageLayout from "../components/page-layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,7 +36,7 @@ const HomePage = () => {
   const [editMode, setEditMode] = useState(false);
   const [update, setUpdate] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const clickedCard = useRef();
   const isMounted = useRef(false);
   const isChecked = useRef(true);
@@ -43,9 +44,9 @@ const HomePage = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/callback')
+      navigate("/callback");
     }
-  }, [])
+  }, []);
 
   // Fetch additional logged in user details from db to get user unit id
   useEffect(() => {
@@ -194,18 +195,23 @@ const HomePage = () => {
       <PageLayout>
         <div className="cardCntHdr">
           <div className="unitHdr">
-            {data.unit_emblem_url !== ""      
-            && <img
-              src={data.unit_emblem_url}
-              alt={data.unit_abbr + "emblem"}
-              className="unitImg"
-            />
-            }
+            {data.unit_emblem_url !== "" && (
+              <img
+                src={data.unit_emblem_url}
+                alt={data.unit_abbr + "emblem"}
+                className="unitImg"
+              />
+            )}
             <h1 className="unitHdr" color="black">
               {data.unit_abbr} SquadDeck
             </h1>
           </div>
-          <SearchBar className="searchBarCp" />
+          <div>
+            {searchData?.length > 0 && (
+              <button className="backbutton" onClick={() => setSearchData([])}><img src={Goback}></img></button>
+            )}
+            <SearchBar className="searchBarCp" />
+          </div>
         </div>
         <div className="cardCnt">
           {(searchData?.length > 0 ? searchData : data?.alpha_roster || []).map(
@@ -294,13 +300,13 @@ const HomePage = () => {
                               onChange={handleChange}
                             />
                           </div>
-                          {el.achievement_img !== ""
-                          && <img
-                            src={el.achievement_img}
-                            alt={el.full_name + "achievements"}
-                            height="15px"
-                          />
-                          }
+                          {el.achievement_img !== "" && (
+                            <img
+                              src={el.achievement_img}
+                              alt={el.full_name + "achievements"}
+                              height="15px"
+                            />
+                          )}
                           <button
                             onClick={(e) => handleSaveClick(e, el)}
                             style={{
@@ -379,19 +385,21 @@ const HomePage = () => {
                                   value="M"
                                   onChange={handleChange}
                                 />
-                                  <label htmlFor="children_num">Children</label>
-                                  <input
-                                    type="number"
-                                    name="children_num"
-                                    id="children_num"
-                                    min="0"
-                                    max="10"
-                                    onChange={handleChange}
-                                  />
+                                <label htmlFor="children_num">Children</label>
+                                <input
+                                  type="number"
+                                  name="children_num"
+                                  id="children_num"
+                                  min="0"
+                                  max="10"
+                                  onChange={handleChange}
+                                />
                               </div>
                             </>
                           )}
-                          <label htmlFor="favorite_movie"><h4>Favorite Movie</h4></label>
+                          <label htmlFor="favorite_movie">
+                            <h4>Favorite Movie</h4>
+                          </label>
                           <div>
                             <input
                               type="text"
@@ -401,7 +409,9 @@ const HomePage = () => {
                               onChange={handleChange}
                             />
                           </div>
-                          <label htmlFor="hobbies"><h4>Hobbies</h4></label>
+                          <label htmlFor="hobbies">
+                            <h4>Hobbies</h4>
+                          </label>
                           <div>
                             <input
                               type="text"
@@ -411,18 +421,18 @@ const HomePage = () => {
                               onChange={handleChange}
                             />
                           </div>
-                          </div>
-                          <button
-                            className="save-button"
-                            onClick={(e) => handleSaveClick(e, el)}
-                            style={{
-                              zIndex: "999",
-                              border: "none",
-                              backgroundColor: "transparent",
-                              backgroundRepeat: "no-repeat",
-                              cursor: "pointer",
-                              overflow: "hidden",
-                            }}>
+                        </div>
+                        <button
+                          className="save-button"
+                          onClick={(e) => handleSaveClick(e, el)}
+                          style={{
+                            zIndex: "999",
+                            border: "none",
+                            backgroundColor: "transparent",
+                            backgroundRepeat: "no-repeat",
+                            cursor: "pointer",
+                            overflow: "hidden",
+                          }}>
                           <FontAwesomeIcon
                             className="edit-save-button"
                             icon={faCheck}
@@ -477,16 +487,15 @@ const HomePage = () => {
                             <h4>Supervisor:</h4>
                             <p>{el.supv_name}</p>
                           </div>
-                          {el.achievement_img !== ""
-                          && <img
-                            src={el.achievement_img}
-                            alt={el.full_name + "achievements"}
-                            height="15px"
-                            className="achievements-img"
-                          />
-                          }
-                          {sdUser[0]?.role === 'admin'
-                          && (
+                          {el.achievement_img !== "" && (
+                            <img
+                              src={el.achievement_img}
+                              alt={el.full_name + "achievements"}
+                              height="15px"
+                              className="achievements-img"
+                            />
+                          )}
+                          {sdUser[0]?.role === "admin" && (
                             <button
                               onClick={(e) => handleEditModeClick(e, el)}
                               style={{
@@ -503,8 +512,7 @@ const HomePage = () => {
                                 color="white"
                               />
                             </button>
-                          )
-                          }
+                          )}
                         </div>
                       </FrontSide>
                       <BackSide className="BackSide">
@@ -537,27 +545,24 @@ const HomePage = () => {
                           <p>{el.hobbies}</p>
                           {/* <h4>Interesting Fact</h4>
                       <p>{el.interesting_fact}</p> */}
-                      {sdUser[0]?.role === 'admin'
-                      && (
-                          <button
-                            onClick={(e) => handleEditModeClick(e, el)}
-                            style={{
-                              zIndex: "999",
-                              border: "none",
-                              backgroundColor: "transparent",
-                              backgroundRepeat: "no-repeat",
-                              cursor: "pointer",
-                              overflow: "hidden",
-                            }}>
-                            <FontAwesomeIcon
-                              className="edit-button"
-                              icon={faPen}
-                              color="white"
-                            />
-                          </button>
-
-                      )
-                      }
+                          {sdUser[0]?.role === "admin" && (
+                            <button
+                              onClick={(e) => handleEditModeClick(e, el)}
+                              style={{
+                                zIndex: "999",
+                                border: "none",
+                                backgroundColor: "transparent",
+                                backgroundRepeat: "no-repeat",
+                                cursor: "pointer",
+                                overflow: "hidden",
+                              }}>
+                              <FontAwesomeIcon
+                                className="edit-button"
+                                icon={faPen}
+                                color="white"
+                              />
+                            </button>
+                          )}
                         </div>
                       </BackSide>
                     </Flippy>

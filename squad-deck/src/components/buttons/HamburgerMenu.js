@@ -12,12 +12,19 @@ import {
   LogoutOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import SearchContext from "../SearchContext";
 
 const { Sider } = Layout;
 
 const HamburgerMenu = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(true);
+  const {setSearchData} = useContext(SearchContext)
+
+  const handleClick = () => {
+    console.log('search')
+		return setSearchData([])
+	}
 
   const {
     token: { colorBgContainer },
@@ -44,6 +51,8 @@ const HamburgerMenu = () => {
               });
             } else if (key === "menu" || key === "toggle") {
               console.log("Menu clicked!");
+            } else if (key === "/home") {
+              handleClick();
             } else {
               navigate(key);
             }
@@ -56,7 +65,8 @@ const HamburgerMenu = () => {
             onClick={() => setCollapsed(!collapsed)}
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           />
-          <Menu.Item key="/home" icon={<HomeOutlined />}>
+          <Menu.Item key="/home" 
+          icon={<HomeOutlined />}>
             Home
           </Menu.Item>
           {sdUser[0]?.role === "admin" && (

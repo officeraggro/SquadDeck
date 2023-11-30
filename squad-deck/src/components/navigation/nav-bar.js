@@ -4,9 +4,18 @@ import { useAuth0 } from "@auth0/auth0-react";
 import SignupButton from "../buttons/signup-button";
 import "../../Styled/nav-bar.css";
 import HamburgerMenu from "../buttons/HamburgerMenu";
+import { Link } from "react-router-dom"
+import LogoScript from "../../Images/LogoScript.png"
+import SearchContext from "../SearchContext";
+import { useContext } from "react";
 
 const NavBar = () => {
 	const { user, isAuthenticated } = useAuth0();
+	const { setSearchData } = useContext(SearchContext)
+
+	const handleClick = () => {
+		setSearchData([])
+	}
 
 	return (
 		<>
@@ -15,7 +24,7 @@ const NavBar = () => {
 					{isAuthenticated && <HamburgerMenu />}
 				</div>
 				<div className="top-nav-middle">
-					<h1 className="title"></h1>
+					<Link to="/home"><img src={LogoScript} className="title" onClick={handleClick}/></Link>
 				</div>
 				<div className="top-nav-right">
 					{/* {!isAuthenticated && (

@@ -69,6 +69,25 @@ width: 115px;
 text-align: center;
 }
 
+.backbutton img {
+  width: 50px;
+  height: 50px;
+  background: none;
+  position: fixed;
+  left: 150px;
+  top: 225px;
+  border: none;
+  font-size: 25px;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: burlywood;
+}
+
+.backbutton img:hover {
+background-color: rgb(244, 238, 231);
+}
+
 .profile-picture {
   height: 250px;
   background-color: black;
