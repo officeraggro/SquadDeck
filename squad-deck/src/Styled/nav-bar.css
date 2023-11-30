@@ -28,7 +28,7 @@
     top: 0;
     position: absolute;
     left: 80px;
-    z-index: -999;
+    z-index: -998;
 }
 
 .top-nav-right {
@@ -39,6 +39,7 @@
     justify-content: right;
     margin-right: 50px;
     gap: 20px;
+    z-index: -999;
 }
 
 .user-picture {
