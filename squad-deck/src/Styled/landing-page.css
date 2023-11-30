@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.landing {
+  height: 100vh;
+  width: 100%;
+  background-color: rgb(120, 120, 134);
+}
+
+.hero-img {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(./Site-background-dark.png);
+
+  height: 90%;
+  width: 100%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.hero-text {
+  text-align: center;
+  position: absolute;
+  font-size: 78pt;
+  font-family:"Black Ops One";
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.lp-buttons-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 75px;
+  justify-content: center;
+  margin-left: 40px;
+}
+
+.login-button, .signup-button {
+  background-color: rgb(120, 120, 134);
+  border: 2px solid rgb(120, 120, 134);
+  color: white;
+  font-family: Roboto;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  border-radius: 10%;
+}
+
+.login-button:hover, .signup-button:hover {
+    background-color: #41669d;
+    color: white;
+    border: 2px solid rgb(120, 120, 134);
+    cursor: pointer;
+}
