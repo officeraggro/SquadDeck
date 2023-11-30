@@ -235,6 +235,7 @@ const HomePage = () => {
                               id="grade"
                               name="grade"
                               className="card-edit-dropdown">
+                                <option value=""></option>
                               {Object.keys(gradeEmblemUrl).map((grade) => {
                                 return <option value={grade}>{grade}</option>;
                               })}
