@@ -6,8 +6,7 @@ export const OnboardingFormProvider = ({ children }) => {
   const title = {
     0: "Unit Information",
     1: "Workcenter Information",
-    2: "Alpha Roster Upload",
-    3: "Review and Submit"
+    2: "Review and Submit",
   };
 
   const [page, setPage] = useState(0);
