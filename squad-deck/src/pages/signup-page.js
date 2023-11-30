@@ -265,7 +265,8 @@ const SignupPage = () => {
               <div className="onboarding-prompt">
                 <p>
                   Don't see your unit listed?{" "}
-                  <Link to="/onboarding">New Unit Onboarding</Link>
+                  <br />Go to
+                  <Link to="/onboarding">&nbsp;New Unit Onboarding</Link>
                 </p>
               </div>
               <div className="signup-footer">
