@@ -84,6 +84,15 @@
 
 }
 
+.image-link {
+    display: inline-block;
+    z-index: 999;
+  }
+  
+  .image-container { 
+    line-height: 0; 
+  }
+
 .ant-menu{
     background: #14213D;
 }

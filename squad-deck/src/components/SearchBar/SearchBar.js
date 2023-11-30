@@ -12,11 +12,14 @@ const SearchBar = () => {
   const handleSearch = () => {
     localStorage.setItem('searchTerm', JSON.stringify(searchTerm))
     const searchTermLower = searchTerm?.toLowerCase();
-    const searchResults = data.alpha_roster.filter((item) =>
-      Object.values(item).some(
+    const searchResults = data.alpha_roster.filter((item) => { 
+      if (!searchTermLower) {
+        return
+      } else {
+    return Object.values(item).some(
         (val) =>
           typeof val === "string" && val.toLowerCase().includes(searchTermLower)
-      )
+      )}}
     );
     setSearchData(searchResults);
     setSearchTerm(""); // Reset search term

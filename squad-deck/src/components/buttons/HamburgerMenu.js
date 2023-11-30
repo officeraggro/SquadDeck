@@ -53,6 +53,7 @@ const HamburgerMenu = () => {
               console.log("Menu clicked!");
             } else if (key === "/home") {
               handleClick();
+              navigate(key);
             } else {
               navigate(key);
             }

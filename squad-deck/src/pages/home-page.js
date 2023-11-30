@@ -190,6 +190,8 @@ const HomePage = () => {
   //   }
   // }
 
+  console.log(searchData)
+
   return (
     <>
       <PageLayout>

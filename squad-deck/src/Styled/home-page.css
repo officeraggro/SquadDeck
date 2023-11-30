@@ -13,6 +13,8 @@ html {
   height: 50vh;
   min-height: 550px;
   min-width: 350px;
+  max-height: 550px;
+  max-width: 350px;
 }
 
 .FrontSide {
@@ -232,8 +234,9 @@ background-color: rgb(244, 238, 231);
 }
 
 .achievements-img {
-  position: relative;
-  top: 3vh;
+  position: fixed;
+ bottom: 40px;
+ left: 160px;
 }
 
 .edit-button {
@@ -246,10 +249,12 @@ background-color: rgb(244, 238, 231);
 
 .edit-button:hover {
  background-color: rgba(192, 188, 188, 0.486);
+ border-radius: 50%;
 }
 
 .edit-save-button {
   position: absolute;
+  border-radius: 50%;
   right: 20px;
   bottom: 10px;
   padding: 5px;
@@ -260,6 +265,7 @@ background-color: rgb(244, 238, 231);
 
 .edit-save-button:hover {
  background-color: rgba(192, 188, 188, 0.486);
+ border-radius: 50%;
 }
 
 #file-select::file-selector-button {
