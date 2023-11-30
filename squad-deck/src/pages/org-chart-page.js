@@ -6,9 +6,7 @@ const OrgChartPage = () => {
     return (
         <>
         <PageLayout>
-            <div>
-                <OrgChart />   
-            </div>
+            <OrgChart />   
         </PageLayout>
         </>
     )

@@ -11,6 +11,7 @@ import ReactFlow, {
   MiniMap,
 } from "reactflow";
 
+import '../Styled/org-chart-page.css'
 import "reactflow/dist/style.css";
 
 const OrgChart = () => {
@@ -168,8 +169,8 @@ const OrgChart = () => {
   );
 
   const chartStyle = {
-    height: 800,
-    width: 1000,
+    height: 900,
+    width: '100%',
   };
 
   return (
@@ -179,8 +180,8 @@ const OrgChart = () => {
           <div style={chartStyle}>
             <ReactFlow
               nodes={nodes}
-              onNodesChange={onNodesChange}
               edges={edges}
+              onNodesChange={onNodesChange}
               onEdgesChange={onEdgesChange}
               onConnect={onConnect}
               fitView
