@@ -159,7 +159,7 @@ text-align: center;
   width: 10rem;
   padding: 5px;
   background-color: rgb(255, 255, 255);
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .card-edit-input:nth-child(5) {
@@ -170,7 +170,7 @@ text-align: center;
   padding: 5px;
   margin: 15px 0;
   background-color: rgb(255, 255, 255);
-  color: white;
+  color: rgb(1, 0, 0);
 }
 
 .card-edit-dropdown {
@@ -197,11 +197,7 @@ text-align: center;
   margin: 15px 0;
   text-align: center;
   background-color: rgb(255, 255, 255);
-  color: white;
-}
-
-.career-field-cnt {
-  
+  color: rgb(0, 0, 0);
 }
 
 .career-field-emblem {
