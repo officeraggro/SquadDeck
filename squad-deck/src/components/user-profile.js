@@ -392,6 +392,11 @@ const Profile = () => {
                         <div className="user-card-back">
                           <h3>{el.go_by}</h3>
                           <hr />
+                          <h4>Hometown</h4>
+                          <p>
+                            {el.home_city}, {el.home_state}
+                          </p>
+                          <h4>Family</h4>
                           <div className="user-card-dependents-container">
                             {el.marital_status === "M" && (
                               <FontAwesomeIcon
